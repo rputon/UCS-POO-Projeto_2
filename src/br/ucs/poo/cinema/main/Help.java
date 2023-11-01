@@ -1,5 +1,7 @@
 package br.ucs.poo.cinema.main;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Help {
@@ -85,5 +87,19 @@ public class Help {
         }while(test == false);
         return value;
     }
+
+    /*---- Vetores ---------------------------------------------------------------------------------- */
     
+    public static void validaDados (String classe){
+        try {
+			File myFile = new File(String.format("files\\%s.txt",classe));
+			if (myFile.createNewFile()) {
+				System.out.println(String.format("Arquivo de %s criado: %s",classe,myFile.getPath()));
+			}
+			System.out.println("Consultando dados...");
+		} catch (IOException e) {
+			System.out.println("Um erro ocorreu.");
+			e.printStackTrace();
+		}
+    }
 }
