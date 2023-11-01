@@ -1,9 +1,12 @@
 package br.ucs.poo.cinema.controle;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Cinema {
 	private String nome;
 	private String endereco;
-	private Sala numero;
+	private List<Sala> numero = new ArrayList<>();
 	private Ingresso ingresso;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
@@ -28,12 +31,12 @@ public class Cinema {
 		this.endereco = endereco;
 	}
 
-	public Sala getNumero() {
-		return numero;
+	public Sala getNumero(int index) {
+		return numero.get(index);
 	}
 
-	public void setNumero(Sala numero) {
-		this.numero = numero;
+	public void setNumero(Sala index) {
+		this.numero.add(index);
 	}
 
 	public Ingresso getIngresso() {
