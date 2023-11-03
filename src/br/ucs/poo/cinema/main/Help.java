@@ -4,13 +4,8 @@ import java.util.Scanner;
 import java.io.IOException;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.LineNumberReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 
 
 public class Help {
@@ -96,7 +91,7 @@ public class Help {
         return value;
     }
 
-    /*---- Vetores ---------------------------------------------------------------------------------- */
+    /*---- Files ---------------------------------------------------------------------------------- */
 
     public static void validFile(String file) {
         try {
@@ -104,7 +99,9 @@ public class Help {
             if (myFile.createNewFile()) {
                 System.out.println(String.format("Arquivo de %s criado: %s", file, myFile.getPath()));
             }
-            System.out.println("Consultando dados...");
+            else {
+                System.out.println("Consultando dados...");
+            }
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao validar o arquivo.");
         }
@@ -121,7 +118,9 @@ public class Help {
         }
     }
 
-    public static void overWriteFile(String file, String dado, String typeData, int line){
+
+
+    /*public static void overWriteFile(String file, String dado, String typeData, int line){
         try{
             File myFile = new File(String.format("files\\%s.txt",file));
             FileWriter myWriter = new FileWriter(myFile,true);
@@ -131,5 +130,5 @@ public class Help {
             System.out.println("Ocorreu um erro ao reescrever no arquivo.");
         }
 
-    }
+    }*/
 }
