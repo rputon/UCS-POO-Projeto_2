@@ -7,6 +7,7 @@ public class Cinema {
 	private String nome;
 	private String endereco;
 	private List<Sala> numero = new ArrayList<>();
+	private List<Filme> filmes = new ArrayList<>();
 	private Ingresso ingresso;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
