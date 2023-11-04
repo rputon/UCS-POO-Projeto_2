@@ -1,7 +1,7 @@
 package br.ucs.poo.cinema.main;
-import java.util.List;
+//import java.util.List;
 
-import br.ucs.poo.cinema.cinema.Cinema;
+//import br.ucs.poo.cinema.cinema.Cinema;
 
 public class Main {
 	public static void main(String[] args){

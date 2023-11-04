@@ -1,4 +1,6 @@
-package br.ucs.poo.cinema.controle;
+package br.ucs.poo.cinema.filme;
+
+import br.ucs.poo.cinema.cinema.Horario;
 
 public class Filme {
 	private String nome;

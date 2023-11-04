@@ -1,4 +1,4 @@
-package br.ucs.poo.cinema.controle;
+package br.ucs.poo.cinema.cinema;
 
 public class Sala {
 	private int numero;
