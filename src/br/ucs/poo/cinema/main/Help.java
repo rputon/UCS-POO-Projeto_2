@@ -3,13 +3,14 @@ package br.ucs.poo.cinema.main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import br.ucs.poo.cinema.filme.Filme;
+
 import java.io.IOException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
-
 
 public class Help {
     private static String erro = "Valor informado é inválido";
@@ -110,14 +111,14 @@ public class Help {
         }
     }
 
-    public static List<String> readFile(String file){
-        List<String> lista = new ArrayList<>(); 
+    public static List<Filme> readFile(String file){
+        List<Filme> lista = new ArrayList<>(); 
         try {
             File myFile = new File(String.format("files\\%s.txt", file));
 			Scanner scanner = new Scanner(myFile);
                     
 			while (scanner.hasNextLine()) {
-				lista.add(scanner.nextLine());
+				//lista.add(scanner.nextLine());
 			}
 			scanner.close();
             

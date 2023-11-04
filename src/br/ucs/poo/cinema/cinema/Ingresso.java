@@ -1,4 +1,4 @@
-package br.ucs.poo.cinema.controle;
+package br.ucs.poo.cinema.cinema;
 import java.util.Date;
 
 public class Ingresso {
@@ -9,7 +9,7 @@ public class Ingresso {
 	private boolean meiaEntrada;
 	private Assento assento;
 	private Horario reserva;
-	private Filme filme;
+	//private Filme filme;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Ingresso() {
@@ -73,13 +73,13 @@ public class Ingresso {
 		this.reserva = reserva;
 	}
 
-	public Filme getFilme() {
+	/*public Filme getFilme() {
 		return filme;
 	}
 
 	public void setFilme(Filme filme) {
 		this.filme = filme;
-	}
+	}*/
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	
