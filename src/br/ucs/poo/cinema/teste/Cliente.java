@@ -1,18 +1,23 @@
 package br.ucs.poo.cinema.teste;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cliente {
+public class Cliente{
     private int id;
     private String nome;
     private int telefone;
     private int idade;
 
     public Cliente(int id, String nome, int telefone, int idade){
-        setId(id);
-        setNome(nome);
-        setTelefone(telefone);
-        setIdade(idade);
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.idade = idade;
+        //setId(id);
+        //setNome(nome);
+        //setTelefone(telefone);
+        //setIdade(idade);
     }
 
     public void setId(int id){
@@ -44,7 +49,7 @@ public class Cliente {
     }
 
     public String toString(){
-        return nome;
+        return String.format("ID: %d \nNome: %s \nTelefone: %d \nIdade: %d\n",this.id, this.nome, this.telefone, this.idade);
     }
 
 	@Override
