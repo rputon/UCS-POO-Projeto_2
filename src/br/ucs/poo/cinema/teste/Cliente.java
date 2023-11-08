@@ -48,6 +48,13 @@ public class Cliente{
         return idade;
     }
 
+    public String toString(int type){
+        if (type == 0){
+            return String.format("\"%d\", \"%s\", \"%d\", \"%d\"",id,nome,telefone,idade);
+        }
+        return String.format("ID: %d \nNome: %s \nTelefone: %d \nIdade: %d\n",this.id, this.nome, this.telefone, this.idade);
+    }
+
     public String toString(){
         return String.format("ID: %d \nNome: %s \nTelefone: %d \nIdade: %d\n",this.id, this.nome, this.telefone, this.idade);
     }
