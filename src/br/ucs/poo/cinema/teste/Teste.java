@@ -3,13 +3,13 @@ package br.ucs.poo.cinema.teste;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
+//mport java.util.Comparator;
 import java.util.List;
 
 public class Teste {
     public static void main(String[] args) {
         List<Cliente> cliente = new ArrayList<Cliente>();
-        List<Cliente> cliente2 = new ArrayList<Cliente>();
+        //List<Cliente> cliente2 = new ArrayList<Cliente>();
 
         String [] vetor = {"Phil", "Mary", "Betty", "Bob", "Tom", "Casey", "Claire"};
         List<String> nomes = Arrays.asList(vetor);
