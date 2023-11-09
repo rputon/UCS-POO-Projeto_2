@@ -39,7 +39,7 @@ public class acessaArquivo {
                 int id = -1, telefone = -1, idade = -1;
                 String nome = "";
 
-                String temp = scanner.nextLine();
+                //String temp = scanner.nextLine();
 
                 //id = Integer.parseInt(scanner.nextLine());
                 //nome = scanner.nextLine();

@@ -1,9 +1,9 @@
 package br.ucs.poo.cinema.teste;
 
-import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Cliente{
+public class Cliente implements Comparator<Cliente>{
     private int id;
     private String nome;
     private int telefone;
@@ -77,6 +77,13 @@ public class Cliente{
 			return false;
 		return true;
 	}
+
+    @Override
+    public int compare(Cliente cli1, Cliente cli2) {
+        // TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'compare'");
+        return cli1.getNome().compareTo(cli2.getNome());
+    } 
 
 	
     

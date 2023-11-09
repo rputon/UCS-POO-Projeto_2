@@ -64,7 +64,9 @@ public class Filme {
 		this.classificacao = classificacao;
 	}
 	
-	
-	
 	/*---- Methods ---------------------------------------------------------------------------------- */
+	public String toString(){
+		return String.format("Filme: %s ");
+	}
+
 }

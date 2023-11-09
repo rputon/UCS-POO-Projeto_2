@@ -58,7 +58,7 @@ public class Help {
     }
 
     /*---- String ---------------------------------------------------------------------------------- */
-    public static String returnString(Scanner in, String print, int cod) {
+    public static String returnString(Scanner in, String print) {
         String value = "";
         boolean test = false;
 
