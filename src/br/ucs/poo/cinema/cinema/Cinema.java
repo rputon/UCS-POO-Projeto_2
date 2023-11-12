@@ -42,8 +42,8 @@ public class Cinema {
 		this.salas.add(index);
 	}
 
-	public void setFilme(Filme index) {
-		this.filmes.add(index);
+	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating) {
+		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating));
 	}
 
 	public void setNumeroCartaz(Filme index) {

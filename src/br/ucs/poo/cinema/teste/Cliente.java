@@ -80,7 +80,6 @@ public class Cliente implements Comparator<Cliente>{
 
     @Override
     public int compare(Cliente cli1, Cliente cli2) {
-        // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'compare'");
         return cli1.getNome().compareTo(cli2.getNome());
     } 

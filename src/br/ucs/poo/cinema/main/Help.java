@@ -15,6 +15,11 @@ import java.io.FileWriter;
 public class Help {
     private static String erro = "Valor informado é inválido";
 
+    public static void clearScreen(){
+        System.out.print("\033[H\033[2J");
+		System.out.flush();
+    }
+
     /*---- Integer ---------------------------------------------------------------------------------- */
     public static int returnInt(Scanner in, String print) {
         int value = 0;
@@ -66,7 +71,7 @@ public class Help {
             System.out.println(print);
             value = in.nextLine();
 
-            if (!value.matches(".*\\d.*") && !value.matches(".*[-!@#$%^&´~*()\\[\\]+=<>?/{}|].*")) {
+            if (!value.matches(".*[-!@#$%^&´~*\\[\\]+=<>?/{}|].*")) {
                 test = true;
                 break;
             } else {
