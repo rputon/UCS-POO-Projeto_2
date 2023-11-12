@@ -41,6 +41,28 @@ public class Help {
         return value;
     }
 
+    public static int returnInt(Scanner in, String print, int rangeMin, int rangeMax) {
+        int value = 0;
+        boolean test = false;
+
+        do {
+            try {
+                System.out.println(print);
+                value = in.nextInt();
+                in.nextLine();
+
+                if(value >=rangeMin && value <=rangeMax){
+                    test = true;
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(erro);
+                in.next();
+            }
+        } while (test == false);
+        return value;
+    }
+
     /*---- Double ---------------------------------------------------------------------------------- */
     public static double returnDouble(Scanner in, String print) {
         double value = 0;

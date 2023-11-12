@@ -3,8 +3,10 @@ package br.ucs.poo.cinema.cinema;
 import java.util.List;
 
 import br.ucs.poo.cinema.filme.Filme;
+import br.ucs.poo.cinema.filme.SortFilme;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Cinema {
 	private String nome;
@@ -42,13 +44,15 @@ public class Cinema {
 		this.salas.add(index);
 	}
 
-	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating) {
-		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating));
+	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating,String genero) {
+		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
+		Collections.sort(filmes, new SortFilme());
 	}
 
-	public void setNumeroCartaz(Filme index) {
-		if (getFilmeCartazList() <= 10) {
-			this.filmesCartaz.add(index);
+	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
+		if (getFilmeCartazTam() <= 10) {
+			this.filmesCartaz.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
+			Collections.sort(filmesCartaz, new SortFilme());
 		}
 	}
 
@@ -56,10 +60,16 @@ public class Cinema {
 		this.ingressos.add(ingresso);
 	}
 
-	// Read
+	// Read----------------------------------------------------
 	public Sala getSala(int index) {
 		return salas.get(index);
 	}
+
+	public List<Filme> getFilmes(){
+		return filmes;
+	}
+
+	//public  boolean 
 
 	public Filme getFilme(int index) {
 		return filmes.get(index);
@@ -72,9 +82,9 @@ public class Cinema {
 	public Ingresso getIngresso(int index) {
 		return ingressos.get(index);
 	}
-	// Updade
+	// Updade----------------------------------------------------
 
-	// Delete
+	// Delete-----------------------------------------------------------
 	public Sala removeSala(int index) {
 		return salas.remove(index);
 	}
@@ -92,19 +102,19 @@ public class Cinema {
 	}
 
 	// Get Size
-	public int getSalasList() {
+	public int getSalasTam() {
 		return salas.size();
 	}
 
-	public int getFilmeList() {
+	public int getFilmeTam() {
 		return filmes.size();
 	}
 
-	public int getFilmeCartazList() {
+	public int getFilmeCartazTam() {
 		return filmesCartaz.size();
 	}
 
-	public int getIngressoList() {
+	public int getIngressoTam() {
 		return ingressos.size();
 	}
 

@@ -9,14 +9,17 @@ public class Filme {
 	private String descricao;
 	private Rating rating;
 	private Horario hora;
+	private Genero genero;
+	//TODO: Se tiver em cartaz, tem tempo para "expirar"
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Filme(String nome, int ano, int timeMin, String descricao, int rating) {
+	public Filme(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
 		setNome(nome);
 		setAno(ano);
 		setTimeMin(timeMin);
 		setDescricao(descricao);
 		setRating(rating);
+		setGenero(genero);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -68,10 +71,30 @@ public class Filme {
 		this.rating = new Rating();
 		this.rating.setIdade(rating);
 	}
+
+	public void setGenero(String genero){
+		this.genero = new Genero();
+		this.genero.setNome(genero);
+	}
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(){
-		return String.format("Filme: %s ");
+		return String.format("%s\n%d | %s | %d min\n%s",nome, ano, genero.getNome(), timeMin,descricao);
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if(this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if(getClass() != obj.getClass())
+			return false;
+		Filme other = (Filme) obj;
+		if(!nome.equals(other.nome)){
+			return false;
+		}
+		return true;
 	}
 
 }

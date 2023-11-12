@@ -15,7 +15,7 @@ public class Main {
 		String[] vetor = { "admin", "selfService", "rh" };
 		List<String> usuarios = Arrays.asList(vetor);
 		String user = "";
-		do {
+		do {// While !esc -- sair do prompt
 			do {
 				user = Help.returnString(in, "Digite o usuário: ");
 				if (!usuarios.contains(user)) {
@@ -30,14 +30,9 @@ public class Main {
 				System.out.println("\nAcessando com usuário de administrador...");
 
 				do {
-					System.out.println("\nEscolhe uma das opções: ");
-					System.out.println("1 - Venda de ingresso");
-					System.out.println("2 - Consultar catálogo de filmes");
-					System.out.println("3 - Consultar filmes em cartaz");
-					System.out.println("4 - Cadastrar filmes");
-					System.out.println("Digite 0 para cancelar");
-					opcao = in.nextInt();
-					in.nextLine();
+					opcao = Help.returnInt(in,
+							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \n4 - Cadastrar filmes \nDigite 0 para cancelar",
+							0, 4);
 
 					switch (opcao) {
 						case 0:
@@ -52,7 +47,7 @@ public class Main {
 							break;
 
 						case 3:
-							int tam = cine.getFilmeCartazList();
+							int tam = cine.getFilmeCartazTam();
 							if (tam > 0) {
 								System.out.println("\nOs seguintes filmes estão em exibição: ");
 								for (int i = 0; i < tam; i++) {
@@ -60,13 +55,39 @@ public class Main {
 								}
 							} else {
 								System.out.println("\nNenhum filme em cartaz");
-								System.out.println("Adicione um a lista\n");
 							}
+							int opt = Help.returnInt(in,
+									"1 - Adicionar um filme ao cartaz \n2 - Remover um filme do cartaz \nDigite 0 para cancelar",
+									0, 2);
+							switch (opt) {
+								case 0:
+									break;
+							
+								case 1:
+									String nome, descricao,genero;
+									int ano, timeMin, rating;
 
-							System.out.println();
+									nome = Help.returnString(in, "Digite o nome do filme:");
+									ano = Help.returnInt(in, "Digite o ano de publicação do filme:");
+									timeMin = Help.returnInt(in, "Digite a duração do filme, em minutos: ");
+									descricao = Help.returnString(in, "Digite a descrição do filme:");
+									rating = Help.returnInt(in, "Digite a classificação indicativa do filme:");
+									genero = Help.returnString(in, "Digite o gênero do filme:");
+
+									cine.setFilmeCartaz(nome, ano, timeMin, descricao, rating,genero);
+									break;
+									
+								case 2:
+									//do{
+									//	String filme = Help.returnString(in, "Digite o filme que deseja remover:");
+									//} while(cine.getFilmes().contains(filme));
+									break;
+								default:
+									break;
+							}
 							break;
 						case 4:
-							String nome, descricao;
+							String nome, descricao, genero;
 							int ano, timeMin, rating;
 
 							nome = Help.returnString(in, "Digite o nome do filme:");
@@ -74,20 +95,21 @@ public class Main {
 							timeMin = Help.returnInt(in, "Digite a duração do filme, em minutos: ");
 							descricao = Help.returnString(in, "Digite a descrição do filme:");
 							rating = Help.returnInt(in, "Digite a classificação indicativa do filme:");
+							genero = Help.returnString(in, "Digite o gênero do filme:");
 
-							cine.setFilme(nome, ano, timeMin, descricao, rating);
+							cine.setFilme(nome, ano, timeMin, descricao, rating, genero);
 							break;
 
 						default:
 							System.out.println("Esta opção não existe");
+							break;
 					}
 				} while (opcao != 0);
 			} else if (user.equals(usuarios.get(1))) { // selfService
 				System.out.println("\nAcessando com usuário de auto atendimento...");
 
 				do {
-
-					int tam = cine.getFilmeCartazList();
+					int tam = cine.getFilmeCartazTam();
 					if (tam > 0) {
 						System.out.println("\nOs seguintes filmes estão em exibição: ");
 						for (int i = 0; i < tam; i++) {
@@ -147,6 +169,5 @@ public class Main {
 				} while (opcao != 0);
 			}
 			user = "";
-		} while (!user.equals("Esc"));
-	}
-}
+		}while(!user.equals("Esc"));
+}}
