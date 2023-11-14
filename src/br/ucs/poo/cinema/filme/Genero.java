@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.filme;
 
-public class Genero {
+import java.io.Serializable;
+
+public class Genero implements Serializable{
 	private String nome;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */

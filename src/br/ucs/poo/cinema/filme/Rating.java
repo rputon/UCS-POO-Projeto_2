@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.filme;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable{
         private int idade;
 
         public void setIdade(int idade) {

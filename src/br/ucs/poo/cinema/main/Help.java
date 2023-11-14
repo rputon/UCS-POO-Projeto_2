@@ -7,9 +7,12 @@ import java.util.Scanner;
 import br.ucs.poo.cinema.filme.Filme;
 
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 
 public class Help {
@@ -125,8 +128,8 @@ public class Help {
     /*---- Files ---------------------------------------------------------------------------------- */
 
     public static void validFile(String file) {
+        File myFile = new File(String.format("files\\%s.dat", file));
         try {
-            File myFile = new File(String.format("files\\%s.txt", file));
             if (myFile.createNewFile()) {
                 System.out.println(String.format("Arquivo de %s criado: %s", file, myFile.getPath()));
             }
@@ -138,47 +141,41 @@ public class Help {
         }
     }
 
-    public static List<Filme> readFile(String file){
+    public static List<Filme> readFileFilme(String file){
         List<Filme> lista = new ArrayList<>(); 
+        File myFile = new File(String.format("files\\%s.dat", file));
+        
         try {
-            File myFile = new File(String.format("files\\%s.txt", file));
-			Scanner scanner = new Scanner(myFile);
-                    
-			while (scanner.hasNextLine()) {
-				//lista.add(scanner.nextLine());
-			}
-			scanner.close();
+			FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            lista = (List<Filme>) obj;
+
+            myObj.close();
+            myInput.close();
             
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {
+			System.out.println("Ocorreu um erro ao ler o arquivo.");
+		} catch (ClassNotFoundException e){
+            System.out.println("Ocorreu um erro de classe ao ler o arquivo.");
+        }
         return lista;
     }
 
 
-    public static void addDatatoFile(String file, String dado) {
+    public static void writeFileFilme(String file, List<Filme> lista) {
+        File myFile = new File(String.format("files\\%s.dat",file));
         try {
-            File myFile = new File(String.format("files\\%s.txt",file));
-            FileWriter myWriter = new FileWriter(myFile,true);
-            myWriter.write(dado+"\n");
-            myWriter.close();
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+            
+            myObj.writeObject(lista);
+
+            myObj.close();
+            myOutput.close();
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao escrever no arquivo.");
         }
     }
-
-
-
-
-    /*public static void overWriteFile(String file, String dado, String typeData, int line){
-        try{
-            File myFile = new File(String.format("files\\%s.txt",file));
-            FileWriter myWriter = new FileWriter(myFile,true);
-            String myLine = Files.readAllLines(Paths.get(String.format("files\\%s.txt",file))).get(line);
-            System.out.println(myLine);
-        } catch (IOException e) {
-            System.out.println("Ocorreu um erro ao reescrever no arquivo.");
-        }
-
-    }*/
 }

@@ -1,8 +1,10 @@
 package br.ucs.poo.cinema.filme;
 
+import java.io.Serializable;
+
 import br.ucs.poo.cinema.cinema.Horario;
 
-public class Filme {
+public class Filme implements Serializable{
 	private String nome;
 	private int ano;
 	private int timeMin;

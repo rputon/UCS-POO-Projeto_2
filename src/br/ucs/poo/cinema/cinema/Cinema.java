@@ -15,6 +15,9 @@ public class Cinema {
 	private List<Filme> filmes = new ArrayList<>();
 	private List<Filme> filmesCartaz = new ArrayList<>();
 	private List<Ingresso> ingressos = new ArrayList<>();
+	//Lista de atores
+	//Lista de gêneros
+
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Cinema() {
@@ -47,6 +50,14 @@ public class Cinema {
 	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating,String genero) {
 		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
 		Collections.sort(filmes, new SortFilme());
+		//TODO: List<Cinema> genero = c.getGeneros();
+		//Generos
+		//Escolha o gênero
+		//getGenero -> Filme.setGenero(getGenero)
+	}
+
+	public void setFilme(List<Filme> filmes){
+		this.filmes = filmes;
 	}
 
 	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
