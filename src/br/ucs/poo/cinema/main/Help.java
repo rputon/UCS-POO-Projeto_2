@@ -189,4 +189,17 @@ public class Help {
 
         return retorno;
     }
+
+    public String testUser(Scanner in, String print, List<String> users){
+        String user = "";
+        
+        do {
+            user = returnString(in, print);
+            if (!users.contains(user)) {
+                System.out.println("Usuário não encontrado.\n");
+            }
+        } while (!users.contains(user));
+
+        return user;
+    }
 }

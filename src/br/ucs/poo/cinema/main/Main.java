@@ -17,15 +17,9 @@ public class Main {
 		/*----------------------Usuário/Dispositivo------------------------ */
 		String[] vetor = { "admin", "selfService", "rh" };
 		List<String> usuarios = Arrays.asList(vetor);
-		String user = "";
+		
+		String user = h.testUser(in, "Digite o usuário: ", usuarios);
 		do {// While !esc -- sair do prompt
-			do {
-				user = h.returnString(in, "Digite o usuário: ");
-				if (!usuarios.contains(user)) {
-					System.out.println("Usuário não encontrado.\n");
-				}
-			} while (!usuarios.contains(user));
-
 			/*-------------------------Interfaces------------------------------ */
 			int opcao;
 
