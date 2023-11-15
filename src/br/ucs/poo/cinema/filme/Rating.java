@@ -3,14 +3,25 @@ package br.ucs.poo.cinema.filme;
 import java.io.Serializable;
 
 public class Rating implements Serializable{
-        private int idade;
+        private String idade;
 
-        public void setIdade(int idade) {
+        /*---- Constructor ---------------------------------------------------------------------------------- */
+        public Rating(String idade){
+                setIdade(idade);  
+        }
+
+        /*---- Getters/Setters ------------------------------------------------------------------------------ */
+	public void setIdade(String idade) {
                 this.idade = idade;
         }
 
-        public int getIdade(){
+        public String getIdade(){
                 return idade;
+        }
+
+        /*---- Methods ---------------------------------------------------------------------------------- */
+	public String toString(){
+                return this.idade;
         }
 
 }

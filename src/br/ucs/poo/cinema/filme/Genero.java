@@ -6,8 +6,8 @@ public class Genero implements Serializable{
 	private String nome;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Genero() {
-		
+	public Genero(String genero) {
+		setNome(genero);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -20,6 +20,7 @@ public class Genero implements Serializable{
 	}
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	
-	
+	public String toString(){
+		return nome;
+	}
 }

@@ -16,7 +16,7 @@ public class Filme implements Serializable{
 	//TODO: Se tiver em cartaz, tem tempo para "expirar"
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Filme(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
+	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
 		setNome(nome);
 		setAno(ano);
 		setTimeMin(timeMin);
@@ -58,6 +58,7 @@ public class Filme implements Serializable{
 		this.descricao = descricao;
 	}
 	
+	/*---- Listas -------------------------------------------------------------------------------------- */
 	public Horario getHora() {
 		return hora;
 	}
@@ -66,18 +67,16 @@ public class Filme implements Serializable{
 		this.hora = hora;
 	}
 
-	public int getRating() {
+	public String getRating() {
 		return rating.getIdade();
 	}
 
-	public void setRating(int rating) {
-		this.rating = new Rating();
-		this.rating.setIdade(rating);
+	public void setRating(Rating rating) {
+		this.rating = rating;
 	}
 
-	public void setGenero(String genero){
-		this.genero = new Genero();
-		this.genero.setNome(genero);
+	public void setGenero(Genero genero){
+		this.genero = genero;
 	}
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */

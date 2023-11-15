@@ -3,7 +3,8 @@ package br.ucs.poo.cinema.cinema;
 import java.util.List;
 
 import br.ucs.poo.cinema.filme.*;
-//import br.ucs.poo.cinema.pessoas.Pessoa;
+import br.ucs.poo.cinema.pessoas.Ator;
+import br.ucs.poo.cinema.pessoas.Diretor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,13 +16,12 @@ public class Cinema {
 	private List<Horario> horarios = new ArrayList<>();
 	private List<Filme> filmes = new ArrayList<>();
 	private List<Filme> filmesCartaz = new ArrayList<>();
-	//private List<Assento> assentos = new ArrayList<>();
+	private List<Assento> assentos = new ArrayList<>();
 	private List<Ingresso> ingressos = new ArrayList<>();
-	//private List<Pessoa> atores = new ArrayList<>();
-	//private List<Pessoa> diretores = new ArrayList<>();
-	//private List<Genero> generos = new ArrayList<>();
-	//private List<Rating> ratings = new ArrayList<>();
-
+	private List<Ator> atores = new ArrayList<>();
+	private List<Diretor> diretores = new ArrayList<>();
+	private List<Genero> generos = new ArrayList<>();
+	private List<Rating> ratings = new ArrayList<>();
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Cinema() {
@@ -46,13 +46,13 @@ public class Cinema {
 		this.endereco = endereco;
 	}
 
-	/*---- Listas ----------------------------------------- */
+	/*---- Listas -------------------------------------------------------------------------------------- */
 
-	// Sala ---------------------------------
+	// Sala ----------------------------------------------------------
 	public int getSalasTam() {
 		return this.salas.size();
 	}
-	
+
 	public void setSala(Sala obj) {
 		this.salas.add(obj);
 	}
@@ -61,106 +61,150 @@ public class Cinema {
 		return this.salas.get(index);
 	}
 
-	//Update
+	// Update
 
-	public Sala removeSala(int index) {
-		return this.salas.remove(index);
+	public void removeSala(int index) {
+		this.salas.remove(index);
 	}
 
-	// Horario ------------------------------
-	public int getHorariosTam(){
+	// Horario --------------------------------------------------------
+	public int getHorariosTam() {
 		return this.horarios.size();
 	}
 
-	public void setHorario(Horario obj){
+	public void setHorario(Horario obj) {
 		this.horarios.add(obj);
 	}
 
-	public Horario getHorario(int index){
+	public Horario getHorario(int index) {
 		return this.horarios.get(index);
 	}
-	
 
+	// Update
 
-
-
-
-
-	// Create
-	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating,String genero) {
-		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
-		Collections.sort(filmes, new SortFilme());
-		//TODO: List<Cinema> genero = c.getGeneros();
-		//Generos
-		//Escolha o gênero
-		//getGenero -> Filme.setGenero(getGenero)
+	public void removeHorario(int index) {
+		this.horarios.remove(index);
 	}
 
-	public void setFilme(List<Filme> filmes){
-		this.filmes = filmes;
+	// Filme ----------------------------------------------------------
+	public int getFilmeTam() {
+		return filmes.size();
 	}
 
-	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
-		if (getFilmeCartazTam() <= 10) {
-			this.filmesCartaz.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
-			Collections.sort(filmesCartaz, new SortFilme());
-		}
-	}
-
-	public void setIngresso(Ingresso ingresso) {
-		this.ingressos.add(ingresso);
-	}
-
-	// Read----------------------------------------------------
-	public List<Filme> getFilmes(){
+	public List<Filme> getFilmes() {
 		return filmes;
 	}
 
-	//public  boolean 
-
 	public Filme getFilme(int index) {
-		return filmes.get(index);
+		return this.filmes.get(index);
+	}
+
+	public void setFilme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
+		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
+		Collections.sort(filmes, new SortFilme());
+	}
+
+	public void setFilme(List<Filme> filmes) {
+		this.filmes = filmes;
+	}
+
+	public void removeFilme(int index) {
+		this.filmes.remove(index);
+	}
+
+	// Filme Cartaz --------------------------------------------------
+
+	public int getFilmeCartazTam() {
+		return filmesCartaz.size();
 	}
 
 	public Filme getFilmeCartaz(int index) {
 		return filmesCartaz.get(index);
 	}
 
-	public Ingresso getIngresso(int index) {
-		return ingressos.get(index);
+	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
+		if (getFilmeCartazTam() <= 10) {
+			this.filmesCartaz.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
+			Collections.sort(filmesCartaz, new SortFilme());
+		}
 	}
-	// Updade----------------------------------------------------
 
-	// Delete-----------------------------------------------------------
-	
-
-	public Filme removeFilme(int index) {
-		return filmes.remove(index);
-	}
+	// Update
 
 	public Filme removeFilmeCartaz(int index) {
 		return filmesCartaz.remove(index);
 	}
 
-	public Ingresso removeIngresso(int index) {
-		return ingressos.remove(index);
-	}
+	// Assentos ------------------------------------------------------
 
-	// Get Size
-	
-
-	public int getFilmeTam() {
-		return filmes.size();
-	}
-
-	public int getFilmeCartazTam() {
-		return filmesCartaz.size();
-	}
-
+	// Ingresso -------------------------------------------------------
 	public int getIngressoTam() {
 		return ingressos.size();
 	}
 
+	public void setIngresso(Ingresso ingresso) {
+		this.ingressos.add(ingresso);
+	}
+
+	public Ingresso getIngresso(int index) {
+		return ingressos.get(index);
+	}
+
+	// Update
+
+	public Ingresso removeIngresso(int index) {
+		return ingressos.remove(index);
+	}
+
+	// Atores ----------------------------------------------------------
+
+	// Diretores -----------------------------------------------------
+
+	// Generos -------------------------------------------------------
+	public List<Genero> getGenero() {
+		return this.generos;
+	}
+
+	public void setGeneroNome(List<String> genero) {
+		for (String i : genero) {
+			this.generos.add(new Genero(i));
+		}
+	}
+
+	public void setGeneroList(List<Genero> genero) {
+		for (Genero i : genero) {
+			this.generos.add(new Genero(i.getNome()));
+		}
+	}
+
+	public void setGenero(String genero){
+		this.generos.add(new Genero(genero));
+	}
+
+	// UPDATE Generos
+
+	public void removeGenero(int index){
+		this.generos.remove(index);
+	}
+
+	// Rating ---------------------------------------------------------
+	public List<Rating> getRating() {
+		return this.ratings;
+	}
+
+	public void setRatingNome(List<String> rating) {
+		for (String i : rating) {
+			this.ratings.add(new Rating(i));
+		}
+	}
+
+	public void setRatingList(List<Rating> rating) {
+		for (Rating i : rating) {
+			this.ratings.add(new Rating(i.getIdade()));
+		}
+	}
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
+
 
 }

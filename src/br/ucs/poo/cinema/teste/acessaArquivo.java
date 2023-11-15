@@ -1,6 +1,6 @@
 package br.ucs.poo.cinema.teste;
 
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,12 +13,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileOutputStream;*/
 
 
 public class acessaArquivo {
 
-    public static List<Filme> readFileFilme(String file){
+    /*public static List<Filme> readFileFilme(String file){
         List<Filme> lista = new ArrayList<>(); 
         File myFile = new File(String.format("files/%s.dat", file));
         
@@ -69,7 +69,7 @@ public class acessaArquivo {
         }
     }
 
-    /*public static List<Cliente> readFile(String file) {
+    public static List<Cliente> readFile(String file) {
         List<Cliente> lista = new ArrayList<>();
         try {
             File myFile = new File(String.format("files\\%s.csv", file));
@@ -79,12 +79,12 @@ public class acessaArquivo {
                 int id = -1, telefone = -1, idade = -1;
                 String nome = "";
 
-                //String temp = scanner.nextLine();
+                String temp = scanner.nextLine();
 
-                //id = Integer.parseInt(scanner.nextLine());
-                //nome = scanner.nextLine();
-                //telefone = Integer.parseInt(scanner.nextLine());
-                //idade = Integer.parseInt(scanner.nextLine());
+                id = Integer.parseInt(scanner.nextLine());
+                nome = scanner.nextLine();
+                telefone = Integer.parseInt(scanner.nextLine());
+                idade = Integer.parseInt(scanner.nextLine());
 
 
 
@@ -95,9 +95,9 @@ public class acessaArquivo {
             System.out.println("Ocorreu um erro ao ler o arquivo.");
         }
         return lista;
-    }*/
+    }
 
-    /*public static void addDatatoFile(String file, String dado) {
+    public static void addDatatoFile(String file, String dado) {
         try {
             File myFile = new File(String.format("files\\%s.csv", file));
             FileWriter myWriter = new FileWriter(myFile, true);
@@ -106,24 +106,24 @@ public class acessaArquivo {
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao escrever no arquivo.");
         }
-    }*/
+    }
 
-    // public static void overWriteFile(String file, String dado, String typeData,
-    // int line) {
-    // try {
-    // File myFile = new File(String.format("files\\%s.txt", file));
-    // FileWriter myWriter = new FileWriter(myFile, true);
-    // String myLine = Files.readAllLines(Paths.get(String.format("files\\%s.txt",
-    // file))).get(line);
-    // System.out.println(myLine);
-    // myWriter.write(dado, line, dado.length());
-    // myWriter.close();
-    // } catch (IOException e) {
-    // System.out.println("Ocorreu um erro ao reescrever no arquivo.");
-    // }
-    // }
+     public static void overWriteFile(String file, String dado, String typeData,
+    int line) {
+     try {
+     File myFile = new File(String.format("files\\%s.txt", file));
+     FileWriter myWriter = new FileWriter(myFile, true);
+     String myLine = Files.readAllLines(Paths.get(String.format("files\\%s.txt",
+     file))).get(line);
+    System.out.println(myLine);
+     myWriter.write(dado, line, dado.length());
+    myWriter.close();
+     } catch (IOException e) {
+     System.out.println("Ocorreu um erro ao reescrever no arquivo.");
+    }
+     }
 
-    /*public static void overWriteFile(String file, List<Cliente> cliente) {
+    public static void overWriteFile(String file, List<Cliente> cliente) {
         try {
             FileOutputStream writeFile = new FileOutputStream(new File(String.format("files\\%s.csv", file)));
             BufferedWriter writeObject = new BufferedWriter(
@@ -136,7 +136,7 @@ public class acessaArquivo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public static void main(String[] args) {
         Help h = new Help();
@@ -152,7 +152,6 @@ public class acessaArquivo {
 
         Scanner in = new Scanner(System.in);
         String nome, descricao, genero;
-        
         int ano, timeMin, rating;
 
         nome = h.returnString(in, "Digite o nome do filme:");
@@ -171,5 +170,5 @@ public class acessaArquivo {
             System.out.println(myList);
         }
         
-    }
+    }*/
 }
