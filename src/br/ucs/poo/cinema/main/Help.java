@@ -11,20 +11,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 
 public class Help {
-    private static String erro = "Valor informado é inválido";
+    private String erro = "Valor informado é inválido";
 
-    public static void clearScreen(){
+    public  void clearScreen(){
         System.out.print("\033[H\033[2J");
 		System.out.flush();
     }
 
     /*---- Integer ---------------------------------------------------------------------------------- */
-    public static int returnInt(Scanner in, String print) {
+    public  int returnInt(Scanner in, String print) {
         int value = 0;
         boolean test = false;
 
@@ -44,7 +42,7 @@ public class Help {
         return value;
     }
 
-    public static int returnInt(Scanner in, String print, int rangeMin, int rangeMax) {
+    public  int returnInt(Scanner in, String print, int rangeMin, int rangeMax) {
         int value = 0;
         boolean test = false;
 
@@ -67,7 +65,7 @@ public class Help {
     }
 
     /*---- Double ---------------------------------------------------------------------------------- */
-    public static double returnDouble(Scanner in, String print) {
+    public  double returnDouble(Scanner in, String print) {
         double value = 0;
         boolean test = false;
 
@@ -88,7 +86,7 @@ public class Help {
     }
 
     /*---- String ---------------------------------------------------------------------------------- */
-    public static String returnString(Scanner in, String print) {
+    public String returnString(Scanner in, String print) {
         String value = "";
         boolean test = false;
 
@@ -107,7 +105,7 @@ public class Help {
     }
 
     /*---- Char ---------------------------------------------------------------------------------- */
-    public static char returnChar(Scanner in, String print) {
+    public  char returnChar(Scanner in, String print) {
         char value = ' ';
         boolean test = false;
 
@@ -126,8 +124,7 @@ public class Help {
     }
 
     /*---- Files ---------------------------------------------------------------------------------- */
-
-    public static void validFile(String file) {
+    public  void validFile(String file) {
         File myFile = new File(String.format("files\\%s.dat", file));
         try {
             if (myFile.createNewFile()) {
@@ -141,7 +138,7 @@ public class Help {
         }
     }
 
-    public static List<Filme> readFileFilme(String file){
+    public  List<Filme> readFileFilme(String file){
         List<Filme> lista = new ArrayList<>(); 
         File myFile = new File(String.format("files\\%s.dat", file));
         
@@ -163,8 +160,7 @@ public class Help {
         return lista;
     }
 
-
-    public static void writeFileFilme(String file, List<Filme> lista) {
+    public  void writeFileFilme(String file, List<Filme> lista) {
         File myFile = new File(String.format("files\\%s.dat",file));
         try {
             FileOutputStream myOutput = new FileOutputStream(myFile);
@@ -177,5 +173,20 @@ public class Help {
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao escrever no arquivo.");
         }
+    }
+
+    public List<Filme> searchFilmeName(List<Filme> filmes, String nome){
+
+        List<Filme> retorno = new ArrayList<>();
+
+        for(Filme f : filmes) {
+            if(f.getNome().indexOf(nome) >= 0){
+                retorno.add(f);
+            }
+        }
+        
+        //retorno.isEmpty();
+
+        return retorno;
     }
 }

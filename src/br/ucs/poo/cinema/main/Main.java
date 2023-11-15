@@ -8,8 +8,11 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
+
 		Scanner in = new Scanner(System.in);
 		Cinema cine = new Cinema();
+
+		Help h = new Help();
 
 		/*----------------------Usuário/Dispositivo------------------------ */
 		String[] vetor = { "admin", "selfService", "rh" };
@@ -17,7 +20,7 @@ public class Main {
 		String user = "";
 		do {// While !esc -- sair do prompt
 			do {
-				user = Help.returnString(in, "Digite o usuário: ");
+				user = h.returnString(in, "Digite o usuário: ");
 				if (!usuarios.contains(user)) {
 					System.out.println("Usuário não encontrado.\n");
 				}
@@ -30,13 +33,13 @@ public class Main {
 				System.out.println("\nAcessando com usuário de administrador...");
 
 				do {
-					opcao = Help.returnInt(in,
+					opcao = h.returnInt(in,
 							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \n4 - Cadastrar filmes \nDigite 0 para cancelar",
 							0, 4);
 
 					switch (opcao) {
 						case 0:
-							Help.clearScreen();
+							h.clearScreen();
 							break;
 						case 1:
 
@@ -56,8 +59,8 @@ public class Main {
 							} else {
 								System.out.println("\nNenhum filme em cartaz");
 							}
-							int opt = Help.returnInt(in,
-									"1 - Adicionar um filme ao cartaz \n2 - Remover um filme do cartaz \nDigite 0 para cancelar",
+							int opt = h.returnInt(in,
+									"1 - Adicionar um filme ao cartaz \n2 - Remover um filme do cartaz \n0 - Cancelar",
 									0, 2);
 							switch (opt) {
 								case 0:
@@ -67,20 +70,27 @@ public class Main {
 									String nome, descricao,genero;
 									int ano, timeMin, rating;
 
-									nome = Help.returnString(in, "Digite o nome do filme:");
-									ano = Help.returnInt(in, "Digite o ano de publicação do filme:");
-									timeMin = Help.returnInt(in, "Digite a duração do filme, em minutos: ");
-									descricao = Help.returnString(in, "Digite a descrição do filme:");
-									rating = Help.returnInt(in, "Digite a classificação indicativa do filme:");
-									genero = Help.returnString(in, "Digite o gênero do filme:");
+									nome = h.returnString(in, "Digite o nome do filme:");
+									ano = h.returnInt(in, "Digite o ano de publicação do filme:");
+									timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
+									descricao = h.returnString(in, "Digite a descrição do filme:");
 
-									cine.setFilmeCartaz(nome, ano, timeMin, descricao, rating,genero);
+									//Lista pré-pronto de classificação
+									rating = h.returnInt(in, "Digite a classificação indicativa do filme:");
+
+									//Puxar lista de gêneros cadastrados
+									genero = h.returnString(in, "Digite o gênero do filme:");
+
+									cine.setFilmeCartaz(nome, ano, timeMin, descricao, rating, genero);
+									System.out.println("Filme cadastrado");
 									break;
 									
 								case 2:
 									//do{
-									//	String filme = Help.returnString(in, "Digite o filme que deseja remover:");
+									//	String filme = h.returnString(in, "Digite o filme que deseja remover:");
 									//} while(cine.getFilmes().contains(filme));
+
+									//indexof
 									break;
 								default:
 									break;
@@ -90,12 +100,12 @@ public class Main {
 							String nome, descricao, genero;
 							int ano, timeMin, rating;
 
-							nome = Help.returnString(in, "Digite o nome do filme:");
-							ano = Help.returnInt(in, "Digite o ano de publicação do filme:");
-							timeMin = Help.returnInt(in, "Digite a duração do filme, em minutos: ");
-							descricao = Help.returnString(in, "Digite a descrição do filme:");
-							rating = Help.returnInt(in, "Digite a classificação indicativa do filme:");
-							genero = Help.returnString(in, "Digite o gênero do filme:");
+							nome = h.returnString(in, "Digite o nome do filme:");
+							ano = h.returnInt(in, "Digite o ano de publicação do filme:");
+							timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
+							descricao = h.returnString(in, "Digite a descrição do filme:");
+							rating = h.returnInt(in, "Digite a classificação indicativa do filme:");
+							genero = h.returnString(in, "Digite o gênero do filme:");
 
 							cine.setFilme(nome, ano, timeMin, descricao, rating, genero);
 							break;
@@ -127,7 +137,7 @@ public class Main {
 
 					switch (opcao) {
 						case 0:
-							Help.clearScreen();
+							h.clearScreen();
 							break;
 
 						default:
@@ -149,7 +159,7 @@ public class Main {
 
 					switch (opcao) {
 						case 0:
-							Help.clearScreen();
+							h.clearScreen();
 							break;
 						case 1:
 
@@ -169,5 +179,6 @@ public class Main {
 				} while (opcao != 0);
 			}
 			user = "";
+			//TODO: Criar lista, add .dat e testar se a lista do cinema está diferente, e salvar alterações
 		}while(!user.equals("Esc"));
 }}

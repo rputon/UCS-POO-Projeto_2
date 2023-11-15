@@ -11,21 +11,16 @@ import br.ucs.poo.cinema.main.Help;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 
 
 public class acessaArquivo {
 
     public static List<Filme> readFileFilme(String file){
         List<Filme> lista = new ArrayList<>(); 
-        File myFile = new File(String.format("files\\%s.dat", file));
+        File myFile = new File(String.format("files/%s.dat", file));
         
         try {
 			FileInputStream myInput = new FileInputStream(myFile);
@@ -47,7 +42,7 @@ public class acessaArquivo {
 
 
     public static void writeFileFilme(String file, List<Filme> lista) {
-        File myFile = new File(String.format("files\\%s.dat",file));
+        File myFile = new File(String.format("files/%s.dat",file));
         try {
             FileOutputStream myOutput = new FileOutputStream(myFile);
             ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
@@ -63,7 +58,7 @@ public class acessaArquivo {
 
     public static void validFile(String file) {
         try {
-            File myFile = new File(String.format("files\\%s.dat", file));
+            File myFile = new File(String.format("files/%s.dat", file));
             if (myFile.createNewFile()) {
                 System.out.println(String.format("Arquivo de %s criado: %s", file, myFile.getPath()));
             } else {
@@ -144,9 +139,12 @@ public class acessaArquivo {
     }*/
 
     public static void main(String[] args) {
+        Help h = new Help();
+
         Cinema cine = new Cinema();
 
         validFile("filmes");
+        int hash = cine.getFilmes().hashCode();
         List<Filme> myList = new ArrayList<Filme>(readFileFilme("filme"));
         if(myList.size()>0){
             cine.setFilme(myList);
@@ -157,16 +155,21 @@ public class acessaArquivo {
         
         int ano, timeMin, rating;
 
-        nome = Help.returnString(in, "Digite o nome do filme:");
-        ano = Help.returnInt(in, "Digite o ano de publicação do filme:");
-        timeMin = Help.returnInt(in, "Digite a duração do filme, em minutos: ");
-        descricao = Help.returnString(in, "Digite a descrição do filme:");
-        rating = Help.returnInt(in, "Digite a classificação indicativa do filme:");
-        genero = Help.returnString(in, "Digite o gênero do filme:");
+        nome = h.returnString(in, "Digite o nome do filme:");
+        ano = h.returnInt(in, "Digite o ano de publica��o do filme:");
+        timeMin = h.returnInt(in, "Digite a dura��o do filme, em minutos: ");
+        descricao = h.returnString(in, "Digite a descri��o do filme:");
+        rating = h.returnInt(in, "Digite a classifica��o indicativa do filme:");
+        genero = h.returnString(in, "Digite o g�nero do filme:");
         
         cine.setFilme(nome, ano, timeMin, descricao, rating, genero);
 
         writeFileFilme("filmes", cine.getFilmes());
-        myList = readFileFilme("filmes");
+        if(cine.getFilmes().hashCode() != hash){
+            
+            myList = readFileFilme("filmes");
+            System.out.println(myList);
+        }
+        
     }
 }
