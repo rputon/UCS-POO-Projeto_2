@@ -1,7 +1,9 @@
 package br.ucs.poo.cinema.cinema;
 import java.util.Date;
 
-public class Ingresso {
+import java.io.Serializable;
+
+public class Ingresso implements Serializable{
 	private String nome;
 	private Date data;
 	private int celular;

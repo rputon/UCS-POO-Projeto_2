@@ -2,8 +2,8 @@ package br.ucs.poo.cinema.cinema;
 
 import java.util.List;
 
-import br.ucs.poo.cinema.filme.Filme;
-import br.ucs.poo.cinema.filme.SortFilme;
+import br.ucs.poo.cinema.filme.*;
+//import br.ucs.poo.cinema.pessoas.Pessoa;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,13 +12,21 @@ public class Cinema {
 	private String nome;
 	private String endereco;
 	private List<Sala> salas = new ArrayList<>();
+	private List<Horario> horarios = new ArrayList<>();
 	private List<Filme> filmes = new ArrayList<>();
 	private List<Filme> filmesCartaz = new ArrayList<>();
+	//private List<Assento> assentos = new ArrayList<>();
 	private List<Ingresso> ingressos = new ArrayList<>();
+	//private List<Pessoa> atores = new ArrayList<>();
+	//private List<Pessoa> diretores = new ArrayList<>();
+	//private List<Genero> generos = new ArrayList<>();
+	//private List<Rating> ratings = new ArrayList<>();
+
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Cinema() {
-
+		setNome("GNC Caxias");
+		setEndereco("Villagio Caxias");
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -39,14 +47,57 @@ public class Cinema {
 	}
 
 	/*---- Listas ----------------------------------------- */
-	// Create
-	public void setSala(Sala index) {
-		this.salas.add(index);
+
+	// Sala ---------------------------------
+	public int getSalasTam() {
+		return this.salas.size();
+	}
+	
+	public void setSala(Sala obj) {
+		this.salas.add(obj);
 	}
 
+	public Sala getSala(int index) {
+		return this.salas.get(index);
+	}
+
+	//Update
+
+	public Sala removeSala(int index) {
+		return this.salas.remove(index);
+	}
+
+	// Horario ------------------------------
+	public int getHorariosTam(){
+		return this.horarios.size();
+	}
+
+	public void setHorario(Horario obj){
+		this.horarios.add(obj);
+	}
+
+	public Horario getHorario(int index){
+		return this.horarios.get(index);
+	}
+	
+
+
+
+
+
+
+	// Create
 	public void setFilme(String nome, int ano, int timeMin, String descricao, int rating,String genero) {
 		this.filmes.add(new Filme(nome,ano,timeMin,descricao,rating,genero));
 		Collections.sort(filmes, new SortFilme());
+		//TODO: List<Cinema> genero = c.getGeneros();
+		//Generos
+		//Escolha o gênero
+		//getGenero -> Filme.setGenero(getGenero)
+	}
+
+	public void setFilme(List<Filme> filmes){
+		this.filmes = filmes;
 	}
 
 	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, int rating, String genero) {
@@ -61,10 +112,6 @@ public class Cinema {
 	}
 
 	// Read----------------------------------------------------
-	public Sala getSala(int index) {
-		return salas.get(index);
-	}
-
 	public List<Filme> getFilmes(){
 		return filmes;
 	}
@@ -85,9 +132,7 @@ public class Cinema {
 	// Updade----------------------------------------------------
 
 	// Delete-----------------------------------------------------------
-	public Sala removeSala(int index) {
-		return salas.remove(index);
-	}
+	
 
 	public Filme removeFilme(int index) {
 		return filmes.remove(index);
@@ -102,9 +147,7 @@ public class Cinema {
 	}
 
 	// Get Size
-	public int getSalasTam() {
-		return salas.size();
-	}
+	
 
 	public int getFilmeTam() {
 		return filmes.size();

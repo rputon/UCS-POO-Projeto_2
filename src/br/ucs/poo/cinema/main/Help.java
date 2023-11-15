@@ -7,21 +7,22 @@ import java.util.Scanner;
 import br.ucs.poo.cinema.filme.Filme;
 
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class Help {
-    private static String erro = "Valor informado é inválido";
+    private String erro = "Valor informado é inválido";
 
-    public static void clearScreen(){
+    public  void clearScreen(){
         System.out.print("\033[H\033[2J");
 		System.out.flush();
     }
 
     /*---- Integer ---------------------------------------------------------------------------------- */
-    public static int returnInt(Scanner in, String print) {
+    public  int returnInt(Scanner in, String print) {
         int value = 0;
         boolean test = false;
 
@@ -41,7 +42,7 @@ public class Help {
         return value;
     }
 
-    public static int returnInt(Scanner in, String print, int rangeMin, int rangeMax) {
+    public  int returnInt(Scanner in, String print, int rangeMin, int rangeMax) {
         int value = 0;
         boolean test = false;
 
@@ -64,7 +65,7 @@ public class Help {
     }
 
     /*---- Double ---------------------------------------------------------------------------------- */
-    public static double returnDouble(Scanner in, String print) {
+    public  double returnDouble(Scanner in, String print) {
         double value = 0;
         boolean test = false;
 
@@ -85,7 +86,7 @@ public class Help {
     }
 
     /*---- String ---------------------------------------------------------------------------------- */
-    public static String returnString(Scanner in, String print) {
+    public String returnString(Scanner in, String print) {
         String value = "";
         boolean test = false;
 
@@ -104,7 +105,7 @@ public class Help {
     }
 
     /*---- Char ---------------------------------------------------------------------------------- */
-    public static char returnChar(Scanner in, String print) {
+    public  char returnChar(Scanner in, String print) {
         char value = ' ';
         boolean test = false;
 
@@ -123,10 +124,9 @@ public class Help {
     }
 
     /*---- Files ---------------------------------------------------------------------------------- */
-
-    public static void validFile(String file) {
+    public  void validFile(String file) {
+        File myFile = new File(String.format("files\\%s.dat", file));
         try {
-            File myFile = new File(String.format("files\\%s.txt", file));
             if (myFile.createNewFile()) {
                 System.out.println(String.format("Arquivo de %s criado: %s", file, myFile.getPath()));
             }
@@ -138,47 +138,68 @@ public class Help {
         }
     }
 
-    public static List<Filme> readFile(String file){
+    public  List<Filme> readFileFilme(String file){
         List<Filme> lista = new ArrayList<>(); 
+        File myFile = new File(String.format("files\\%s.dat", file));
+        
         try {
-            File myFile = new File(String.format("files\\%s.txt", file));
-			Scanner scanner = new Scanner(myFile);
-                    
-			while (scanner.hasNextLine()) {
-				//lista.add(scanner.nextLine());
-			}
-			scanner.close();
+			FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            lista = (List<Filme>) obj;
+
+            myObj.close();
+            myInput.close();
             
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {
+			System.out.println("Ocorreu um erro ao ler o arquivo.");
+		} catch (ClassNotFoundException e){
+            System.out.println("Ocorreu um erro de classe ao ler o arquivo.");
+        }
         return lista;
     }
 
-
-    public static void addDatatoFile(String file, String dado) {
+    public  void writeFileFilme(String file, List<Filme> lista) {
+        File myFile = new File(String.format("files\\%s.dat",file));
         try {
-            File myFile = new File(String.format("files\\%s.txt",file));
-            FileWriter myWriter = new FileWriter(myFile,true);
-            myWriter.write(dado+"\n");
-            myWriter.close();
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+            
+            myObj.writeObject(lista);
+
+            myObj.close();
+            myOutput.close();
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao escrever no arquivo.");
         }
     }
 
+    public List<Filme> searchFilmeName(List<Filme> filmes, String nome){
 
+        List<Filme> retorno = new ArrayList<>();
 
-
-    /*public static void overWriteFile(String file, String dado, String typeData, int line){
-        try{
-            File myFile = new File(String.format("files\\%s.txt",file));
-            FileWriter myWriter = new FileWriter(myFile,true);
-            String myLine = Files.readAllLines(Paths.get(String.format("files\\%s.txt",file))).get(line);
-            System.out.println(myLine);
-        } catch (IOException e) {
-            System.out.println("Ocorreu um erro ao reescrever no arquivo.");
+        for(Filme f : filmes) {
+            if(f.getNome().indexOf(nome) >= 0){
+                retorno.add(f);
+            }
         }
+        
+        //retorno.isEmpty();
 
-    }*/
+        return retorno;
+    }
+
+    public String testUser(Scanner in, String print, List<String> users){
+        String user = "";
+        
+        do {
+            user = returnString(in, print);
+            if (!users.contains(user)) {
+                System.out.println("Usuário não encontrado.\n");
+            }
+        } while (!users.contains(user));
+
+        return user;
+    }
 }

@@ -1,8 +1,11 @@
 package br.ucs.poo.cinema.filme;
 
+import java.io.Serializable;
+
 import br.ucs.poo.cinema.cinema.Horario;
 
-public class Filme {
+public class Filme implements Serializable{
+	private int cod;
 	private String nome;
 	private int ano;
 	private int timeMin;
@@ -95,6 +98,14 @@ public class Filme {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public int hashCode(){
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + cod;
+		return result;
 	}
 
 }
