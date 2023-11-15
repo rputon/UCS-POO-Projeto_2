@@ -35,18 +35,18 @@ public class Main {
 							0, 4);
 
 					switch (opcao) {
-						case 0:
+						case 0: //Fim
 							Help.clearScreen();
 							break;
-						case 1:
+						case 1: // Venda de ingressos
 
 							break;
 
-						case 2:
+						case 2: // Consultar catálogo de filmes
 
 							break;
 
-						case 3:
+						case 3: // Consultar filmes em cartaz 
 							int tam = cine.getFilmeCartazTam();
 							if (tam > 0) {
 								System.out.println("\nOs seguintes filmes estão em exibição: ");
@@ -61,9 +61,10 @@ public class Main {
 									0, 2);
 							switch (opt) {
 								case 0:
+									Help.clearScreen();
 									break;
 							
-								case 1:
+								case 1: // Adicionar um filme ao cartaz
 									String nome, descricao,genero;
 									int ano, timeMin, rating;
 
@@ -77,7 +78,7 @@ public class Main {
 									cine.setFilmeCartaz(nome, ano, timeMin, descricao, rating,genero);
 									break;
 									
-								case 2:
+								case 2: // Remover um filme do cartaz
 									//do{
 									//	String filme = Help.returnString(in, "Digite o filme que deseja remover:");
 									//} while(cine.getFilmes().contains(filme));
@@ -86,7 +87,7 @@ public class Main {
 									break;
 							}
 							break;
-						case 4:
+						case 4: // Cadastrar um filme
 							String nome, descricao, genero;
 							int ano, timeMin, rating;
 
