@@ -1,18 +1,23 @@
 package br.ucs.poo.cinema.teste;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Scanner;
+
+import br.ucs.poo.cinema.main.Help;
+
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.Collections;
 //mport java.util.Comparator;
-import java.util.List;
+//import java.util.List;
 
 public class Teste {
     public static void main(String[] args) {
-        List<Cliente> cliente = new ArrayList<Cliente>();
+        
+        //List<Cliente> cliente = new ArrayList<Cliente>();
         //List<Cliente> cliente2 = new ArrayList<Cliente>();
 
-        String [] vetor = {"Phil", "Mary", "Betty", "Bob", "Tom", "Casey", "Claire"};
-        List<String> nomes = Arrays.asList(vetor);
+        //String [] vetor = {"Phil", "Mary", "Betty", "Bob", "Tom", "Casey", "Claire"};
+        //List<String> nomes = Arrays.asList(vetor);
 
         //cliente.add(0, new Cliente(1,"Roberta",981621905,20));
         //cliente.add(1, new Cliente(3,"Andre",981622345,67));
@@ -36,7 +41,7 @@ public class Teste {
         //    System.out.println(cliente2.get(i));
         //}
 
-        System.out.println("-----------Random number ------------");
+        /*System.out.println("-----------Random number ------------");
         for (int i=0;i<5;i++){
 
             int id = (int) Math.floor(Math.random() * (99 - 1 + 1) + 1);
@@ -57,8 +62,16 @@ public class Teste {
 
         for (int i=0;i<cliente.size();i++){
             System.out.println(cliente.get(i));
-        }
+        }*/
           
+
+        Help help = new Help();
+
+        String teste = "";
+        Scanner in = new Scanner(System.in);
+        do{
+            teste = help.returnString(in, "Teste: ");
+        }while (teste != "0");
 
     }
 }

@@ -5,13 +5,17 @@ import br.ucs.poo.cinema.filme.Filme;
 import br.ucs.poo.cinema.filme.Genero;
 import br.ucs.poo.cinema.filme.Rating;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import javax.swing.GroupLayout.Alignment;
+
 public class Main {
+
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Help h = new Help();
@@ -19,8 +23,7 @@ public class Main {
 		Cinema cine = new Cinema();
 
 		if (!h.validFile("ratings")) {
-			String[] lista = { "Livre", "10", "12", "14", "16", "18" };
-			List<String> list = Arrays.asList(lista);
+			List<String> list = Arrays.asList("Livre", "10", "12", "14", "16", "18" );
 			cine.setRatingNome(list);
 			h.writeFileRating("ratings", cine.getRating());
 		} else {
@@ -30,11 +33,10 @@ public class Main {
 		System.out.println(cine.getRating());
 
 		if (!h.validFile("generos")) {
-			String[] lista = { "Ação", "Aventura", "Comédia", "Comédia dramática", "Comédia romântica", "Dança",
+			List<String> list = Arrays.asList("Ação", "Aventura", "Comédia", "Comédia dramática", "Comédia romântica", "Dança",
 					"Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Fantasia Científica",
 					"Ficção Científica", "Filmes de Guerra", "Mistério", "Musical", "Filme Policial", "Romance",
-					"Terror", "Thriller" };
-			List<String> list = Arrays.asList(lista);
+					"Terror", "Thriller");
 			cine.setGeneroNome(list);
 			h.writeFileGenero("generos", cine.getGenero());
 		} else {
@@ -42,8 +44,9 @@ public class Main {
 		}
 		System.out.println(cine.getGenero());
 
-		
-
+		if(h.validFile("filmes")){
+			cine.setFilme(h.readFileFilme("filmes"));
+		}
 
 		String user = "";
 
@@ -81,22 +84,8 @@ public class Main {
 
 							break;
 
-						case 2: // TODO: Consultar catálogo de filmes
-							Map<Integer, Filme> mapFilme = new TreeMap<>();
-
-							for (int i = 0; i < cine.getFilmeTam(); i++) {
-								mapFilme.put(i, cine.getFilme(i));
-							}
-
-							for (int i = 0; i < cine.getFilmeTam(); i++) {
-								for (int j = 1; j <= 3; j++) {
-									System.out.print(mapFilme.get(i) + " |\t");
-									i++;
-								}
-								System.out.println("");
-							}
-							System.out.println(mapFilme);
-
+						case 2: 
+							System.out.println(h.tableFilme(cine));
 							break;
 
 						case 3: // Consultar filmes em cartaz
