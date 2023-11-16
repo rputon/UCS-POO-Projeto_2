@@ -19,8 +19,6 @@ import java.io.FileOutputStream;
 public class Help {
     private String erro = "Valor informado é inválido";
 
-    // ! ---- User
-    // -------------------------------------------------------------------------
     public String testUser(Scanner in, String print, List<String> users) {
         String user = "";
 
@@ -33,6 +31,64 @@ public class Help {
 
         return user;
     }
+
+    public boolean validFile(String file) {
+        File myFile = new File(String.format("files\\%s.dat", file));
+        try {
+            if (myFile.createNewFile()) {
+                // System.out.println(String.format("Arquivo de %s criado: %s", file,
+                // myFile.getPath()));
+                return false;
+            } else {
+                // System.out.println("Consultando dados...");
+                return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao validar o arquivo.");
+        }
+        return true;
+    }
+
+    
+    @SuppressWarnings("unchecked")
+    public List<Rating> readFileRating(String file) {
+        List<Rating> lista = new ArrayList<>();
+        File myFile = new File(String.format("files\\%s.dat", file));
+
+        try {
+            FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            lista = (List<Rating>) obj;
+
+            myObj.close();
+            myInput.close();
+
+        } catch (IOException e) {
+            System.out.println(String.format("Ocorreu um erro ao ler o arquivo. %s", file));
+        } catch (ClassNotFoundException e) {
+            System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
+        }
+        return lista;
+    }
+
+    public void writeFileRating(String file, List<Rating> lista) {
+        File myFile = new File(String.format("files\\%s.dat", file));
+        try {
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+
+            myObj.writeObject(lista);
+
+            myObj.close();
+            myOutput.close();
+        } catch (IOException e) {
+            System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
+        }
+    }
+
+    
 
     public Rating testRating(Scanner in, Cinema cine) {
         List<Rating> ratings = cine.getRating();
@@ -59,6 +115,46 @@ public class Help {
         } while (test == false);
         return rating;
     }
+
+    @SuppressWarnings("unchecked")
+    public List<Genero> readFileGenero(String file) {
+        List<Genero> lista = new ArrayList<>();
+        File myFile = new File(String.format("files\\%s.dat", file));
+
+        try {
+            FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            lista = (List<Genero>) obj;
+
+            myObj.close();
+            myInput.close();
+
+        } catch (IOException e) {
+            System.out.println(String.format("Ocorreu um erro ao ler o arquivo. %s", file));
+        } catch (ClassNotFoundException e) {
+            System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
+        }
+        return lista;
+    }
+
+    public void writeFileGenero(String file, List<Genero> lista) {
+        File myFile = new File(String.format("files\\%s.dat", file));
+        try {
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+
+            myObj.writeObject(lista);
+
+            myObj.close();
+            myOutput.close();
+        } catch (IOException e) {
+            System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
+        }
+    }
+
+    
 
     public Genero testGenero(Scanner in, Cinema cine) {
         List<Genero> generos = cine.getGenero();
@@ -92,104 +188,6 @@ public class Help {
         return genero;
     }
 
-    // ! ---- Files
-    // -----------------------------------------------------------------------
-    public boolean validFile(String file) {
-        File myFile = new File(String.format("files\\%s.dat", file));
-        try {
-            if (myFile.createNewFile()) {
-                // System.out.println(String.format("Arquivo de %s criado: %s", file,
-                // myFile.getPath()));
-                return false;
-            } else {
-                // System.out.println("Consultando dados...");
-                return true;
-            }
-        } catch (IOException e) {
-            System.out.println("Ocorreu um erro ao validar o arquivo.");
-        }
-        return true;
-    }
-
-    // ! ---- Rating ----
-    public void writeFileRating(String file, List<Rating> lista) {
-        File myFile = new File(String.format("files\\%s.dat", file));
-        try {
-            FileOutputStream myOutput = new FileOutputStream(myFile);
-            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
-
-            myObj.writeObject(lista);
-
-            myObj.close();
-            myOutput.close();
-        } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Rating> readFileRating(String file) {
-        List<Rating> lista = new ArrayList<>();
-        File myFile = new File(String.format("files\\%s.dat", file));
-
-        try {
-            FileInputStream myInput = new FileInputStream(myFile);
-            ObjectInputStream myObj = new ObjectInputStream(myInput);
-
-            Object obj = myObj.readObject();
-            lista = (List<Rating>) obj;
-
-            myObj.close();
-            myInput.close();
-
-        } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao ler o arquivo. %s", file));
-        } catch (ClassNotFoundException e) {
-            System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
-        }
-        return lista;
-    }
-
-    // ! ---- Genero ----
-    public void writeFileGenero(String file, List<Genero> lista) {
-        File myFile = new File(String.format("files\\%s.dat", file));
-        try {
-            FileOutputStream myOutput = new FileOutputStream(myFile);
-            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
-
-            myObj.writeObject(lista);
-
-            myObj.close();
-            myOutput.close();
-        } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Genero> readFileGenero(String file) {
-        List<Genero> lista = new ArrayList<>();
-        File myFile = new File(String.format("files\\%s.dat", file));
-
-        try {
-            FileInputStream myInput = new FileInputStream(myFile);
-            ObjectInputStream myObj = new ObjectInputStream(myInput);
-
-            Object obj = myObj.readObject();
-            lista = (List<Genero>) obj;
-
-            myObj.close();
-            myInput.close();
-
-        } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao ler o arquivo. %s", file));
-        } catch (ClassNotFoundException e) {
-            System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
-        }
-        return lista;
-    }
-
-    // ! ---- Filme ----
     @SuppressWarnings("unchecked")
     public List<Filme> readFileFilme(String file) {
         List<Filme> lista = new ArrayList<>();
@@ -215,7 +213,6 @@ public class Help {
     }
 
     public String tableFilme(Cinema cine) {
-        //List<String> listName = new ArrayList<>();
 
         int[] lengthNome = { 0, 0, 0 };
         int[] lengthDesc = { 0, 0, 0 };
@@ -303,7 +300,6 @@ public class Help {
                         .append(String.format(format3, cine.getFilme(i).toString(2)))
                         .append("\n").append("\n");
 
-                //System.out.println("3 " +result.toString());
 
             } else if ((cine.getFilmes().size() - i) == 2) {
                 i += 1;
@@ -314,37 +310,14 @@ public class Help {
                         .append(String.format(format2, cine.getFilme(i).toString(2)))
                         .append("\n").append("\n");
 
-                //System.out.println("2 " +result.toString());
 
             } else if ((cine.getFilmes().size() - i) == 1) {
                 result.append(String.format(format1, cine.getFilme(i).getNome()))
                         .append("\n")
                         .append(String.format(format1, cine.getFilme(i).toString(2)))
                         .append("\n").append("\n");
-                //System.out.println("1 " + result.toString());
             }
         }
-
-        // for(Filme f : cine.getFilmes()){
-        // StringBuilder formatBuilderNome = new StringBuilder();
-        // formatBuilderNome.append("%-").append(lengthNome + 2).append("s");
-        // String formatNome = formatBuilderNome.toString();
-
-        // StringBuilder resultNome = new StringBuilder();
-        // resultNome.append(String.format(formatNome, f.getNome()));//.append("");
-        // listName.add(resultNome.toString());
-        // }
-
-        // int lengthDesc = cine.getFilme(0).toString(2).length();
-
-        // StringBuilder formatBuilderDesc = new StringBuilder();
-        // formatBuilderDesc.append("%-").append(lengthDesc + 2).append("s");
-        // String formatDesc = formatBuilderDesc.toString();
-
-        // StringBuilder resultDesc = new StringBuilder();
-        // resultDesc.append(String.format(formatDesc,
-        // cine.getFilme(0).toString(2))).append("\n");
-
         return result.toString();
     }
 
@@ -363,9 +336,6 @@ public class Help {
         }
     }
 
-    // ! ---- Filmes
-    // ----------------------------------------------------------------------------------
-    // */
     public List<Filme> searchFilmeName(List<Filme> filmes, String nome) {
 
         List<Filme> retorno = new ArrayList<>();
@@ -386,9 +356,6 @@ public class Help {
         System.out.flush();
     }
 
-    // ! ---- Integer
-    // ----------------------------------------------------------------------------------
-    // */
     public int returnInt(Scanner in, String print) {
         int value = 0;
         boolean test = false;
@@ -431,9 +398,6 @@ public class Help {
         return value;
     }
 
-    // ! ---- Double
-    // ----------------------------------------------------------------------------------
-    // */
     public double returnDouble(Scanner in, String print) {
         double value = 0;
         boolean test = false;
@@ -454,8 +418,6 @@ public class Help {
         return value;
     }
 
-    // ! ---- String
-    // ----------------------------------------------------------------------------------
     public String returnString(Scanner in, String print) {
         String value = "";
         boolean test = false;
@@ -465,7 +427,7 @@ public class Help {
             value = in.nextLine();
 
             // FIXME: ^V está passando
-            if (!value.matches(".*[!@#$%^&´~*\\[\\]+=<>?/{}|].*")) {
+            if (!value.matches(".*[!@#$%^&´~*\\[\\]+=<>?/{}|].*") && !value.matches("^V")) {
                 test = true;
                 break;
             } else {
@@ -475,9 +437,6 @@ public class Help {
         return value;
     }
 
-    // ! ---- Char
-    // ----------------------------------------------------------------------------------
-    // */
     public char returnChar(Scanner in, String print) {
         char value = ' ';
         boolean test = false;

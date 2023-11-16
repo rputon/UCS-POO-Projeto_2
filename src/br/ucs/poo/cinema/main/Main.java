@@ -1,18 +1,10 @@
 package br.ucs.poo.cinema.main;
 
 import br.ucs.poo.cinema.cinema.Cinema;
-import br.ucs.poo.cinema.filme.Filme;
-import br.ucs.poo.cinema.filme.Genero;
-import br.ucs.poo.cinema.filme.Rating;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
-
-import javax.swing.GroupLayout.Alignment;
 
 public class Main {
 
@@ -22,49 +14,53 @@ public class Main {
 
 		Cinema cine = new Cinema();
 
+		// ! Check Rating ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+		// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
 		if (!h.validFile("ratings")) {
-			List<String> list = Arrays.asList("Livre", "10", "12", "14", "16", "18" );
-			cine.setRatingNome(list);
+			cine.setRatingNome(Arrays.asList("Livre", "10", "12", "14", "16", "18"));
 			h.writeFileRating("ratings", cine.getRating());
 		} else {
 			cine.setRatingList(h.readFileRating("ratings"));
 		}
 
-		System.out.println(cine.getRating());
-
+		// ! Check Genero ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+		// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
 		if (!h.validFile("generos")) {
-			List<String> list = Arrays.asList("Ação", "Aventura", "Comédia", "Comédia dramática", "Comédia romântica", "Dança",
-					"Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Fantasia Científica",
-					"Ficção Científica", "Filmes de Guerra", "Mistério", "Musical", "Filme Policial", "Romance",
-					"Terror", "Thriller");
-			cine.setGeneroNome(list);
+			cine.setGeneroNome(
+					Arrays.asList("Ação", "Aventura", "Comédia", "Comédia dramática", "Comédia romântica", "Dança",
+							"Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Fantasia Científica",
+							"Ficção Científica", "Filmes de Guerra", "Mistério", "Musical", "Filme Policial", "Romance",
+							"Terror", "Thriller"));
 			h.writeFileGenero("generos", cine.getGenero());
 		} else {
 			cine.setGeneroList(h.readFileGenero("generos"));
 		}
-		System.out.println(cine.getGenero());
 
-		if(h.validFile("filmes")){
+		// ! Check Filme ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+		// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+		if (h.validFile("filmes")) {
 			cine.setFilme(h.readFileFilme("filmes"));
 		}
 
 		String user = "";
 
 		do {// ? While !esc -- sair do prompt
-			String[] vetor = { "admin", "selfService", "rh" };
-			List<String> usuarios = Arrays.asList(vetor);
+			List<String> usuarios = Arrays.asList("admin", "selfService", "rh");
 			user = h.testUser(in, "Digite o usuário: ", usuarios);
 
 			int opcao;
 
-			// !-------------------------Interfaces------------------------------
-			if (user.equals(usuarios.get(0))) { // ? admin
+			// ! Interfaces ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+			// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+			if (user.equals(usuarios.get(0))) { // ? admin ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+												// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
 				System.out.println("\nAcessando com usuário de administrador...");
 
 				do {
 					opcao = h.returnInt(in,
-							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \n4 - Cadastrar filmes \nDigite 0 para cancelar",
-							0, 4);
+							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \nDigite 0 para cancelar",
+							0, 3);
+					System.out.println("");
 
 					switch (opcao) {
 
@@ -84,8 +80,53 @@ public class Main {
 
 							break;
 
-						case 2: 
+						case 2: // Consultar filmes
 							System.out.println(h.tableFilme(cine));
+
+							int opt = h.returnInt(in,
+									"1 - Adicionar um filme \n2 - Editar um filme \n3 - Remover um filme \n0 - Cancelar",
+									0, 2);
+
+							switch (opt) {
+								case 0:
+									h.clearScreen();
+									break;
+
+								case 1: // Adicionar filme
+									String nome, descricao;
+									int ano, timeMin;
+
+									nome = h.returnString(in, "Digite o nome do filme:");
+									ano = h.returnInt(in, "Digite o ano de publicação do filme:");
+									timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
+									descricao = h.returnString(in, "Digite a descrição do filme:");
+
+									cine.setFilme(nome, ano, timeMin, descricao, h.testRating(in, cine),
+											h.testGenero(in, cine));
+
+									h.writeFileFilme("filmes", cine.getFilmes());
+									System.out.println("Filme cadastrado");
+
+									// TODO: Ao add, adicionar ou não ao cartaz + tempo
+									// TODO: Se está em cartaz, sala e horários
+									break;
+
+								case 2: // Editar filme
+
+									break;
+
+								case 3: // Remover filme
+									//if(cine.getIngresso().getFilme().equals(filmeRemover)){
+										//Este filme já vendeu ingressos, tem certeza que deseja remover o filme?
+									//}
+									break;
+
+								default:
+									System.out.println("Esta opção não existe");
+									break;
+							}
+							
+							
 							break;
 
 						case 3: // Consultar filmes em cartaz
@@ -98,7 +139,7 @@ public class Main {
 							} else {
 								System.out.println("\nNenhum filme em cartaz");
 							}
-							int opt = h.returnInt(in,
+							opt = h.returnInt(in,
 									"1 - Adicionar um filme ao cartaz \n2 - Remover um filme do cartaz \n0 - Cancelar",
 									0, 2);
 							switch (opt) {
@@ -109,17 +150,14 @@ public class Main {
 								case 1: // Adicionar um filme ao cartaz
 									String nome, descricao;
 									int ano, timeMin;
-									Rating iRating;
-									Genero iGenero;
 
 									nome = h.returnString(in, "Digite o nome do filme:");
 									ano = h.returnInt(in, "Digite o ano de publicação do filme:");
 									timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
 									descricao = h.returnString(in, "Digite a descrição do filme:");
-									iRating = h.testRating(in, cine);
-									iGenero = h.testGenero(in, cine);
-									
-									cine.setFilmeCartaz(nome, ano, timeMin, descricao,iRating, iGenero);
+
+									cine.setFilmeCartaz(nome, ano, timeMin, descricao, h.testRating(in, cine),
+											h.testGenero(in, cine));
 									System.out.println("Filme cadastrado");
 									break;
 
@@ -131,28 +169,10 @@ public class Main {
 									// indexof
 									break;
 								default:
+									System.out.println("Esta opção não existe");
 									break;
 							}
 							break;
-						case 4: // Cadastrar um filme
-							String nome, descricao;
-							int ano, timeMin;
-							Rating iRating;
-							Genero iGenero;
-
-							nome = h.returnString(in, "Digite o nome do filme:");
-							ano = h.returnInt(in, "Digite o ano de publicação do filme:");
-							timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
-							descricao = h.returnString(in, "Digite a descrição do filme:");
-							
-							iRating = h.testRating(in,cine);
-							iGenero = h.testGenero(in,cine);
-							cine.setFilme(nome, ano, timeMin, descricao,iRating, iGenero);
-
-							h.writeFileFilme("filmes", cine.getFilmes());
-
-							break;
-
 						default:
 							System.out.println("Esta opção não existe");
 							break;

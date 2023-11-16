@@ -1,10 +1,12 @@
 package br.ucs.poo.cinema.cinema;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sala implements Serializable{
 	private int numero;
-	private Assento assentos;
+	private List<Assento> assentos = new ArrayList<>();
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Sala() {
@@ -21,14 +23,6 @@ public class Sala implements Serializable{
 		this.numero = numero;
 	}
 
-	public Assento getAssentos() {
-		return assentos;
-	}
-
-	public void setAssentos(Assento assentos) {
-		this.assentos = assentos;
-	}
-	
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	
 	

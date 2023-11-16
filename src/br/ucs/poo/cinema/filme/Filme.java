@@ -1,8 +1,11 @@
 package br.ucs.poo.cinema.filme;
 
 import java.io.Serializable;
+import java.util.List;
 
 import br.ucs.poo.cinema.cinema.Horario;
+import br.ucs.poo.cinema.pessoas.Ator;
+import br.ucs.poo.cinema.pessoas.Diretor;
 
 public class Filme implements Serializable{
 	private int cod;
@@ -14,6 +17,8 @@ public class Filme implements Serializable{
 	private Horario hora;
 	private Genero genero;
 	//TODO: Se tiver em cartaz, tem tempo para "expirar"
+	private List<Ator> atores;
+	private Diretor dire;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
@@ -82,16 +87,16 @@ public class Filme implements Serializable{
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(int index){
 		if(index == 1){
-			return String.format("%s\n%d | %s | %dmin\n%s",nome, ano, genero.getNome(), timeMin,descricao);
+			return String.format("%s\n%d ‧ %s ‧ %dmin\n%s",nome, ano, genero.getNome(), timeMin,descricao);
 		}
 		else if(index == 2){
-			return String.format("%d | %s | %dmin",ano, genero.getNome(), timeMin);
+			return String.format("%d ‧ %s ‧ %dmin",ano, genero.getNome(), timeMin);
 		}
-		return String.format("%s\n%d | %s | %dmin\n%s",nome, ano, genero.getNome(), timeMin, descricao);
+		return String.format("%s\n%d ‧ %s ‧ %dmin\n%s",nome, ano, genero.getNome(), timeMin, descricao);
 	}
 	
 	public String toString(){
-		return String.format("%s\n%d | %s | %dmin",nome, ano, genero.getNome(), timeMin);
+		return String.format("%s\n%d ‧ %s ‧ %dmin",nome, ano, genero.getNome(), timeMin);
 	}
 
 	@Override
@@ -109,12 +114,12 @@ public class Filme implements Serializable{
 		return true;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode(){
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + cod;
 		return result;
-	}
+	}*/
 
 }

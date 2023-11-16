@@ -3,7 +3,7 @@ package br.ucs.poo.cinema.pessoas;
 public class Pessoa {
 	private String nome;
 	private String idade;
-	private String ocupacao;
+	private String casado;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Pessoa() {
@@ -26,14 +26,6 @@ public class Pessoa {
 
 	public void setIdade(String idade) {
 		this.idade = idade;
-	}
-
-	public String getOcupacao() {
-		return ocupacao;
-	}
-
-	public void setOcupacao(String ocupacao) {
-		this.ocupacao = ocupacao;
 	}
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */

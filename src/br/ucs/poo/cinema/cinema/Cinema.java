@@ -16,7 +16,6 @@ public class Cinema {
 	private List<Horario> horarios = new ArrayList<>();
 	private List<Filme> filmes = new ArrayList<>();
 	private List<Filme> filmesCartaz = new ArrayList<>();
-	private List<Assento> assentos = new ArrayList<>();
 	private List<Ingresso> ingressos = new ArrayList<>();
 	private List<Ator> atores = new ArrayList<>();
 	private List<Diretor> diretores = new ArrayList<>();
