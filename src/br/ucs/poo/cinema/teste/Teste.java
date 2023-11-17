@@ -1,7 +1,9 @@
 package br.ucs.poo.cinema.teste;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
+import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.main.Help;
 
 //import java.util.ArrayList;
@@ -66,12 +68,17 @@ public class Teste {
           
 
         Help help = new Help();
+        Cinema cine = new Cinema();
 
-        String teste = "";
+        //String teste = "";
         Scanner in = new Scanner(System.in);
-        do{
-            teste = help.returnString(in, "Teste: ");
-        }while (teste != "0");
+        //do{
+        //    teste = help.returnString(in, "Teste: ");
+        //}while (teste != "0");
 
+        //LocalDate date = help.returnDate(in, "Digite a data: ");
+            //System.out.println(help.dateFormat(date));
+           // Object rating = help.testRating(in, cine);
+			//System.out.println(rating.getClass());
     }
 }

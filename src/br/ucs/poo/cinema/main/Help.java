@@ -12,6 +12,8 @@ import br.ucs.poo.cinema.cinema.Cinema;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -116,6 +118,11 @@ public class Help {
         return rating;
     }
 
+    public Rating objToRating(Object obj){
+        Rating rating = (Rating) obj;
+        return rating;
+    }
+
     @SuppressWarnings("unchecked")
     public List<Genero> readFileGenero(String file) {
         List<Genero> lista = new ArrayList<>();
@@ -137,6 +144,11 @@ public class Help {
             System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
         }
         return lista;
+    }
+
+    public Genero objToGenero(Object obj){
+        Genero genero = (Genero) obj;
+        return genero;
     }
 
     public void writeFileGenero(String file, List<Genero> lista) {
@@ -336,19 +348,26 @@ public class Help {
         }
     }
 
-    public List<Filme> searchFilmeName(List<Filme> filmes, String nome) {
-
+    public List<Filme> searchFilmeName(Cinema cine, String nome) {
         List<Filme> retorno = new ArrayList<>();
 
-        for (Filme f : filmes) {
+        for (Filme f : cine.getFilmes()) {
             if (f.getNome().indexOf(nome) >= 0) {
                 retorno.add(f);
             }
         }
-
-        // retorno.isEmpty();
-
         return retorno;
+    }
+
+    public int testFilme(Cinema cine, String nome, int ano) {
+        Filme temp = new Filme(nome, ano, 0, "", cine.getRating().get(0), cine.getGenero().get(0));
+        int test = -1;
+        for (int i=0;i<cine.getFilmes().size();i++) {
+            if (temp.equals(cine.getFilme(i))) {
+                return i;
+            }
+        }
+        return test;
     }
 
     public void clearScreen() {
@@ -453,5 +472,18 @@ public class Help {
             }
         } while (test == false);
         return value;
+    }
+
+    public LocalDate returnDate(Scanner in, String print){
+        LocalDate date = LocalDate.of(2023, 3, 25);
+
+        return date;
+    }
+
+    public String dateFormat(LocalDate date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LL/yyyy");
+        String formattedString = date.format(formatter);
+
+        return formattedString;
     }
 }
