@@ -87,13 +87,15 @@ public class Filme implements Serializable{
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(int index){
 		if(index == 1){
-			return String.format("%s\n%d ‧ %s ‧ %dmin\n%s",nome, ano, genero.getNome(), timeMin,descricao);
+			return String.format("%s ‧ %s\n%d ‧ %s ‧ %dmin\n%s",nome, rating, ano, genero, timeMin,descricao);
 		}
 		else if(index == 2){
-			return String.format("%d ‧ %s ‧ %dmin",ano, genero.getNome(), timeMin);
+			return String.format("%d ‧ %s ‧ %dmin",ano, genero, timeMin);
 		}
-		return String.format("%s\n%d ‧ %s ‧ %dmin\n%s",nome, ano, genero.getNome(), timeMin, descricao);
-	}
+		else if(index == 3){
+			return String.format("1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s",nome, ano, timeMin, descricao, rating, genero);
+		}
+		return String.format("%s\n%d ‧ %s ‧ %dmin",nome, ano, genero.getNome(), timeMin);	}
 	
 	public String toString(){
 		return String.format("%s\n%d ‧ %s ‧ %dmin",nome, ano, genero.getNome(), timeMin);

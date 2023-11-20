@@ -21,6 +21,6 @@ public class Genero implements Serializable{
 	
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(){
-		return nome;
+		return this.nome;
 	}
 }
