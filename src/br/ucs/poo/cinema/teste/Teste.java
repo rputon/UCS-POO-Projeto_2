@@ -1,6 +1,6 @@
 package br.ucs.poo.cinema.teste;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -41,7 +41,15 @@ public class Teste {
 		}
 
         Scanner in = new Scanner(System.in);
+
+
         hList.addFilme(in, cine);
+		//System.out.println(cine.getFilmes());
+		//hList.searchFilmeName(cine, cine.getFilme(0));
+
+		//hList.addFilme(in, cine);
+		String nome = help.returnString(in, "Digite o nome do filme:");
+		hList.removeFilme(cine, nome, in);
 
     }
 }

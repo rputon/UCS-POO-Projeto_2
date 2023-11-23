@@ -1,9 +1,9 @@
 package br.ucs.poo.cinema.pessoas;
 
 public class Pessoa {
-	private String nome;
-	private String idade;
-	private String casado;
+	protected String nome;
+	protected int idade;
+	protected String casado;
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Pessoa() {
@@ -20,11 +20,11 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public String getIdade() {
+	public int getIdade() {
 		return idade;
 	}
 
-	public void setIdade(String idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 	

@@ -3,7 +3,11 @@ package br.ucs.poo.cinema.main;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Collection;
 
 import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.filme.Filme;
@@ -84,7 +88,7 @@ public class HelpList {
                 String nome = h.returnString(in, "Digite o gênero:");
                 genero.setNome(nome);
                 cine.setGenero(nome);
-                hFile.writeFileGenero("generos", cine.getGenero());
+                hFile.saveGenero(cine);;
                 test = true;
                 return genero;
             } else if (value >= 1 && value - 1 < generos.size()) {
@@ -204,12 +208,13 @@ public class HelpList {
         return result.toString();
     }
 
-    public List<Filme> searchFilmeName(Cinema cine, String nome) {
-        List<Filme> retorno = new ArrayList<>();
+    public Map<Integer,Filme> searchFilmeName(Cinema cine, String nome) {
+        Map<Integer,Filme> retorno = new TreeMap<>();
 
-        for (Filme f : cine.getFilmes()) {
-            if (f.getNome().indexOf(nome) >= 0) {
-                retorno.add(f);
+        for (int i=0;i<cine.getFilmes().size();i++) {
+            if (cine.getFilme(i).getNome().equals(nome)) {
+                retorno.put(i,cine.getFilme(i));
+                //System.out.println("Search: "+ cine.getFilme(i));
             }
         }
         return retorno;
@@ -217,11 +222,13 @@ public class HelpList {
 
     public List<Filme> testFilme(Cinema cine, String nome, int ano) {
         List<Filme> retorno = new ArrayList<>();
-        List <Filme> name = searchFilmeName(cine, nome);
+        Map <Integer,Filme> map = searchFilmeName(cine, nome);
+        Collection <Filme> name = map.values(); 
         if(name.size() > 1){
             for (Filme f : name) {
                 if(f.getAno() == ano){
                     retorno.add(f);
+                    //System.out.println("Test: "+nome +"  "+ f.getAno());
                 }                
             }
         }
@@ -235,6 +242,7 @@ public class HelpList {
         nome = h.returnString(in, "Digite o nome do filme:");
         ano = h.returnInt(in, "Digite o ano de publicação do filme:");
 
+        System.out.println("ADD: "+nome +"  "+ ano);
         List <Filme> test = testFilme(cine, nome, ano);
         if (test.size() > 0) {
             System.out.println("Este filme já está cadastrado:");
@@ -278,11 +286,11 @@ public class HelpList {
 
             } else if(opt == 3){
                 cine.setFilme(nome, ano, timeMin, descricao, rating, genero);
-                hFile.writeFileFilme("filmes", cine.getFilmes());
+                hFile.saveFilme(cine);
             }
-
+            System.out.println("Filme cadastrado");
         }
-        System.out.println("Filme cadastrado");
+        
     }
 
     public void addFilmeCartaz(Scanner in, Boolean fExiste){
@@ -354,13 +362,37 @@ public class HelpList {
                 System.out.println("Opção não existe");
                 break;
         }
+        hFile.saveFilme(cine);
     }
 
-    public void removeFilme(){
-        
+    public void removeFilme(Cinema cine, String nome, Scanner in){
+        Map<Integer,Filme> map = searchFilmeName(cine, nome);
+
+        if(map.size() > 1){
+            for(Map.Entry<Integer,Filme> l : map.entrySet()){
+                System.out.println(String.format("%d - %s, %s", l.getKey(), l.getValue().getNome(), l.getValue().getAno()));
+            }
+            int opt = h.returnInt(in, "Qual filme deseja remover?", 0, map.size());
+            cine.removeFilme(opt);
+        }
+        else{
+            for(Map.Entry<Integer,Filme> l : map.entrySet()){
+                cine.removeFilme(l.getKey());
+            }
+        }
+        hFile.saveFilme(cine);
     }
 
-    public List<Ator> searchAtorName(){
-        
+   
+
+    public List<Ator> searchAtorName(Cinema cine, String nome){
+        List<Ator> retorno = new ArrayList<>();
+
+        for (Ator a : cine.getAtores()) {
+            if (a.getNome().indexOf(nome) >= 0) {
+                retorno.add(a);
+            }
+        }
+        return retorno;
     }
 }

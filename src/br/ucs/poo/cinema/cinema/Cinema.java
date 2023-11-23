@@ -48,8 +48,8 @@ public class Cinema {
 	/*---- Listas -------------------------------------------------------------------------------------- */
 
 	// Sala ----------------------------------------------------------
-	public int getSalasTam() {
-		return this.salas.size();
+	public List<Sala> getSalas() {
+		return this.salas;
 	}
 
 	public void setSala(Sala obj) {
@@ -60,17 +60,11 @@ public class Cinema {
 		return this.salas.get(index);
 	}
 
-	// Update
-
 	public void removeSala(int index) {
 		this.salas.remove(index);
 	}
 
 	// Horario --------------------------------------------------------
-	public int getHorariosTam() {
-		return this.horarios.size();
-	}
-
 	public void setHorario(Horario obj) {
 		this.horarios.add(obj);
 	}
@@ -79,17 +73,11 @@ public class Cinema {
 		return this.horarios.get(index);
 	}
 
-	// Update
-
 	public void removeHorario(int index) {
 		this.horarios.remove(index);
 	}
 
 	// Filme ----------------------------------------------------------
-	public int getFilmeTam() {
-		return filmes.size();
-	}
-
 	public List<Filme> getFilmes() {
 		return filmes;
 	}
@@ -112,23 +100,16 @@ public class Cinema {
 	}
 
 	// Filme Cartaz --------------------------------------------------
-
-	public int getFilmeCartazTam() {
-		return filmesCartaz.size();
-	}
-
 	public Filme getFilmeCartaz(int index) {
 		return filmesCartaz.get(index);
 	}
 
 	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
-		if (getFilmeCartazTam() <= 10) {
+		if (filmes.size() <= 10) {
 			this.filmesCartaz.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
 			Collections.sort(filmesCartaz, new SortFilme());
 		}
 	}
-
-	// Update
 
 	public Filme removeFilmeCartaz(int index) {
 		return filmesCartaz.remove(index);
@@ -137,10 +118,6 @@ public class Cinema {
 	// Assentos ------------------------------------------------------
 
 	// Ingresso -------------------------------------------------------
-	public int getIngressoTam() {
-		return ingressos.size();
-	}
-
 	public void setIngresso(Ingresso ingresso) {
 		this.ingressos.add(ingresso);
 	}
@@ -149,13 +126,14 @@ public class Cinema {
 		return ingressos.get(index);
 	}
 
-	// Update
-
 	public Ingresso removeIngresso(int index) {
 		return ingressos.remove(index);
 	}
 
 	// Atores ----------------------------------------------------------
+	public List<Ator> getAtores(){
+		return this.atores;
+	}
 
 	// Diretores -----------------------------------------------------
 
@@ -179,8 +157,6 @@ public class Cinema {
 	public void setGenero(String genero){
 		this.generos.add(new Genero(genero));
 	}
-
-	// UPDATE Generos
 
 	public void removeGenero(int index){
 		this.generos.remove(index);

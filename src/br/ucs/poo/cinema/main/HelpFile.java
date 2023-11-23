@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.filme.Filme;
 import br.ucs.poo.cinema.filme.Genero;
 import br.ucs.poo.cinema.filme.Rating;
@@ -142,4 +143,14 @@ public class HelpFile {
             System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
         }
     }
+
+    public void saveFilme(Cinema cine){
+        writeFileFilme("filmes", cine.getFilmes());
+    }
+
+    public void saveGenero(Cinema cine){
+        writeFileGenero("generos", cine.getGenero());
+    }
+
+
 }
