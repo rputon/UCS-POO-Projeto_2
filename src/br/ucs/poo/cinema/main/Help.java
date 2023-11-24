@@ -45,7 +45,7 @@ public class Help {
                 value = in.nextInt();
                 in.nextLine();
 
-                if (value >= rangeMin && value <= rangeMax) {
+                if (value >= rangeMin || value <= rangeMax) {
                     test = true;
                     break;
                 }
@@ -85,7 +85,6 @@ public class Help {
             System.out.println(print);
             value = in.nextLine();
 
-            // FIXME: ^V está passando
             if (!value.matches(".*[!@#$%^&´~*\\[\\]+=<>?/{}|].*") && !value.matches("^V")) {
                 test = true;
                 break;

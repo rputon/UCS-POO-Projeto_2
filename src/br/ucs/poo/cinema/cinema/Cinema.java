@@ -95,6 +95,10 @@ public class Cinema {
 		this.filmes = filmes;
 	}
 
+	public void setFilme(Filme filme) {
+		this.filmes.add(filme);
+	}
+
 	public void removeFilme(int index) {
 		this.filmes.remove(index);
 	}
@@ -102,6 +106,10 @@ public class Cinema {
 	// Filme Cartaz --------------------------------------------------
 	public Filme getFilmeCartaz(int index) {
 		return filmesCartaz.get(index);
+	}
+
+	public List<Filme> getFilmeCartaz() {
+		return filmesCartaz;
 	}
 
 	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {

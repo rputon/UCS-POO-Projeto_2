@@ -17,6 +17,7 @@ public class Filme implements Serializable{
 	private Horario hora;
 	private Genero genero;
 	//TODO: Se tiver em cartaz, tem tempo para "expirar"
+
 	private List<Ator> atores;
 	private Diretor dire;
 	
@@ -93,7 +94,7 @@ public class Filme implements Serializable{
 			return String.format("%d ‧ %s ‧ %dmin",ano, genero, timeMin);
 		}
 		else if(index == 3){
-			return String.format("1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s",nome, ano, timeMin, descricao, rating, genero);
+			return String.format("1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar",nome, ano, timeMin, descricao, rating, genero);
 		}
 		return String.format("%s\n%d ‧ %s ‧ %dmin",nome, ano, genero.getNome(), timeMin);	}
 	

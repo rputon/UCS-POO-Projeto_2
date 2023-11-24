@@ -39,10 +39,10 @@ public class Main {
 		}
 
 		if (hFile.validFile("salas")){
-			
+			//TODO: valida salas
 		}
 		if (hFile.validFile("assentos")){
-			
+			//TODO: valida assentos
 		}
 
 		String user = "";
@@ -109,11 +109,8 @@ public class Main {
 									break;
 
 								case 1: // Adicionar filme
-									hList.addFilme(in);
-
-									// confirmar informações do filme
-
-									
+									hList.addFilme(in, cine);
+								
 									char sn;
 									sn = h.returnChar(in, "Este filme está em cartaz?");
 									if (sn == 'S') {
@@ -125,13 +122,12 @@ public class Main {
 									break;
 
 								case 2: // Editar filme
+									hList.editFilme(in, cine);
 
 									break;
 
 								case 3: // Remover filme
-									// if(cine.getIngresso().getFilme().equals(filmeRemover)){
-									// Este filme já vendeu ingressos, tem certeza que deseja remover o filme?
-									// }
+									hList.removeFilme(cine, in);
 									break;
 
 								default:
@@ -142,10 +138,9 @@ public class Main {
 							break;
 
 						case 3: // Consultar filmes em cartaz
-							int tam = cine.getFilmeCartazTam();
-							if (tam > 0) {
+							if (cine.getFilmeCartaz().size() > 0) {
 								System.out.println("\nOs seguintes filmes estão em exibição: ");
-								for (int i = 0; i < tam; i++) {
+								for (int i = 0; i < cine.getFilmeCartaz().size(); i++) {
 									System.out.println(cine.getFilmeCartaz(i));
 								}
 							} else {
@@ -194,10 +189,9 @@ public class Main {
 				System.out.println("\nAcessando com usuário de auto atendimento...");
 
 				do {
-					int tam = cine.getFilmeCartazTam();
-					if (tam > 0) {
+					if (cine.getFilmeCartaz().size() > 0) {
 						System.out.println("\nOs seguintes filmes estão em exibição: ");
-						for (int i = 0; i < tam; i++) {
+						for (int i = 0; i < cine.getFilmeCartaz().size(); i++) {
 							System.out.println(cine.getFilmeCartaz(i));
 						}
 						System.out.println("Qual filme deseja ver?");
@@ -254,8 +248,7 @@ public class Main {
 				} while (opcao != 0);
 			}
 			user = "";
-			// TODO: Criar lista, add .dat e testar se a lista do cinema está diferente, e
-			// salvar alterações
+			// TODO: Criar lista, add .dat e testar se a lista do cinema está diferente, e salvar alterações 
 		} while (!user.equals("Esc"));
 		in.close();
 	}
