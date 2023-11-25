@@ -5,7 +5,9 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Help {
     private String erro = "Valor informado é inválido";
@@ -42,7 +44,7 @@ public class Help {
         do {
             try {
                 System.out.println(print);
-                value = in.nextInt();
+                value = Character.toUpperCase(in.next().charAt(0));
                 in.nextLine();
 
                 if (value >= rangeMin || value <= rangeMax) {
@@ -113,20 +115,6 @@ public class Help {
         return value;
     }
 
-    public LocalDate returnDate(Scanner in, String print) {
-        LocalDate date = LocalDate.of(2023, 3, 25);
-
-        return date;
-    }
-
-    public String dateFormat(LocalDate date) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LL/yyyy");
-        String formattedString = date.format(formatter);
-
-        return formattedString;
-    }
-
     public boolean validFile(String file) {
         File myFile = new File(String.format("files\\%s.dat", file));
         try {
@@ -153,4 +141,63 @@ public class Help {
 
         return user;
     }
+
+    public LocalDate returnDate(Scanner in, String print) {
+        String value = "";
+        boolean test = false;
+        LocalDate formattedString = LocalDate.now();
+
+        do {
+            try {
+                System.out.println(print);
+                value = in.nextLine();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LL/yyyy");
+                formattedString = LocalDate.parse(value, formatter);
+
+                if (formattedString.isAfter(LocalDate.of(2023, 11, 27))
+                        && formattedString.isBefore(LocalDate.of(2024, 12, 31))) {
+                    test = true;
+                    break;
+                } else {
+                    System.out.println(erro);
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println(erro);
+            }
+        } while (test == false);
+
+        return formattedString;
+    }
+
+    public LocalTime returnTime(Scanner in, String print, int tempo) {
+        String value = "";
+        boolean test = false;
+        LocalTime formattedString = LocalTime.now();
+
+        do {
+            try {
+                System.out.println(print);
+                value = in.nextLine();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                formattedString = LocalTime.parse(value, formatter);
+
+                if ((formattedString.isAfter(LocalTime.of(12, 59)) && formattedString.isBefore(LocalTime.of(23, 59)))
+                        && formattedString.plusMinutes(tempo).isBefore(LocalTime.of(00,16))) {
+                    test = true;
+                    break;
+                } else {
+                    System.out.println(erro);
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println(erro);
+                System.out.println(e);
+            }
+
+        } while (test == false);
+
+        return formattedString;
+    }
+
 }

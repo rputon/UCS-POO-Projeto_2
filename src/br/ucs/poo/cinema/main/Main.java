@@ -16,6 +16,7 @@ public class Main {
 		HelpFilme hf = new HelpFilme();
 		HelpGenero hg = new HelpGenero();
 		HelpHorario hh = new HelpHorario();
+		HelpIngresso hi = new HelpIngresso();
 		HelpRating hr = new HelpRating();
 		HelpSala hs = new HelpSala();
 
@@ -58,8 +59,7 @@ public class Main {
 
 			int opcao;
 
-			if (user.equals(usuarios.get(0))) { // ? admin ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
-												// ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧ ‧
+			if (user.equals(usuarios.get(0))) {
 				System.out.println("\nAcessando com usuário de administrador...");
 
 				do {
@@ -73,32 +73,8 @@ public class Main {
 						case 0:
 							h.clearScreen();
 							break;
-						case 1: // TODO: Venda de ingressos
-							// String nome = h.returnString(in, "Digite o nome do filme:");
-
-							// if (hList.searchFilmeName(cine, nome).size() == 1) {
-							// filme selecionado
-							// } else {
-							// int ano = h.returnInt(in, "Digite o ano do filme:");
-							// for (Filme f : hList.searchFilmeName(cine, nome)) {
-							// if (f.getAno() == ano) {
-							// filme selecionado
-							// }
-							// }
-							// filme não existe
-							// tentar novamente
-							// criar filme
-							// }
-
-							// Qual filme deseja ver?
-							// ? tipo 3d/legendado/dublado
-							// Qual horário?
-							// Mostra sala, qual assento? 1 ou mais
-							// mostra preço
-							// nome
-							// celular
-							// meia entrada - estudante, -12, +60
-
+						case 1: 
+							hi.vendaIngresso(in, cine);
 							break;
 
 						case 2: // Consultar filmes
@@ -220,13 +196,14 @@ public class Main {
 
 				} while (opcao != 0);
 
-			} else if (user.equals(usuarios.get(2))) { // ? rh
+			} else if (user.equals(usuarios.get(2))) {
 
 				System.out.println("Acessando com usuário de recursos humanos...");
 
 				do {
 					System.out.println("\nEscolhe uma das opções: ");
 					System.out.println("1 - Configurar preço dos ingressos");
+					System.out.println("2 - Ver ingressos vendidos");
 					System.out.println("Digite 0 para cancelar");
 					opcao = in.nextInt();
 					in.nextLine();

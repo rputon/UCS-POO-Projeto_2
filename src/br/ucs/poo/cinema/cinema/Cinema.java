@@ -14,7 +14,7 @@ public class Cinema {
 	private String endereco;
 
 	private List<Filme> filmes = new ArrayList<>();
-	private List<Filme> filmesCartaz = new ArrayList<>();
+	private List<Cartaz> filmesCartaz = new ArrayList<>();
 	private List<Ator> atores = new ArrayList<>();
 	private List<Diretor> diretores = new ArrayList<>();
 
@@ -57,6 +57,10 @@ public class Cinema {
 
 	public void setSala(Sala obj) {
 		this.salas.add(obj);
+	}
+
+	public void setSala(int sala, char f, int n){
+		this.salas.add(new Sala(sala,f,n));
 	}
 
 	public Sala getSala(int index) {
@@ -115,18 +119,18 @@ public class Cinema {
 		return filmesCartaz.get(index);
 	}
 
-	public List<Filme> getFilmeCartaz() {
+	public List<Cartaz> getFilmeCartaz() {
 		return filmesCartaz;
 	}
 
-	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
+	public void setFilmeCartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, Sala sala, Horario hora) {
 		if (filmes.size() <= 10) {
-			this.filmesCartaz.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
+			this.filmesCartaz.add(new Cartaz(nome, ano, timeMin, descricao, rating, genero, sala, hora));
 			Collections.sort(filmesCartaz, new SortFilme());
 		}
 	}
-
-	public void setFilmeCartaz(Filme f) {
+ 
+	public void setFilmeCartaz(Cartaz f) {
 		this.filmesCartaz.add(f);
 	}
 

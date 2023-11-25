@@ -1,21 +1,23 @@
 package br.ucs.poo.cinema.cinema;
 
 public class Assento {
-	private int fileira;
+	private char fileira;
 	private int numero;
-	private Sala salaNumber;
+	private int salaNumber;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Assento() {
-
+	public Assento(int sala, char f, int n ) {
+		setFileira(f);
+		setNumero(n);
+		setSalaNumber(sala);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
-	public int getFileira() {
+	public char getFileira() {
 		return fileira;
 	}
 
-	public void setFileira(int fileira) {
+	public void setFileira(char fileira) {
 		this.fileira = fileira;
 	}
 
@@ -27,14 +29,18 @@ public class Assento {
 		this.numero = numero;
 	}
 
-	public Sala getSalaNumber() {
+	public int getSalaNumber() {
 		return salaNumber;
 	}
 
-	public void setSalaNumber(Sala salaNumber) {
+	public void setSalaNumber(int salaNumber) {
 		this.salaNumber = salaNumber;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 
+	public String toString(){
+		return String.format("%s %d",Character.toString(fileira), numero);
+ 
+	}
 }

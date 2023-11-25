@@ -7,36 +7,58 @@ import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.cinema.Sala;
 
 public class HelpSala {
+    private String erro = "Valor informado é inválido";
+
+
     public Sala testSala(Scanner in, Cinema cine) {
-        List<Sala> salas = cine.getSalas();
-        Sala sala = new Sala("");
+        Sala sala = new Sala(0,'0',0);
         int value = -1;
         Boolean test = false;
 
         do {
-            System.out.println("Escolha o gênero:");
+            System.out.println("Escolha a sala:");
 
-            for (int i = 0; i < generos.size(); i++) {
-                System.out.println(String.format("%d - %s", i + 1, generos.get(i).getNome()));
-            }
-            System.out.println("0 - Criar gênero");
-            value = h.returnInt(in, "", 0, generos.size());
+            
+        } while (test == false);
+        return sala;
+    }
 
-            if (value == 0) {
-                String nome = h.returnString(in, "Digite o gênero:");
-                genero.setNome(nome);
-                cine.setGenero(nome);
-                hFile.saveGenero(cine);
+    public void addSala(Scanner in, Cinema cine, int sala){
+        char fileira = 0;
+        int numero = 0;
+        boolean test = false;
 
-                test = true;
-                return genero;
-            } else if (value >= 1 && value - 1 < generos.size()) {
-                test = true;
-                return generos.get(value - 1);
-            } else {
-                System.out.println(erro);
+        do {
+            try {
+                System.out.println("Digite o valor da última fileira:");
+                fileira = Character.toUpperCase(in.next().charAt(0));
+                in.nextLine();
+
+                if (fileira >= 65 || fileira <= 90) {
+                    test = true;
+                    break;
+                } 
+            } catch (Exception e) {
+                System.out.println(erro + " Digite uma letra válida");
+                in.next();
             }
         } while (test == false);
-        return genero;
+
+        test = false;
+        do{
+            try {
+                System.out.println("Digite o valor da última coluna:");
+                numero = in.nextInt();
+                in.nextLine();
+
+                test = true;
+                break;
+            } catch (Exception e) {
+                System.out.println(erro);
+                in.next();
+            }
+        }while(test == false);
+
+        cine.setSala(sala, fileira, numero);
     }
 }

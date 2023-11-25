@@ -2,17 +2,24 @@ package br.ucs.poo.cinema.cinema;
 
 import java.util.Date;
 
+import br.ucs.poo.cinema.filme.Filme;
+
 import java.io.Serializable;
 
 public class Ingresso implements Serializable {
 	private String nome;
-	private Date data;
 	private int celular;
+	
 	private double preco;
 	private boolean meiaEntrada;
-	private Assento assento;
+
+	private Filme filme;
+	
+	private Date data;
 	private Horario reserva;
-	// private Filme filme;
+	private Assento assento;
+	
+	
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Ingresso() {

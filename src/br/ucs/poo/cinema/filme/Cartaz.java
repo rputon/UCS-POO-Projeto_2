@@ -1,11 +1,14 @@
 package br.ucs.poo.cinema.filme;
 
+import java.util.Date;
+
 import br.ucs.poo.cinema.cinema.Horario;
 import br.ucs.poo.cinema.cinema.Sala;
 
 public class Cartaz extends Filme {
 	private Horario hora;
 	private Sala sala;
+	private Date time;
 	// TODO: Se tiver em cartaz, tem tempo para "expirar"
 
 	public Cartaz(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, Sala sala,
