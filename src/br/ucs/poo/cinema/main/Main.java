@@ -11,37 +11,42 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Help h = new Help();
-		HelpList hList = new HelpList();
-		HelpFile hFile = new HelpFile();
+		HelpAtor ha = new HelpAtor();
+		HelpCartaz hc = new HelpCartaz();
+		HelpFilme hf = new HelpFilme();
+		HelpGenero hg = new HelpGenero();
+		HelpHorario hh = new HelpHorario();
+		HelpRating hr = new HelpRating();
+		HelpSala hs = new HelpSala();
 
 		Cinema cine = new Cinema();
 
-		if (!hFile.validFile("ratings")) {
+		if (!h.validFile("ratings")) {
 			cine.setRatingNome(Arrays.asList("Livre", "10", "12", "14", "16", "18"));
-			hFile.writeFileRating("ratings", cine.getRating());
+			hr.writeFileRating("ratings", cine.getRating());
 		} else {
-			cine.setRatingList(hFile.readFileRating("ratings"));
+			cine.setRatingList(hr.readFileRating("ratings"));
 		}
 
-		if (!hFile.validFile("generos")) {
+		if (!h.validFile("generos")) {
 			cine.setGeneroNome(
 					Arrays.asList("Ação", "Aventura", "Comédia", "Comédia dramática", "Comédia romântica", "Dança",
 							"Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Fantasia Científica",
 							"Ficção Científica", "Filmes de Guerra", "Mistério", "Musical", "Filme Policial", "Romance",
 							"Terror", "Thriller"));
-			hFile.writeFileGenero("generos", cine.getGenero());
+			hg.writeFileGenero("generos", cine.getGenero());
 		} else {
-			cine.setGeneroList(hFile.readFileGenero("generos"));
+			cine.setGeneroList(hg.readFileGenero("generos"));
 		}
 
-		if (hFile.validFile("filmes")) {
-			cine.setFilme(hFile.readFileFilme("filmes"));
+		if (h.validFile("filmes")) {
+			cine.setFilme(hf.readFileFilme("filmes"));
 		}
 
-		if (hFile.validFile("salas")){
+		if (h.validFile("salas")){
 			//TODO: valida salas
 		}
-		if (hFile.validFile("assentos")){
+		if (h.validFile("assentos")){
 			//TODO: valida assentos
 		}
 
@@ -49,7 +54,7 @@ public class Main {
 
 		do {// ? While !esc -- sair do prompt
 			List<String> usuarios = Arrays.asList("admin", "selfService", "rh");
-			user = hList.testUser(in, "Digite o usuário: ", usuarios);
+			user = h.testUser(in, "Digite o usuário: ", usuarios);
 
 			int opcao;
 
@@ -97,7 +102,7 @@ public class Main {
 							break;
 
 						case 2: // Consultar filmes
-							System.out.println(hList.tableFilme(cine));
+							System.out.println(hf.tableFilme(cine));
 
 							int opt = h.returnInt(in,
 									"1 - Adicionar um filme \n2 - Editar um filme \n3 - Remover um filme \n0 - Cancelar",
@@ -109,12 +114,12 @@ public class Main {
 									break;
 
 								case 1: // Adicionar filme
-									hList.addFilme(in, cine);
+									hf.addFilme(in, cine);
 								
 									char sn;
 									sn = h.returnChar(in, "Este filme está em cartaz?");
 									if (sn == 'S') {
-										hList.addFilmeCartaz(in,true);
+										hc.addFilmeCartaz(in,true);
 									}
 
 									// TODO: Ao add, adicionar ou não ao cartaz + tempo
@@ -122,12 +127,12 @@ public class Main {
 									break;
 
 								case 2: // Editar filme
-									hList.editFilme(in, cine);
+									hf.editFilme(in, cine);
 
 									break;
 
 								case 3: // Remover filme
-									hList.removeFilme(cine, in);
+									hf.removeFilme(cine, in);
 									break;
 
 								default:
@@ -163,8 +168,8 @@ public class Main {
 									timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
 									descricao = h.returnString(in, "Digite a descrição do filme:");
 
-									cine.setFilmeCartaz(nome, ano, timeMin, descricao, hList.testRating(in, cine),
-											hList.testGenero(in, cine));
+									cine.setFilmeCartaz(nome, ano, timeMin, descricao, hr.testRating(in, cine),
+											hg.testGenero(in, cine));
 									System.out.println("Filme cadastrado");
 									break;
 

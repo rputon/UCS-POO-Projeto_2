@@ -3,23 +3,23 @@ package br.ucs.poo.cinema.filme;
 import java.io.Serializable;
 import java.util.List;
 
-import br.ucs.poo.cinema.cinema.Horario;
 import br.ucs.poo.cinema.pessoas.Ator;
 import br.ucs.poo.cinema.pessoas.Diretor;
 
 public class Filme implements Serializable{
-	private int cod;
-	private String nome;
-	private int ano;
-	private int timeMin;
-	private String descricao;
-	private Rating rating;
-	private Horario hora;
-	private Genero genero;
-	//TODO: Se tiver em cartaz, tem tempo para "expirar"
+	//private int cod;
 
-	private List<Ator> atores;
-	private Diretor dire;
+	protected String nome;
+	protected int ano;
+	protected int timeMin;
+	protected String descricao;
+	protected Rating rating;
+	protected Genero genero;
+	
+	protected List<Ator> atores;
+	protected Diretor dire;
+
+	
 	
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
@@ -65,14 +65,6 @@ public class Filme implements Serializable{
 	}
 	
 	/*---- Listas -------------------------------------------------------------------------------------- */
-	public Horario getHora() {
-		return hora;
-	}
-	
-	public void setHora(Horario hora) {
-		this.hora = hora;
-	}
-
 	public String getRating() {
 		return rating.getIdade();
 	}

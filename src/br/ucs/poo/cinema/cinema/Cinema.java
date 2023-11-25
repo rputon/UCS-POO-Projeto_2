@@ -12,13 +12,17 @@ import java.util.Collections;
 public class Cinema {
 	private String nome;
 	private String endereco;
-	private List<Sala> salas = new ArrayList<>();
-	private List<Horario> horarios = new ArrayList<>();
+
 	private List<Filme> filmes = new ArrayList<>();
 	private List<Filme> filmesCartaz = new ArrayList<>();
-	private List<Ingresso> ingressos = new ArrayList<>();
 	private List<Ator> atores = new ArrayList<>();
 	private List<Diretor> diretores = new ArrayList<>();
+
+	private List<Ingresso> ingressos = new ArrayList<>();
+	private List<Sala> salas = new ArrayList<>();
+	private List<Horario> horarios = new ArrayList<>();
+	
+
 	private List<Genero> generos = new ArrayList<>();
 	private List<Rating> ratings = new ArrayList<>();
 
@@ -99,6 +103,10 @@ public class Cinema {
 		this.filmes.add(filme);
 	}
 
+	public void setFilme(Filme filme, Sala sala, Horario hora) {
+		this.filmes.add(filme);
+	}
+
 	public void removeFilme(int index) {
 		this.filmes.remove(index);
 	}
@@ -117,6 +125,10 @@ public class Cinema {
 			this.filmesCartaz.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
 			Collections.sort(filmesCartaz, new SortFilme());
 		}
+	}
+
+	public void setFilmeCartaz(Filme f){
+		this.filmesCartaz.add(f);
 	}
 
 	public Filme removeFilmeCartaz(int index) {
@@ -144,6 +156,9 @@ public class Cinema {
 	}
 
 	// Diretores -----------------------------------------------------
+	public List<Diretor> getDiretores(){
+		return this.diretores;
+	}
 
 	// Generos -------------------------------------------------------
 	public List<Genero> getGenero() {

@@ -23,6 +23,10 @@ public class Sala implements Serializable{
 		this.numero = numero;
 	}
 
+	public List<Assento> getAssentos(){
+		return assentos;
+	}
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	
 	

@@ -1,7 +1,9 @@
 package br.ucs.poo.cinema.main;
 
+import java.util.List;
 import java.util.Scanner;
-
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -120,9 +122,37 @@ public class Help {
     }
 
     public String dateFormat(LocalDate date) {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LL/yyyy");
         String formattedString = date.format(formatter);
 
         return formattedString;
+    }
+
+    public boolean validFile(String file) {
+        File myFile = new File(String.format("files\\%s.dat", file));
+        try {
+            if (myFile.createNewFile()) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao validar o arquivo.");
+        }
+        return true;
+    }
+
+    public String testUser(Scanner in, String print, List<String> users) {
+        String user = "";
+
+        do {
+            user = returnString(in, print);
+            if (!users.contains(user)) {
+                System.out.println("Usuário não encontrado.\n");
+            }
+        } while (!users.contains(user));
+
+        return user;
     }
 }
