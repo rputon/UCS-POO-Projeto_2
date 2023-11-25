@@ -43,11 +43,11 @@ public class Main {
 			cine.setFilme(hf.readFileFilme("filmes"));
 		}
 
-		if (h.validFile("salas")){
-			//TODO: valida salas
+		if (h.validFile("salas")) {
+			// TODO: valida salas
 		}
-		if (h.validFile("assentos")){
-			//TODO: valida assentos
+		if (h.validFile("assentos")) {
+			// TODO: valida assentos
 		}
 
 		String user = "";
@@ -74,21 +74,21 @@ public class Main {
 							h.clearScreen();
 							break;
 						case 1: // TODO: Venda de ingressos
-							//String nome = h.returnString(in, "Digite o nome do filme:");
+							// String nome = h.returnString(in, "Digite o nome do filme:");
 
-							//if (hList.searchFilmeName(cine, nome).size() == 1) {
-								// filme selecionado
-						//	} else {
-						//		int ano = h.returnInt(in, "Digite o ano do filme:");
-						//		for (Filme f : hList.searchFilmeName(cine, nome)) {
-						//			if (f.getAno() == ano) {
-										// filme selecionado
-									//}
-								//}
-								// filme não existe
-								// tentar novamente
-								// criar filme
-							//}
+							// if (hList.searchFilmeName(cine, nome).size() == 1) {
+							// filme selecionado
+							// } else {
+							// int ano = h.returnInt(in, "Digite o ano do filme:");
+							// for (Filme f : hList.searchFilmeName(cine, nome)) {
+							// if (f.getAno() == ano) {
+							// filme selecionado
+							// }
+							// }
+							// filme não existe
+							// tentar novamente
+							// criar filme
+							// }
 
 							// Qual filme deseja ver?
 							// ? tipo 3d/legendado/dublado
@@ -115,11 +115,11 @@ public class Main {
 
 								case 1: // Adicionar filme
 									hf.addFilme(in, cine);
-								
+
 									char sn;
 									sn = h.returnChar(in, "Este filme está em cartaz?");
 									if (sn == 'S') {
-										hc.addFilmeCartaz(in,true);
+										hc.addFilmeCartaz(in, true);
 									}
 
 									// TODO: Ao add, adicionar ou não ao cartaz + tempo
@@ -253,7 +253,8 @@ public class Main {
 				} while (opcao != 0);
 			}
 			user = "";
-			// TODO: Criar lista, add .dat e testar se a lista do cinema está diferente, e salvar alterações 
+			// TODO: Criar lista, add .dat e testar se a lista do cinema está diferente, e
+			// salvar alterações
 		} while (!user.equals("Esc"));
 		in.close();
 	}

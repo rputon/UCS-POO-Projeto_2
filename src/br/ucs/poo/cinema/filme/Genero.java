@@ -2,9 +2,9 @@ package br.ucs.poo.cinema.filme;
 
 import java.io.Serializable;
 
-public class Genero implements Serializable{
+public class Genero implements Serializable {
 	private String nome;
-	
+
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Genero(String genero) {
 		setNome(genero);
@@ -18,9 +18,9 @@ public class Genero implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	public String toString(){
+	public String toString() {
 		return this.nome;
 	}
 }

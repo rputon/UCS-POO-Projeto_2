@@ -4,11 +4,12 @@ public class Assento {
 	private int fileira;
 	private int numero;
 	private Sala salaNumber;
-	
+
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Assento(){
-		
-	} 
+	public Assento() {
+
+	}
+
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
 	public int getFileira() {
 		return fileira;
@@ -25,16 +26,15 @@ public class Assento {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
+
 	public Sala getSalaNumber() {
 		return salaNumber;
 	}
-	
+
 	public void setSalaNumber(Sala salaNumber) {
 		this.salaNumber = salaNumber;
 	}
-	
-	
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	
+
 }

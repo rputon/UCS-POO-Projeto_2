@@ -54,6 +54,7 @@ public class HelpRating {
             System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
         }
     }
+
     public Rating testRating(Scanner in, Cinema cine) {
         List<Rating> ratings = cine.getRating();
         Rating rating = new Rating("");
@@ -79,5 +80,5 @@ public class HelpRating {
         } while (test == false);
         return rating;
     }
-    
+
 }

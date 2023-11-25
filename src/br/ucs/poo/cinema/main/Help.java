@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Help {
     private String erro = "Valor informado é inválido";
-    // HelpFile hFile = new HelpFile();
-    // HelpList hList = new HelpList();
 
     public void clearScreen() {
         System.out.print("\033[H\033[2J");

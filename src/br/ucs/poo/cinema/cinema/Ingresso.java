@@ -1,9 +1,10 @@
 package br.ucs.poo.cinema.cinema;
+
 import java.util.Date;
 
 import java.io.Serializable;
 
-public class Ingresso implements Serializable{
+public class Ingresso implements Serializable {
 	private String nome;
 	private Date data;
 	private int celular;
@@ -11,11 +12,11 @@ public class Ingresso implements Serializable{
 	private boolean meiaEntrada;
 	private Assento assento;
 	private Horario reserva;
-	//private Filme filme;
-	
+	// private Filme filme;
+
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Ingresso() {
-		
+
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -75,18 +76,16 @@ public class Ingresso implements Serializable{
 		this.reserva = reserva;
 	}
 
-	/*public Filme getFilme() {
-		return filme;
-	}
+	/*
+	 * public Filme getFilme() {
+	 * return filme;
+	 * }
+	 * 
+	 * public void setFilme(Filme filme) {
+	 * this.filme = filme;
+	 * }
+	 */
 
-	public void setFilme(Filme filme) {
-		this.filme = filme;
-	}*/
-	
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	
-	
-	
-	
-	
+
 }

@@ -4,14 +4,14 @@ public class Pessoa {
 	protected String nome;
 	protected int idade;
 	protected String casado;
-	
+
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Pessoa() {
-		
+
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -27,8 +27,7 @@ public class Pessoa {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	
-	
+
 }

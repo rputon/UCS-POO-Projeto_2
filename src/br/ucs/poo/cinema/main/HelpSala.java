@@ -20,14 +20,14 @@ public class HelpSala {
                 System.out.println(String.format("%d - %s", i + 1, generos.get(i).getNome()));
             }
             System.out.println("0 - Criar gênero");
-            value = h.returnInt(in, "",0,generos.size());
+            value = h.returnInt(in, "", 0, generos.size());
 
             if (value == 0) {
                 String nome = h.returnString(in, "Digite o gênero:");
                 genero.setNome(nome);
                 cine.setGenero(nome);
                 hFile.saveGenero(cine);
-                
+
                 test = true;
                 return genero;
             } else if (value >= 1 && value - 1 < generos.size()) {

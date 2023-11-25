@@ -63,7 +63,7 @@ public class HelpFilme {
         }
     }
 
-    public void saveFilme(Cinema cine){
+    public void saveFilme(Cinema cine) {
         writeFileFilme("filmes", cine.getFilmes());
     }
 
@@ -204,7 +204,7 @@ public class HelpFilme {
         int ano, timeMin;
 
         nome = h.returnString(in, "Digite o nome do filme:");
-        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890,2030);
+        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890, 2030);
 
         List<Filme> test = testFilmebyYear(cine, nome, ano);
         if (test.size() > 0) {
@@ -227,7 +227,7 @@ public class HelpFilme {
                     break;
             }
         } else {
-            timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ",0,5220);
+            timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ", 0, 5220);
             descricao = h.returnString(in, "Digite a descrição do filme:");
             Rating rating = hr.testRating(in, cine);
             Genero genero = hg.testGenero(in, cine);
@@ -240,7 +240,7 @@ public class HelpFilme {
     public Filme editFilmeConfig(Scanner in, Filme f, Cinema cine) {
         boolean test = false;
 
-        do{
+        do {
             int edt = h.returnInt(in, "Escolha o que deseja alterar:\n" + f.toString(3), 0, 6);
             char sn = 'N';
             String nome, desc;
@@ -254,42 +254,42 @@ public class HelpFilme {
                 case 1:
                     do {
                         nome = h.returnString(in, "Digite o nome do filme:");
-                        sn = h.returnChar(in, "\n"+ nome + "\nDeseja manter esse nome? S - sim, N - não");
+                        sn = h.returnChar(in, "\n" + nome + "\nDeseja manter esse nome? S - sim, N - não");
                     } while (sn == 'N');
                     f.setNome(nome);
                     break;
                 case 2:
                     do {
-                        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890,2030);
-                        sn = h.returnChar(in, "\n"+ ano + "\nDeseja manter esse ano? S - sim, N - não");
+                        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890, 2030);
+                        sn = h.returnChar(in, "\n" + ano + "\nDeseja manter esse ano? S - sim, N - não");
                     } while (sn == 'N');
                     f.setAno(ano);
                     break;
                 case 3:
                     do {
-                        timeMin = h.returnInt(in, "Digite a duração do filme:",0,5220);
-                        sn = h.returnChar(in, "\n"+ timeMin + "\nDeseja manter essa duração? S - sim, N - não");
+                        timeMin = h.returnInt(in, "Digite a duração do filme:", 0, 5220);
+                        sn = h.returnChar(in, "\n" + timeMin + "\nDeseja manter essa duração? S - sim, N - não");
                     } while (sn == 'N');
                     f.setTimeMin(timeMin);
                     break;
                 case 4:
                     do {
                         desc = h.returnString(in, "Digite a descrição do filme:");
-                        sn = h.returnChar(in, "\n"+ desc + "\nDeseja manter essa descrição? S - sim, N - não");
+                        sn = h.returnChar(in, "\n" + desc + "\nDeseja manter essa descrição? S - sim, N - não");
                     } while (sn == 'N');
                     f.setDescricao(desc);
                     break;
                 case 5:
                     do {
                         rating = hr.testRating(in, cine);
-                        sn = h.returnChar(in, "\n"+ rating + "\nDeseja manter essa classificação? S - sim, N - não");
+                        sn = h.returnChar(in, "\n" + rating + "\nDeseja manter essa classificação? S - sim, N - não");
                     } while (sn == 'N');
                     f.setRating(rating);
                     break;
                 case 6:
                     do {
                         genero = hg.testGenero(in, cine);
-                        sn = h.returnChar(in, "\n"+ genero + "\nDeseja manter esse gênero? S - sim, N - não");
+                        sn = h.returnChar(in, "\n" + genero + "\nDeseja manter esse gênero? S - sim, N - não");
                     } while (sn == 'N');
                     f.setGenero(genero);
                     break;
@@ -297,7 +297,7 @@ public class HelpFilme {
                     System.out.println("Opção não existe");
                     break;
             }
-        }while (test == false);
+        } while (test == false);
         return f;
     }
 
@@ -306,10 +306,10 @@ public class HelpFilme {
         int opt = -1;
         Filme f = new Filme("", 0, 0, "", new Rating("10"), new Genero("1"));
 
-        do{
+        do {
             String nome = h.returnString(in, "Digite o nome do filme:");
-            Map<Integer,Filme> map = searchFilmeName(cine, nome);
-            
+            Map<Integer, Filme> map = searchFilmeName(cine, nome);
+
             if (map.size() > 1) {
                 for (Map.Entry<Integer, Filme> l : map.entrySet()) {
                     System.out.println(
@@ -326,13 +326,13 @@ public class HelpFilme {
                 return cine.getFilme(opt);
             } else {
                 System.out.println("Filme não encontrado.");
-                opt = h.returnInt(in, "1 - Editar outro filme\nDigite 0 para cancelar",0,1);
+                opt = h.returnInt(in, "1 - Editar outro filme\nDigite 0 para cancelar", 0, 1);
                 if (opt == 0) {
                     test = true;
                     break;
                 }
             }
-        }while(test == false);
+        } while (test == false);
         return f;
     }
 
@@ -358,7 +358,7 @@ public class HelpFilme {
                 test = true;
             } else {
                 System.out.println("Filme não encontrado.");
-                int opt = h.returnInt(in, "1 - Remover outro filme\nDigite 0 para cancelar",0,1);
+                int opt = h.returnInt(in, "1 - Remover outro filme\nDigite 0 para cancelar", 0, 1);
                 if (opt == 0) {
                     test = true;
                 }
@@ -375,14 +375,16 @@ public class HelpFilme {
 
             if (opt == 1) {
                 return opt;
-                /*String n = "";
-                do {
-                    n = h.returnString(in, "Digite o nome dos atores: \nDigite 0 para cancelar");
-                    if (!n.equals("0")) {
-                        // TODO: ADD Atores
-                    }
-                    //TODO: ADD diretores
-                } while (!n.equals("0"));*/
+                /*
+                 * String n = "";
+                 * do {
+                 * n = h.returnString(in, "Digite o nome dos atores: \nDigite 0 para cancelar");
+                 * if (!n.equals("0")) {
+                 * // TODO: ADD Atores
+                 * }
+                 * //TODO: ADD diretores
+                 * } while (!n.equals("0"));
+                 */
             } else if (opt == 2) {
                 f = editFilmeConfig(in, f, cine);
             } else if (opt == 3) {

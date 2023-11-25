@@ -21,7 +21,6 @@ public class Cinema {
 	private List<Ingresso> ingressos = new ArrayList<>();
 	private List<Sala> salas = new ArrayList<>();
 	private List<Horario> horarios = new ArrayList<>();
-	
 
 	private List<Genero> generos = new ArrayList<>();
 	private List<Rating> ratings = new ArrayList<>();
@@ -127,7 +126,7 @@ public class Cinema {
 		}
 	}
 
-	public void setFilmeCartaz(Filme f){
+	public void setFilmeCartaz(Filme f) {
 		this.filmesCartaz.add(f);
 	}
 
@@ -151,12 +150,12 @@ public class Cinema {
 	}
 
 	// Atores ----------------------------------------------------------
-	public List<Ator> getAtores(){
+	public List<Ator> getAtores() {
 		return this.atores;
 	}
 
 	// Diretores -----------------------------------------------------
-	public List<Diretor> getDiretores(){
+	public List<Diretor> getDiretores() {
 		return this.diretores;
 	}
 
@@ -177,11 +176,11 @@ public class Cinema {
 		}
 	}
 
-	public void setGenero(String genero){
+	public void setGenero(String genero) {
 		this.generos.add(new Genero(genero));
 	}
 
-	public void removeGenero(int index){
+	public void removeGenero(int index) {
 		this.generos.remove(index);
 	}
 
@@ -203,6 +202,5 @@ public class Cinema {
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
-
 
 }

@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sala implements Serializable{
+public class Sala implements Serializable {
 	private int numero;
 	private List<Assento> assentos = new ArrayList<>();
-	
+
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Sala() {
-		
+
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
-	
+
 	public int getNumero() {
 		return numero;
 	}
@@ -23,11 +23,10 @@ public class Sala implements Serializable{
 		this.numero = numero;
 	}
 
-	public List<Assento> getAssentos(){
+	public List<Assento> getAssentos() {
 		return assentos;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
-	
-	
+
 }

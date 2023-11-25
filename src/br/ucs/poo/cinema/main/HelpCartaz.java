@@ -23,7 +23,7 @@ public class HelpCartaz {
 
     public void addFilmeCartaz(Scanner in, Boolean fExiste, Cinema cine) {
         boolean test = false;
-        do{
+        do {
             String nome = h.returnString(in, "Digite o nome do filme:");
             Map<Integer, Filme> map = hf.searchFilmeName(cine, nome);
 
@@ -41,29 +41,27 @@ public class HelpCartaz {
                 }
                 test = true;
             } else {
-                int ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890,2030);
-                int timeMin = h.returnInt(in, "Digite a duração do filme:",0,5220);
+                int ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890, 2030);
+                int timeMin = h.returnInt(in, "Digite a duração do filme:", 0, 5220);
                 String descricao = h.returnString(in, "Digite a descrição do filme:");
                 Rating rating = hr.testRating(in, cine);
                 Genero genero = hg.testGenero(in, cine);
 
-                //TODO:Confirma dados do filme
-                
+                // TODO:Confirma dados do filme
 
                 LocalDate dInicio = h.returnDate(in, "Digite o dia de estreia do filme:");
                 LocalDate dFim = h.returnDate(in, "Digite o dia que este filme irá sair de cartaz:");
 
                 Sala sala = hs.testSala(in, cine);
-                Horario hora = hh.testHorario(in,cine);
-                
+                Horario hora = hh.testHorario(in, cine);
+
                 Filme f = new Cartaz(nome, ano, timeMin, descricao, rating, genero, sala, hora);
                 cine.setFilme(f, sala, hora);
             }
-        }while(test == false);
+        } while (test == false);
     }
 
-    public void addFilmeCartaz(Scanner in, Filme f, Cinema cine){
-        
+    public void addFilmeCartaz(Scanner in, Filme f, Cinema cine) {
 
         // System.out.println(cine.getS);
         // Em quais salas ele será aprensentado?
@@ -76,6 +74,5 @@ public class HelpCartaz {
         // Confirmar informações
         // salvar na lista + arquivo
     }
-
 
 }
