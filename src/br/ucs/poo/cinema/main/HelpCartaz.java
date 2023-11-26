@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -61,7 +63,10 @@ public class HelpCartaz {
         } while (test == false);
     }
 
-    public void addFilmeCartaz(Scanner in, Filme f, Cinema cine) {
+    public void addFilmeCartaz(Scanner in, Cinema cine) {
+        String nome = h.returnString(in, "Digite o nome do filme:");
+
+        hf.searchFilmeName(cine, nome);
 
         // System.out.println(cine.getS);
         // Em quais salas ele será aprensentado?
@@ -75,4 +80,34 @@ public class HelpCartaz {
         // salvar na lista + arquivo
     }
 
+    public Cartaz searchFilme(Scanner in, Cinema cine){
+        String nome = h.returnString(in, "Digite o nome do filme:");
+
+        List<Cartaz> filmes = new ArrayList<Cartaz>();
+
+        for(int index=0; index<cine.getFilmeCartaz().size();index++){
+            if(cine.getFilmeCartaz(index).getNome().equals(nome)){
+                filmes.add(cine.getFilmeCartaz(index));
+            }
+        }
+        if(filmes.size()== 1){
+            return filmes.get(0);
+        }
+        else{
+            System.out.println("Escolha o filme:");
+            for(int index = 0; index<filmes.size();index++){
+                System.out.println(String.format("%d - %s, %d", index+1, filmes.get(index).getNome(), filmes.get(index).getAno()));
+            }
+            System.out.println("Digite 0 para cancelar");
+            int option = h.returnInt(in, "", 0, filmes.size());
+
+            if(option==0){
+                return null;
+            }
+            else{
+                return filmes.get(option-1);
+            }
+        }
+    }
+    // TODO:search filme
 }

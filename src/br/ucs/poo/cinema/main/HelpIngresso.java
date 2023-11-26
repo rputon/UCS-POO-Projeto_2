@@ -1,29 +1,37 @@
 package br.ucs.poo.cinema.main;
 
+import java.util.List;
 import java.util.Scanner;
 import br.ucs.poo.cinema.cinema.Cinema;
+import br.ucs.poo.cinema.filme.Cartaz;
 
 public class HelpIngresso {
     Help h = new Help();
     HelpCartaz hc = new HelpCartaz();
     
-
     public void vendaIngresso(Scanner in, Cinema cine) {
-        String nome = h.returnString(in, "Digite o nome do filme:");
+        System.out.println("Escolha o filme:");
+        for(int index = 0; index<cine.getFilmeCartaz().size();index++){
+            System.out.println(String.format("%d - %s, %d", index+1, cine.getFilmeCartaz(index).getNome(), cine.getFilmeCartaz(index).getAno()));
+        }
+        System.out.println("Digite 0 para cancelar");
+        int option = h.returnInt(in, "", 0, cine.getFilmeCartaz().size());
 
-        if (hList.searchFilmeName(cine, nome).size() == 1) {
-            // filme selecionado
-        } else {
-            int ano = h.returnInt(in, "Digite o ano do filme:");
-            for (Filme f : hList.searchFilmeName(cine, nome)) {
-                if (f.getAno() == ano) {
-                    // filme selecionado
-                }
-            }
+        Cartaz filme;
+        if(option==0){
+            filme = null;
+        }
+        else{
+            filme = cine.getFilmeCartaz(option-1);
+        }
+
+        if(filme != null){
+            
+        }
             // filme não existe
             // tentar novamente
             // criar filme
-        }
+        
 
         // Qual filme deseja ver?
         // ? tipo 3d/legendado/dublado

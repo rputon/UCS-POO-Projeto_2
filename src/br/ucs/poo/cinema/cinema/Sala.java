@@ -9,6 +9,7 @@ import java.util.TreeMap;
 public class Sala implements Serializable, Comparable<Sala>{
 	private Integer numero;
 	private Map<String,Assento> assentos = new TreeMap<String, Assento>();
+	private int vagos;
 	private List<Horario> reservas = new ArrayList<Horario>();
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
@@ -63,6 +64,17 @@ public class Sala implements Serializable, Comparable<Sala>{
 		//}
 
 		return s;
+	}
+
+	public int cadeirasVagas(){
+		this.vagos = assentos.size();
+		List<Assento> list = new ArrayList<Assento>(assentos.values());
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getReserva()){
+				this.vagos -= 1;
+			}
+		}
+		return this.vagos;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */

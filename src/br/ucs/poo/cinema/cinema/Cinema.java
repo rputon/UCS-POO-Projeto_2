@@ -115,7 +115,7 @@ public class Cinema {
 	}
 
 	// Filme Cartaz --------------------------------------------------
-	public Filme getFilmeCartaz(int index) {
+	public Cartaz getFilmeCartaz(int index) {
 		return filmesCartaz.get(index);
 	}
 

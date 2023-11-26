@@ -18,4 +18,6 @@ public class HelpHorario {
         LocalTime lt = h.returnTime(in, "Digite a hora da sessão:", timeMin);
         System.out.println(lt);
     }
+
+    
 }
