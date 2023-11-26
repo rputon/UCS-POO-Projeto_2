@@ -1,6 +1,7 @@
 package br.ucs.poo.cinema.filme;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ucs.poo.cinema.pessoas.Ator;
@@ -16,7 +17,7 @@ public class Filme implements Serializable {
 	protected Rating rating;
 	protected Genero genero;
 
-	protected List<Ator> atores;
+	protected List<Ator> atores = new ArrayList<Ator>();
 	protected Diretor dire;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
@@ -27,6 +28,17 @@ public class Filme implements Serializable {
 		setDescricao(descricao);
 		setRating(rating);
 		setGenero(genero);
+	}
+
+	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores, Diretor dire) {
+		setNome(nome);
+		setAno(ano);
+		setTimeMin(timeMin);
+		setDescricao(descricao);
+		setRating(rating);
+		setGenero(genero);
+		setAtores(atores);
+		setDiretor(dire);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -75,6 +87,18 @@ public class Filme implements Serializable {
 		this.genero = genero;
 	}
 
+	public Genero getGenero() {
+		return this.genero;
+	}
+
+	public void setAtores(List<Ator> atores){
+		this.atores = atores;
+	}
+
+	public void setDiretor(Diretor dire){
+		this.dire = dire;
+	}
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(int index) {
 		if (index == 1) {
@@ -88,8 +112,13 @@ public class Filme implements Serializable {
 		return String.format("%s\n%d ‧ %s ‧ %dmin", nome, ano, genero.getNome(), timeMin);
 	}
 
+	public String checkDados(){
+		return String.format("%s \n%d \n%d \n%s \n%s \n%s \nDigite 0 para cancelar", nome,
+					ano, timeMin, descricao, rating, genero);
+	}
+
 	public String toString() {
-		return String.format("%s\n%d ‧ %s ‧ %dmin", nome, ano, genero.getNome(), timeMin);
+		return String.format("%s, %d\n%s", nome, ano, descricao);
 	}
 
 	@Override

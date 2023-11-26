@@ -17,6 +17,7 @@ public class Cinema {
 	private List<Cartaz> filmesCartaz = new ArrayList<Cartaz>();
 	private List<Ator> atores = new ArrayList<Ator>();
 	private List<Diretor> diretores = new ArrayList<Diretor>();
+	private List<String> pais = new ArrayList<String>();
 
 	private List<Ingresso> ingressos = new ArrayList<Ingresso>();
 	private List<Sala> salas = new ArrayList<Sala>();
@@ -97,6 +98,10 @@ public class Cinema {
 		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
 		Collections.sort(filmes, new SortFilme());
 	}
+	public void setFilme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores, Diretor dire) {
+		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero,atores,dire));
+		Collections.sort(filmes, new SortFilme());
+	}
 
 	public void setFilme(List<Filme> filmes) {
 		this.filmes = filmes;
@@ -156,10 +161,29 @@ public class Cinema {
 		return this.atores;
 	}
 
+	public void setAtor(String nome, String pais){
+		this.atores.add(new Ator(nome, pais));
+	}
+
 	// Diretores -----------------------------------------------------
 	public List<Diretor> getDiretores() {
 		return this.diretores;
 	}
+
+	public void setDiretor(String nome, String pais){
+		this.diretores.add(new Diretor(nome, pais));
+	}
+
+	// Pais ---------------------------------------------------------
+	public List<String> getPais() {
+		return this.pais;
+	}
+
+	public void setPais(String pais){
+		this.pais.add(pais);
+	}
+
+
 
 	// Generos -------------------------------------------------------
 	public List<Genero> getGenero() {
@@ -202,6 +226,8 @@ public class Cinema {
 			this.ratings.add(new Rating(i.getIdade()));
 		}
 	}
+
+
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 

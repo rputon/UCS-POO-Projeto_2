@@ -26,7 +26,7 @@ public class HelpIngresso {
         }
 
         if(filme != null){
-            
+            System.out.println();
         }
             // filme não existe
             // tentar novamente

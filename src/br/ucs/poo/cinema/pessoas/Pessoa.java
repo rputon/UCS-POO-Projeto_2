@@ -2,12 +2,13 @@ package br.ucs.poo.cinema.pessoas;
 
 public class Pessoa {
 	protected String nome;
-	protected int idade;
-	protected String casado;
+	protected String paisOrigem;
+	protected Pessoa casado;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Pessoa() {
-
+	public Pessoa(String nome, String paisOrigem) {
+		setNome(nome);
+		setPaisOrigem(paisOrigem);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -20,12 +21,12 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public int getIdade() {
-		return idade;
+	public String getPaisOrigem(){
+		return paisOrigem;
 	}
 
-	public void setIdade(int idade) {
-		this.idade = idade;
+	public void setPaisOrigem(String pais){
+		this.paisOrigem = pais;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */

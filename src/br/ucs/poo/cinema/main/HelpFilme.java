@@ -7,68 +7,202 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.filme.Filme;
 import br.ucs.poo.cinema.filme.Genero;
 import br.ucs.poo.cinema.filme.Rating;
+import br.ucs.poo.cinema.pessoas.Ator;
+import br.ucs.poo.cinema.pessoas.Diretor;
 
 public class HelpFilme {
     Help h = new Help();
     HelpRating hr = new HelpRating();
     HelpGenero hg = new HelpGenero();
-    private String erro = "Valor informado é inválido";
+    HelpPessoa hp = new HelpPessoa();
+
+    public int searchFilme(Scanner in, Cinema cine, String nome) {
+        List<Filme> filmes = new ArrayList<Filme>();
+        int retorno = -1;
+        for (int index = 0; index < cine.getFilmes().size(); index++) {
+            if (cine.getFilme(index).getNome().equals(nome)) {
+                filmes.add(cine.getFilme(index));
+            }
+        }
+        if (filmes.isEmpty()) {
+            return -1;
+        } else {
+            int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
+            for (int index = 0; index < filmes.size(); index++) {
+                if (filmes.get(index).getAno() == ano) {
+                    retorno = index;
+                }
+            }
+            if (retorno != -1) {
+                return retorno;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    public void addFilme(Scanner in, Cinema cine) {
+        String nome = h.returnString(in, "Digite o nome do filme:");
+        int search = searchFilme(in, cine, nome);
+        // Filme filme = cine.getFilme(search);
+
+        if (search != -1) {
+            System.out.println("Esse filme já está cadastrado.");
+        } else {
+            int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
+            int timeMin = h.returnInt(in, "Digite a duração do filme:", 0, 5220);
+            String desc = h.returnString(in, "Digite a descrição do filme:");
+            Rating rating = hr.testRating(in, cine);
+            Genero genero = hg.testGenero(in, cine);
+
+            boolean test = false;
+            Filme filme = new Filme(desc, ano, timeMin, desc, rating, genero);
+            do {
+
+                char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
+                System.out.println(String.format(
+                        "1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
+                        ano, timeMin, desc, rating, genero));
+
+                if (sn == 'S') {
+                    int option = h.returnInt(in,
+                            "1 - Salvar e sair \n2 - Adicionar mais dados \nDigite 0 para cancelar", 0,
+                            2);
+                    if (option == 1) {
+                        saveFilme(cine, filme);
+                    } else if (option == 2) {
+                        String direNome = h.returnString(in, "Digite o nome do diretor:");
+                        String paisDire = hp.testRating(in, cine);
+
+                        cine.setDiretor(nome, paisDire);
+                        Diretor dire = new Diretor(direNome, paisDire);
+
+                        List<Ator> atores = new ArrayList<Ator>();
+                        String opt2 = "-1";
+                        do {
+                            String ator = h.returnString(in, "Digite o nome do ator. Digite 0 para finalizar");
+                            String paisAtor = h.returnString(in, "Digite o país de origem do ator:");
+                            cine.setAtor(ator, paisAtor);
+                            atores.add(new Ator(ator, paisAtor));
+                        } while (opt2.equals("0"));
+                        filme = new Filme(desc, ano, timeMin, desc, rating, genero, atores, dire);
+                        saveFilme(cine, filme);
+                    } else {
+                        break;
+                    }
+                    test = true;
+                    break;
+                } else {
+                    filme = editFilme(cine, in, filme);
+                }
+            } while (test == false);
+        }
+    }
+
+    public void saveFilme(Cinema cine, Filme filme) {
+        cine.setFilme(filme);
+        writeFilme(cine.getFilmes());
+    }
+
+    public void writeFilme(List<Filme> list) {
+        File myFile = new File("files/filmes.dat");
+        try {
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+
+            myObj.writeObject(list);
+
+            myObj.close();
+            myOutput.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao escrever no arquivo filmes");
+        }
+    }
 
     @SuppressWarnings("unchecked")
-    public List<Filme> readFileFilme(String file) {
-        List<Filme> lista = new ArrayList<>();
-        File myFile = new File(String.format("files\\%s.dat", file));
+    public List<Filme> readFilme() {
+        List<Filme> list = new ArrayList<Filme>();
+        File myFile = new File("files/filmes.dat");
 
         try {
             FileInputStream myInput = new FileInputStream(myFile);
             ObjectInputStream myObj = new ObjectInputStream(myInput);
 
             Object obj = myObj.readObject();
-            lista = (List<Filme>) obj;
+            list = (List<Filme>) obj;
 
             myObj.close();
             myInput.close();
-
         } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao ler o arquivo. %s", file));
-            System.out.println(e);
+            System.out.println("Ocorreu um erro ao ler o arquivo filmes");
         } catch (ClassNotFoundException e) {
-            System.out.println(String.format("Ocorreu um erro de classe ao ler o arquivo. %s", file));
+            System.out.println("Ocorreu um erro de classe ao ler o arquivo filmes");
         }
-        return lista;
+        return list;
     }
 
-    public void writeFileFilme(String file, List<Filme> lista) {
-        File myFile = new File(String.format("files\\%s.dat", file));
-        try {
-            FileOutputStream myOutput = new FileOutputStream(myFile);
-            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+    public Filme editFilme(Cinema cine, Scanner in, Filme filme) {
+        boolean test = false;
 
-            myObj.writeObject(lista);
+        do {
+            System.out.println(String.format(
+                    "1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", filme.getNome(),
+                    filme.getAno(), filme.getTimeMin(), filme.getDescricao(), filme.getRating(), filme.getGenero()));
+            int option = h.returnInt(in, "", 0, 6);
+            switch (option) {
+                case 0:
+                    test = true;
+                    break;
 
-            myObj.close();
-            myOutput.close();
-        } catch (IOException e) {
-            System.out.println(String.format("Ocorreu um erro ao escrever no arquivo. %s", file));
+                case 1:
+                    filme.setNome(h.returnString(in, "Digite o nome do filme:"));
+                    break;
+
+                case 2:
+                    filme.setAno(h.returnInt(in, "Digite o ano do filme: ", 1890, 2030));
+                    break;
+
+                case 3:
+                    filme.setTimeMin(h.returnInt(in, "Digite a duração do filme: ", 0, 5220));
+                    break;
+
+                case 4:
+                    filme.setDescricao(h.returnString(in, "Digite a descrição do filme:"));
+                    break;
+
+                case 5:
+                    filme.setRating(hr.testRating(in, cine));
+                    break;
+
+                case 6:
+                    filme.setGenero(hg.testGenero(in, cine));
+
+                    break;
+                default:
+                    System.out.println("Opção escolhida é inválida");
+                    break;
+            }
+        } while (test == false);
+        return filme;
+    }
+
+    public void removeFilme(Scanner in, Cinema cine) {
+        int search = searchFilme(in, cine, h.returnString(in, "Digite o nome do filme: "));
+
+        char sn = h.returnChar(in, "Tem certeza que deseja remover o filme: \n" + cine.getFilme(search));
+        if (sn == 'S') {
+            cine.removeFilme(search);
         }
     }
 
-    public void saveFilme(Cinema cine) {
-        writeFileFilme("filmes", cine.getFilmes());
-    }
-
-    public String tableFilme(Cinema cine) {
-
+    public String formatFilme(Cinema cine) {
         int[] lengthNome = { 0, 0, 0 };
         int[] lengthDesc = { 0, 0, 0 };
         for (int i = 0; i <= cine.getFilmes().size(); i++) {
@@ -172,227 +306,5 @@ public class HelpFilme {
             }
         }
         return result.toString();
-    }
-
-    public Map<Integer, Filme> searchFilmeName(Cinema cine, String nome) {
-        Map<Integer, Filme> retorno = new TreeMap<>();
-
-        for (int i = 0; i < cine.getFilmes().size(); i++) {
-            if (cine.getFilme(i).getNome().equals(nome)) {
-                retorno.put(i, cine.getFilme(i));
-            }
-        }
-        return retorno;
-    }
-
-    public List<Filme> testFilmebyYear(Cinema cine, String nome, int ano) {
-        List<Filme> retorno = new ArrayList<>();
-        Map<Integer, Filme> map = searchFilmeName(cine, nome);
-        Collection<Filme> name = map.values();
-        if (name.size() >= 0) {
-            for (Filme f : name) {
-                if (f.getAno() == ano) {
-                    retorno.add(f);
-                }
-            }
-        }
-        return retorno;
-    }
-
-    public void addFilme(Scanner in, Cinema cine) {
-        String nome, descricao;
-        int ano, timeMin;
-
-        nome = h.returnString(in, "Digite o nome do filme:");
-        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890, 2030);
-
-        List<Filme> test = testFilmebyYear(cine, nome, ano);
-        if (test.size() > 0) {
-            System.out.println("Este filme já está cadastrado:");
-            for (Filme f : test) {
-                System.out.println(f.toString(1));
-            }
-            int opt = h.returnInt(in, "1 - Criar outro \n2 - Editar \nDigite 0 para cancelar", 0, 2);
-            switch (opt) {
-                case 0:
-                    h.clearScreen();
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    editFilme(in, cine);
-                    break;
-                default:
-                    System.out.println(erro);
-                    break;
-            }
-        } else {
-            timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ", 0, 5220);
-            descricao = h.returnString(in, "Digite a descrição do filme:");
-            Rating rating = hr.testRating(in, cine);
-            Genero genero = hg.testGenero(in, cine);
-
-            Filme temp = new Filme(nome, ano, timeMin, descricao, rating, genero);
-            confirmaFilme(temp, in, cine);
-        }
-    }
-
-    public Filme editFilmeConfig(Scanner in, Filme f, Cinema cine) {
-        boolean test = false;
-
-        do {
-            int edt = h.returnInt(in, "Escolha o que deseja alterar:\n" + f.toString(3), 0, 6);
-            char sn = 'N';
-            String nome, desc;
-            int ano, timeMin;
-            Rating rating;
-            Genero genero;
-            switch (edt) {
-                case 0:
-                    test = true;
-                    break;
-                case 1:
-                    do {
-                        nome = h.returnString(in, "Digite o nome do filme:");
-                        sn = h.returnChar(in, "\n" + nome + "\nDeseja manter esse nome? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setNome(nome);
-                    break;
-                case 2:
-                    do {
-                        ano = h.returnInt(in, "Digite o ano de publicação do filme:", 1890, 2030);
-                        sn = h.returnChar(in, "\n" + ano + "\nDeseja manter esse ano? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setAno(ano);
-                    break;
-                case 3:
-                    do {
-                        timeMin = h.returnInt(in, "Digite a duração do filme:", 0, 5220);
-                        sn = h.returnChar(in, "\n" + timeMin + "\nDeseja manter essa duração? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setTimeMin(timeMin);
-                    break;
-                case 4:
-                    do {
-                        desc = h.returnString(in, "Digite a descrição do filme:");
-                        sn = h.returnChar(in, "\n" + desc + "\nDeseja manter essa descrição? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setDescricao(desc);
-                    break;
-                case 5:
-                    do {
-                        rating = hr.testRating(in, cine);
-                        sn = h.returnChar(in, "\n" + rating + "\nDeseja manter essa classificação? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setRating(rating);
-                    break;
-                case 6:
-                    do {
-                        genero = hg.testGenero(in, cine);
-                        sn = h.returnChar(in, "\n" + genero + "\nDeseja manter esse gênero? S - sim, N - não");
-                    } while (sn == 'N');
-                    f.setGenero(genero);
-                    break;
-                default:
-                    System.out.println("Opção não existe");
-                    break;
-            }
-        } while (test == false);
-        return f;
-    }
-
-    public Filme editFilme(Scanner in, Cinema cine) {
-        boolean test = false;
-        int opt = -1;
-        Filme f = new Filme("", 0, 0, "", new Rating("10"), new Genero("1"));
-
-        do {
-            String nome = h.returnString(in, "Digite o nome do filme:");
-            Map<Integer, Filme> map = searchFilmeName(cine, nome);
-
-            if (map.size() > 1) {
-                for (Map.Entry<Integer, Filme> l : map.entrySet()) {
-                    System.out.println(
-                            String.format("%d - %s, %s", l.getKey(), l.getValue().getNome(), l.getValue().getAno()));
-                }
-                opt = h.returnInt(in, "Qual filme deseja editar?", 0, map.size());
-                editFilmeConfig(in, cine.getFilme(opt), cine);
-                return cine.getFilme(opt);
-
-            } else if (map.size() == 1) {
-                for (Map.Entry<Integer, Filme> l : map.entrySet()) {
-                    opt = l.getKey();
-                }
-                return cine.getFilme(opt);
-            } else {
-                System.out.println("Filme não encontrado.");
-                opt = h.returnInt(in, "1 - Editar outro filme\nDigite 0 para cancelar", 0, 1);
-                if (opt == 0) {
-                    test = true;
-                    break;
-                }
-            }
-        } while (test == false);
-        return f;
-    }
-
-    public void removeFilme(Cinema cine, Scanner in) {
-        boolean test = false;
-
-        do {
-            String nome = h.returnString(in, "Digite o nome do filme:");
-            Map<Integer, Filme> map = searchFilmeName(cine, nome);
-
-            if (map.size() > 1) {
-                for (Map.Entry<Integer, Filme> l : map.entrySet()) {
-                    System.out.println(
-                            String.format("%d - %s, %s", l.getKey(), l.getValue().getNome(), l.getValue().getAno()));
-                }
-                int opt = h.returnInt(in, "Qual filme deseja remover?", 0, map.size());
-                cine.removeFilme(opt);
-                test = true;
-            } else if (map.size() == 1) {
-                for (Map.Entry<Integer, Filme> l : map.entrySet()) {
-                    cine.removeFilme(l.getKey());
-                }
-                test = true;
-            } else {
-                System.out.println("Filme não encontrado.");
-                int opt = h.returnInt(in, "1 - Remover outro filme\nDigite 0 para cancelar", 0, 1);
-                if (opt == 0) {
-                    test = true;
-                }
-            }
-        } while (test == false);
-        saveFilme(cine);
-    }
-
-    public int confirmaFilme(Filme f, Scanner in, Cinema cine) {
-        int opt = 0;
-        do {
-            System.out.println(f.toString(1));
-            opt = h.returnInt(in, "1 - Continuar \n2 - Editar \n3 - Salvar e sair", 1, 3);
-
-            if (opt == 1) {
-                return opt;
-                /*
-                 * String n = "";
-                 * do {
-                 * n = h.returnString(in, "Digite o nome dos atores: \nDigite 0 para cancelar");
-                 * if (!n.equals("0")) {
-                 * // TODO: ADD Atores
-                 * }
-                 * //TODO: ADD diretores
-                 * } while (!n.equals("0"));
-                 */
-            } else if (opt == 2) {
-                f = editFilmeConfig(in, f, cine);
-            } else if (opt == 3) {
-                cine.setFilme(f);
-                saveFilme(cine);
-            }
-        } while (opt != 3);
-        System.out.println("Filme cadastrado");
-        return opt;
     }
 }

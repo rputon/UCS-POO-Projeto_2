@@ -190,7 +190,7 @@ public class HelpSala {
     }
 
     public void selectAssento(String select){
-
+        //TODO: selecionar assento p compra do ingresso
     }
     
 }
