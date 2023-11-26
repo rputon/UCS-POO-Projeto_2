@@ -44,7 +44,7 @@ public class Help {
         do {
             try {
                 System.out.println(print);
-                value = Character.toUpperCase(in.next().charAt(0));
+                value = in.nextInt();
                 in.nextLine();
 
                 if (value >= rangeMin || value <= rangeMax) {

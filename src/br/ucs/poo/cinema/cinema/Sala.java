@@ -3,11 +3,13 @@ package br.ucs.poo.cinema.cinema;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class Sala implements Serializable {
-	private int numero;
-	private List<Assento> assentos = new ArrayList<>();
-	private List<Horario> reservas = new ArrayList<>();
+public class Sala implements Serializable, Comparable<Sala>{
+	private Integer numero;
+	private Map<String,Assento> assentos = new TreeMap<String, Assento>();
+	private List<Horario> reservas = new ArrayList<Horario>();
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Sala(int n, List<Assento> assentos) {
@@ -30,35 +32,59 @@ public class Sala implements Serializable {
 	}
 
 	public List<Assento> getAssentos() {
-		return assentos;
+		List<Assento> list = new ArrayList<Assento>(assentos.values());
+		return list;
+	}
+	public Assento getAssento(int index){
+		List<Assento> list = new ArrayList<Assento>(assentos.values());
+		return list.get(index);
 	}
 
 	public void setAssentos(List<Assento> assentos) {
-		this.assentos = assentos;
+		for(Assento a :assentos){
+			this.assentos.put(String.format("%s%s", a.getFileira(),a.getNumero()), a);
+		}
 	}
 
 	public void setAssentos(char nFileira, int nNumero) {
 		for(char i=65; i<=nFileira;i++){
 			//65 até 90
 			for(int j=1;j<=nNumero;j++){
-				assentos.add(new Assento(numero, i, j));
+				this.assentos.put(String.format("%s%d", nFileira,nNumero), new Assento(numero, i, j));
 			}
 		}
 	}
 
 	public String toString(){
 		String s = "";
-		s = s + "Sala "+ numero + "\n";
-		for(Assento a : assentos){
-			s+= a.toString() + "\n";
-		}
+		s = s + "Sala "+ numero;
+		//for(Assento a : assentos){
+		//	s+= a.toString() + "\n";
+		//}
 
 		return s;
 	}
 
-
-
-
 	/*---- Methods ---------------------------------------------------------------------------------- */
+	@Override
+	public int compareTo(Sala o) {
+		Sala other = (Sala) o;
+		return this.numero - other.numero;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sala other = (Sala) obj;
+		if (!numero.equals(other.numero)) {
+			return false;
+		}
+		return true;
+	}
 
 }

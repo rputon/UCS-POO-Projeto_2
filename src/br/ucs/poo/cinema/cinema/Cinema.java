@@ -13,17 +13,17 @@ public class Cinema {
 	private String nome;
 	private String endereco;
 
-	private List<Filme> filmes = new ArrayList<>();
-	private List<Cartaz> filmesCartaz = new ArrayList<>();
-	private List<Ator> atores = new ArrayList<>();
-	private List<Diretor> diretores = new ArrayList<>();
+	private List<Filme> filmes = new ArrayList<Filme>();
+	private List<Cartaz> filmesCartaz = new ArrayList<Cartaz>();
+	private List<Ator> atores = new ArrayList<Ator>();
+	private List<Diretor> diretores = new ArrayList<Diretor>();
 
-	private List<Ingresso> ingressos = new ArrayList<>();
-	private List<Sala> salas = new ArrayList<>();
-	private List<Horario> horarios = new ArrayList<>();
+	private List<Ingresso> ingressos = new ArrayList<Ingresso>();
+	private List<Sala> salas = new ArrayList<Sala>();
+	private List<Horario> horarios = new ArrayList<Horario>();
 
-	private List<Genero> generos = new ArrayList<>();
-	private List<Rating> ratings = new ArrayList<>();
+	private List<Genero> generos = new ArrayList<Genero>();
+	private List<Rating> ratings = new ArrayList<Rating>();
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Cinema() {
@@ -137,8 +137,6 @@ public class Cinema {
 	public Filme removeFilmeCartaz(int index) {
 		return filmesCartaz.remove(index);
 	}
-
-	// Assentos ------------------------------------------------------
 
 	// Ingresso -------------------------------------------------------
 	public void setIngresso(Ingresso ingresso) {

@@ -42,20 +42,20 @@ public class Teste {
         if (h.validFile("filmes")) {
 			cine.setFilme(hf.readFileFilme("filmes"));
 		}*/
+		//System.out.println("ADD");
+		//hs.addSala(in, cine);
+		//System.out.println("EDIT");
+		//hs.editSala(in, cine, 0);
+		//System.out.println("EDIT");
+		//hs.editSala(in, cine, -1);
+		//System.out.println("REMOVE");
+		hs.addSala(in, cine);
+		cine.getSala(0).getAssento(2).setReserva(true);
+		cine.getSala(0).getAssento(7).setReserva(true);
+		cine.getSala(0).getAssento(9).setReserva(true);
+		cine.getSala(0).getAssento(10).setReserva(true);
 
-
-		hh.testHorario(in, cine,118);
-		//System.out.println(cine.getFilmes() + "\n");
-
-		//Sala s = new Sala(1,'F',5);
-
-		//System.out.println(s);
-		//hi.vendaIngresso(in, cine);
-
-		//char c = 50;
-		//System.out.println(c);
-		//System.out.println(Character.toString(c+1));
-
+		hs.formatAssentos(cine, cine.getSala(0));
         
     }
 }

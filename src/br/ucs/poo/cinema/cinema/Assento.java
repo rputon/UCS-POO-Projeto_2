@@ -4,12 +4,14 @@ public class Assento {
 	private char fileira;
 	private int numero;
 	private int salaNumber;
+	private boolean reserva;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Assento(int sala, char f, int n ) {
 		setFileira(f);
 		setNumero(n);
 		setSalaNumber(sala);
+		setReserva(false);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -35,6 +37,14 @@ public class Assento {
 
 	public void setSalaNumber(int salaNumber) {
 		this.salaNumber = salaNumber;
+	}
+
+	public void setReserva(boolean b){
+		this.reserva = b;
+	}
+
+	public Boolean getReserva (){
+		return this.reserva;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
