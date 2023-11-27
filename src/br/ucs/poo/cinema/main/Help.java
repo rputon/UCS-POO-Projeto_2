@@ -47,9 +47,12 @@ public class Help {
                 value = in.nextInt();
                 in.nextLine();
 
-                if (value >= rangeMin || value <= rangeMax) {
+                if (value >= rangeMin && value <= rangeMax) {
                     test = true;
                     break;
+                }
+                else{
+                    System.out.println(erro);
                 }
             } catch (Exception e) {
                 System.out.println(erro);

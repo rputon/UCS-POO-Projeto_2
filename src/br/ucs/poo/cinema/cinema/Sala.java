@@ -77,6 +77,10 @@ public class Sala implements Serializable, Comparable<Sala>{
 		return this.vagos;
 	}
 
+	public List<Horario> getHorarios(){
+		return this.reservas;
+	}
+
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	@Override
 	public int compareTo(Sala o) {

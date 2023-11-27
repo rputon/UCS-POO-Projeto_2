@@ -21,7 +21,7 @@ public class Teste {
 
 		Cinema cine = new Cinema();
 
-        /*if (!h.validFile("ratings")) {
+        if (!h.validFile("ratings")) {
 			cine.setRatingNome(Arrays.asList("Livre", "10", "12", "14", "16", "18"));
 			hr.writeFileRating("ratings", cine.getRating());
 		} else {
@@ -40,22 +40,12 @@ public class Teste {
 		}
 
         if (h.validFile("filmes")) {
-			cine.setFilme(hf.readFileFilme("filmes"));
-		}*/
-		//System.out.println("ADD");
-		//hs.addSala(in, cine);
-		//System.out.println("EDIT");
-		//hs.editSala(in, cine, 0);
-		//System.out.println("EDIT");
-		//hs.editSala(in, cine, -1);
-		//System.out.println("REMOVE");
-		hs.addSala(in, cine);
-		cine.getSala(0).getAssento(2).setReserva(true);
-		cine.getSala(0).getAssento(7).setReserva(true);
-		cine.getSala(0).getAssento(9).setReserva(true);
-		cine.getSala(0).getAssento(10).setReserva(true);
+			cine.setFilme(hf.readFilme());
+		}
+		
+		//hf.addFilme(in, cine);
+		hc.addCartaz(in, cine);
 
-		hs.formatAssentos(cine, cine.getSala(0));
         
     }
 }

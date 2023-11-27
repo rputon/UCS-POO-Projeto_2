@@ -1,9 +1,9 @@
 package br.ucs.poo.cinema.main;
 
-import java.util.List;
+//import java.util.List;
 import java.util.Scanner;
 import br.ucs.poo.cinema.cinema.Cinema;
-import br.ucs.poo.cinema.filme.Cartaz;
+import br.ucs.poo.cinema.filme.Filme;
 
 public class HelpIngresso {
     Help h = new Help();
@@ -17,7 +17,7 @@ public class HelpIngresso {
         System.out.println("Digite 0 para cancelar");
         int option = h.returnInt(in, "", 0, cine.getFilmeCartaz().size());
 
-        Cartaz filme;
+        Filme filme;
         if(option==0){
             filme = null;
         }

@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.filme.Filme;
@@ -24,20 +26,21 @@ public class HelpFilme {
     HelpPessoa hp = new HelpPessoa();
 
     public int searchFilme(Scanner in, Cinema cine, String nome) {
-        List<Filme> filmes = new ArrayList<Filme>();
+        Map<Integer,Filme> filmes = new TreeMap<Integer,Filme>();
         int retorno = -1;
         for (int index = 0; index < cine.getFilmes().size(); index++) {
             if (cine.getFilme(index).getNome().equals(nome)) {
-                filmes.add(cine.getFilme(index));
+                filmes.put(index,cine.getFilme(index));
             }
         }
         if (filmes.isEmpty()) {
             return -1;
         } else {
             int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
+            List<Integer> key = new ArrayList<Integer>(filmes.keySet());
             for (int index = 0; index < filmes.size(); index++) {
                 if (filmes.get(index).getAno() == ano) {
-                    retorno = index;
+                    retorno = key.get(index);
                 }
             }
             if (retorno != -1) {
@@ -57,19 +60,19 @@ public class HelpFilme {
             System.out.println("Esse filme já está cadastrado.");
         } else {
             int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
-            int timeMin = h.returnInt(in, "Digite a duração do filme:", 0, 5220);
+            int timeMin = h.returnInt(in, "Digite a duração do filme(min):", 0, 5220);
             String desc = h.returnString(in, "Digite a descrição do filme:");
             Rating rating = hr.testRating(in, cine);
             Genero genero = hg.testGenero(in, cine);
 
             boolean test = false;
-            Filme filme = new Filme(desc, ano, timeMin, desc, rating, genero);
+            Filme filme = new Filme(nome, ano, timeMin, desc, rating, genero);
             do {
-
-                char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
                 System.out.println(String.format(
-                        "1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
-                        ano, timeMin, desc, rating, genero));
+                                        "1 - %s \n2 - %d \n3min - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
+                                        ano, timeMin, desc, rating, genero));
+                char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
+                
 
                 if (sn == 'S') {
                     int option = h.returnInt(in,
@@ -91,8 +94,8 @@ public class HelpFilme {
                             String paisAtor = h.returnString(in, "Digite o país de origem do ator:");
                             cine.setAtor(ator, paisAtor);
                             atores.add(new Ator(ator, paisAtor));
-                        } while (opt2.equals("0"));
-                        filme = new Filme(desc, ano, timeMin, desc, rating, genero, atores, dire);
+                        } while (!opt2.equals("0"));
+                        filme = new Filme(nome, ano, timeMin, desc, rating, genero, atores, dire);
                         saveFilme(cine, filme);
                     } else {
                         break;
@@ -152,6 +155,7 @@ public class HelpFilme {
         boolean test = false;
 
         do {
+            System.out.println("Escolha o que deseja alterar: ");
             System.out.println(String.format(
                     "1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", filme.getNome(),
                     filme.getAno(), filme.getTimeMin(), filme.getDescricao(), filme.getRating(), filme.getGenero()));
