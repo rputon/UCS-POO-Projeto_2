@@ -52,7 +52,7 @@ public class HelpCartaz {
             }
         } else {
             System.out.println("Esse filme já está em exibição:");
-
+            System.out.println();
             int option = h.returnInt(in, "", 0, 3);
         }
 
