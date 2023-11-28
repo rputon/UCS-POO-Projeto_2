@@ -51,11 +51,11 @@ public class HelpFilme {
         }
     }
 
-    public void addFilme(Scanner in, Cinema cine) {
+    public Filme addFilme(Scanner in, Cinema cine) {
         String nome = h.returnString(in, "Digite o nome do filme:");
         int search = searchFilme(in, cine, nome);
-        // Filme filme = cine.getFilme(search);
 
+        Filme filme = null;
         if (search != -1) {
             System.out.println("Esse filme já está cadastrado.");
         } else {
@@ -66,14 +66,13 @@ public class HelpFilme {
             Genero genero = hg.testGenero(in, cine);
 
             boolean test = false;
-            Filme filme = new Filme(nome, ano, timeMin, desc, rating, genero);
+            filme = new Filme(nome, ano, timeMin, desc, rating, genero);
             do {
                 System.out.println(String.format(
                                         "1 - %s \n2 - %d \n3min - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
                                         ano, timeMin, desc, rating, genero));
                 char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
                 
-
                 if (sn == 'S') {
                     int option = h.returnInt(in,
                             "1 - Salvar e sair \n2 - Adicionar mais dados \nDigite 0 para cancelar", 0,
@@ -107,6 +106,7 @@ public class HelpFilme {
                 }
             } while (test == false);
         }
+        return filme;
     }
 
     public void saveFilme(Cinema cine, Filme filme) {

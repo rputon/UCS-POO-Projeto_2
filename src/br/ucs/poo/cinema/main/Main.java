@@ -1,6 +1,9 @@
 package br.ucs.poo.cinema.main;
 
 import br.ucs.poo.cinema.cinema.Cinema;
+import br.ucs.poo.cinema.cinema.Horario;
+import br.ucs.poo.cinema.cinema.Sala;
+import br.ucs.poo.cinema.filme.Filme;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,14 +44,11 @@ public class Main {
 		}
 
 		if (h.validFile("filmes")) {
-			cine.setFilme(hf.readFileFilme("filmes"));
+			cine.setFilme(hf.readFilme());
 		}
 
 		if (h.validFile("salas")) {
-			// TODO: valida salas
-		}
-		if (h.validFile("assentos")) {
-			// TODO: valida assentos
+			cine.setSalas(hs.readSala());
 		}
 
 		String user = "";
@@ -78,7 +78,7 @@ public class Main {
 							break;
 
 						case 2: // Consultar filmes
-							System.out.println(hf.tableFilme(cine));
+							System.out.println(hf.formatFilme(cine));
 
 							int opt = h.returnInt(in,
 									"1 - Adicionar um filme \n2 - Editar um filme \n3 - Remover um filme \n0 - Cancelar",
@@ -90,12 +90,12 @@ public class Main {
 									break;
 
 								case 1: // Adicionar filme
-									hf.addFilme(in, cine);
+									Filme filme = hf.addFilme(in, cine);
 
 									char sn;
 									sn = h.returnChar(in, "Este filme está em cartaz?");
 									if (sn == 'S') {
-										hc.addFilmeCartaz(in, true);
+										hc.addCartaz(in, cine, filme.getNome());
 									}
 
 									// TODO: Ao add, adicionar ou não ao cartaz + tempo
@@ -103,12 +103,16 @@ public class Main {
 									break;
 
 								case 2: // Editar filme
-									hf.editFilme(in, cine);
+									String nome = h.returnString(in, "Digite o nome do filme:");
+									if(hf.searchFilme(in, cine, nome) > -1){
+										hf.editFilme(cine, in,cine.getFilme(hf.searchFilme(in, cine, nome)));
+									}
+									
 
 									break;
 
 								case 3: // Remover filme
-									hf.removeFilme(cine, in);
+									hf.removeFilme(in, cine);
 									break;
 
 								default:
@@ -136,16 +140,12 @@ public class Main {
 									break;
 
 								case 1: // Adicionar um filme ao cartaz
-									String nome, descricao;
-									int ano, timeMin;
-
-									nome = h.returnString(in, "Digite o nome do filme:");
-									ano = h.returnInt(in, "Digite o ano de publicação do filme:");
-									timeMin = h.returnInt(in, "Digite a duração do filme, em minutos: ");
-									descricao = h.returnString(in, "Digite a descrição do filme:");
-
-									cine.setFilmeCartaz(nome, ano, timeMin, descricao, hr.testRating(in, cine),
-											hg.testGenero(in, cine));
+									String nome = h.returnString(in, "Digite o nome do filme:");
+									Sala sala = hs.addSala(in, cine);
+									Horario hora = hh.addHorario(in, cine, opt, null);
+									if(hf.searchFilme(in, cine, nome) > -1){
+										cine.setFilmeCartaz(cine.getFilme(hf.searchFilme(in, cine, nome)), sala,hora);
+									} 
 									System.out.println("Filme cadastrado");
 									break;
 
@@ -194,39 +194,6 @@ public class Main {
 							break;
 					}
 
-				} while (opcao != 0);
-
-			} else if (user.equals(usuarios.get(2))) {
-
-				System.out.println("Acessando com usuário de recursos humanos...");
-
-				do {
-					System.out.println("\nEscolhe uma das opções: ");
-					System.out.println("1 - Configurar preço dos ingressos");
-					System.out.println("2 - Ver ingressos vendidos");
-					System.out.println("Digite 0 para cancelar");
-					opcao = in.nextInt();
-					in.nextLine();
-
-					switch (opcao) {
-						case 0:
-							h.clearScreen();
-							break;
-						case 1:
-
-							break;
-
-						case 2:
-
-							break;
-
-						case 3:
-
-							break;
-
-						default:
-							System.out.println("Esta opção não existe");
-					}
 				} while (opcao != 0);
 			}
 			user = "";

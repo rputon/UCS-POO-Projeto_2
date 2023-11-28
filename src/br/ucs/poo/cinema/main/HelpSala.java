@@ -1,6 +1,14 @@
 package br.ucs.poo.cinema.main;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import br.ucs.poo.cinema.cinema.Cinema;
@@ -47,11 +55,11 @@ public class HelpSala {
         return retorno;
     }
 
-    public void addSala(Scanner in, Cinema cine){
+    public Sala addSala(Scanner in, Cinema cine){
         boolean test = false;
         int nSala;
         do{
-            nSala = h.returnInt(in, "Digite o número da sala:");
+            nSala = h.returnInt(in, "Digite o número da sala:",1,50);
             int index = searchSala(cine, nSala);
             if(index != -1){
                 char sn = h.returnChar(in, "Esta sala já existe, deseja editar ela? S - sim, N - não");
@@ -65,12 +73,15 @@ public class HelpSala {
             } else{
                 char fileira = returnFileira(in, "Digite o valor da última fileira:");
                 int numero = h.returnInt(in, "Digite o valor da última coluna:");
-                cine.setSala(nSala, fileira, numero);
+                Sala sala = new Sala(nSala, fileira, numero);
+                cine.setSala(sala);
                 test = true;
+                return sala;
             } 
         }while(test == false);
         
         Collections.sort(cine.getSalas(), new SortSala());
+        return cine.getSala(nSala);
     }
 
     public void editSala(Scanner in, Cinema cine, int index){
@@ -193,4 +204,47 @@ public class HelpSala {
         //TODO: selecionar assento p compra do ingresso
     }
     
+    public void saveFilme(Cinema cine, Sala sala) {
+        cine.setSala(sala);
+        writeSala(cine.getSalas());
+    }
+
+    public void writeSala(List<Sala> list) {
+        File myFile = new File("files/salas.dat");
+        try {
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+
+            myObj.writeObject(list);
+
+            myObj.close();
+            myOutput.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao escrever no arquivo salas");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Sala> readSala() {
+        List<Sala> list = new ArrayList<Sala>();
+        File myFile = new File("files/filmes.dat");
+
+        try {
+            FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            list = (List<Sala>) obj;
+
+            myObj.close();
+            myInput.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao ler o arquivo salas");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Ocorreu um erro de classe ao ler o arquivo salas");
+        }
+        return list;
+    }
+
+
 }

@@ -21,7 +21,7 @@ public class Cinema {
 
 	private List<Ingresso> ingressos = new ArrayList<Ingresso>();
 	private List<Sala> salas = new ArrayList<Sala>();
-	private List<Horario> horarios = new ArrayList<Horario>();
+	//private List<Horario> horarios = new ArrayList<Horario>();
 
 	private List<Genero> generos = new ArrayList<Genero>();
 	private List<Rating> ratings = new ArrayList<Rating>();
@@ -55,6 +55,10 @@ public class Cinema {
 	public List<Sala> getSalas() {
 		return this.salas;
 	}
+	
+	public void setSalas(List<Sala> salas) {
+		this.salas = salas;
+	}
 
 	public void setSala(Sala obj) {
 		this.salas.add(obj);
@@ -73,17 +77,17 @@ public class Cinema {
 	}
 
 	// Horario --------------------------------------------------------
-	public void setHorario(Horario obj) {
-		this.horarios.add(obj);
-	}
+	//public void setHorario(Horario obj) {
+	//	this.horarios.add(obj);
+	//}
 
-	public Horario getHorario(int index) {
-		return this.horarios.get(index);
-	}
+	//public Horario getHorario(int index) {
+	//	return this.horarios.get(index);
+	//}
 
-	public void removeHorario(int index) {
-		this.horarios.remove(index);
-	}
+	//public void removeHorario(int index) {
+	//	this.horarios.remove(index);
+	//}
 
 	// Filme ----------------------------------------------------------
 	public List<Filme> getFilmes() {
@@ -111,7 +115,7 @@ public class Cinema {
 		this.filmes.add(filme);
 	}
 
-	public void setFilme(Filme filme, Sala sala, Horario hora) {
+	public void setFilmeCartaz(Filme filme, Sala sala, Horario hora) {
 		this.filmes.add(filme);
 	}
 

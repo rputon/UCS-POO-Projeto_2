@@ -1,7 +1,6 @@
 package br.ucs.poo.cinema.filme;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +22,8 @@ public class Filme implements Serializable {
 	protected List<Ator> atores = new ArrayList<Ator>();
 	protected Diretor dire;
 
-	private Horario hora;
+	private List<Horario> horarios;
 	private Sala sala;
-	private LocalDateTime time;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
@@ -81,6 +79,22 @@ public class Filme implements Serializable {
 		this.descricao = descricao;
 	}
 
+	public void setSala(Sala sala){
+		this.sala = sala;
+	}
+
+	public Sala getSala(){
+		return sala;
+	}
+
+	public List<Horario> getHorarios(){
+		return horarios;
+	}
+
+	public Horario getHorarios(int index){
+		return horarios.get(index);
+	}
+
 	/*---- Listas -------------------------------------------------------------------------------------- */
 	public String getRating() {
 		return rating.getIdade();
@@ -105,6 +119,8 @@ public class Filme implements Serializable {
 	public void setDiretor(Diretor dire){
 		this.dire = dire;
 	}
+
+
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(int index) {

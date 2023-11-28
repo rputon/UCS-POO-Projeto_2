@@ -2,8 +2,14 @@ package br.ucs.poo.cinema.teste;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 import br.ucs.poo.cinema.cinema.*;
+import br.ucs.poo.cinema.filme.Filme;
+import br.ucs.poo.cinema.filme.Genero;
+import br.ucs.poo.cinema.filme.Rating;
 import br.ucs.poo.cinema.main.*;
 
 public class Teste {
@@ -43,8 +49,14 @@ public class Teste {
 			cine.setFilme(hf.readFilme());
 		}
 		
+
 		//hf.addFilme(in, cine);
-		hc.addCartaz(in, cine);
+		//hs.addSala(in, cine);
+		//hc.addCartaz(in, cine);
+		//hh.addHorario(in, cine, 0 );
+		//cine.setFilme(new Filme("Encontro Marcado", 2018, 98, " dkjgfnz gfd kjfkdfkjddfg", new Rating("12"), new Genero("Fantasia Cientifica")), new Sala(1, new List<Assento> a.add(new Assento(1, 'F', 4)), new Horario(new LocalDate(2023,11,28), new LocalTime(20,30));
+		//hf.addFilme(in, cine);
+		//hc.addCartaz(in, cine);
 
         
     }
