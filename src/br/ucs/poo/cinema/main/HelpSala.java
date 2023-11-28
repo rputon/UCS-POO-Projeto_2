@@ -227,7 +227,7 @@ public class HelpSala {
     @SuppressWarnings("unchecked")
     public List<Sala> readSala() {
         List<Sala> list = new ArrayList<Sala>();
-        File myFile = new File("files/filmes.dat");
+        File myFile = new File("files/salas.dat");
 
         try {
             FileInputStream myInput = new FileInputStream(myFile);

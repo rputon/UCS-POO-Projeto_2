@@ -144,6 +144,7 @@ public class Main {
 									Sala sala = hs.addSala(in, cine);
 									Horario hora = hh.addHorario(in, cine, opt, null);
 									if(hf.searchFilme(in, cine, nome) > -1){
+										System.out.println(hf.searchFilme(in, cine, nome));
 										cine.setFilmeCartaz(cine.getFilme(hf.searchFilme(in, cine, nome)), sala,hora);
 									} 
 									System.out.println("Filme cadastrado");
