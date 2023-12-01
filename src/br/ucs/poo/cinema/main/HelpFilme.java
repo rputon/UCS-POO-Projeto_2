@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,20 +26,19 @@ public class HelpFilme {
     HelpPessoa hp = new HelpPessoa();
 
     public int searchFilme(Scanner in, Cinema cine, String nome) {
-        Map<Integer,Filme> filmes = new TreeMap<Integer,Filme>();
+        Map<Integer, Filme> filmes = new TreeMap<Integer, Filme>();
         int retorno = -1;
         for (int index = 0; index < cine.getFilmes().size(); index++) {
             if (cine.getFilme(index).getNome().equals(nome)) {
-                filmes.put(index,cine.getFilme(index));
+                filmes.put(index, cine.getFilme(index));
             }
         }
         if (filmes.isEmpty()) {
             return -1;
-        }
-            else if (filmes.size() ==1) {
-                List <Integer> list = Arrays.asList(filmes.keySet());
-                return filmes.keySet().ge;
-            
+        } else if (filmes.size() == 1) {
+            List<Integer> key = new ArrayList<Integer>(filmes.keySet());
+            return key.get(0);
+
         } else {
             int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
             List<Integer> key = new ArrayList<Integer>(filmes.keySet());
@@ -55,6 +53,24 @@ public class HelpFilme {
                 return -1;
             }
         }
+
+        // public <V> SortedMap<String, V> filterPrefix(SortedMap<String,V> baseMap,
+        // String prefix) {
+        // if(prefix.length() > 0) {
+        // char nextLetter = prefix.charAt(prefix.length() -1) + 1;
+        // String end = prefix.substring(0, prefix.length()-1) + nextLetter;
+        // return baseMap.subMap(prefix, end);
+        // }
+        // return baseMap;
+        // }
+        // SortedMap<String, String> nameNum = new TreeMap<String, String>();
+        // put your phone numbers
+
+        // String prefix = ...;
+        // for(Map.Entry<String,String> entry : filterPrefix(nameNum,
+        // prefix).entrySet()) {
+        // System.out.println(entry);
+        // }
     }
 
     public Filme addFilme(Scanner in, Cinema cine) {
@@ -75,10 +91,10 @@ public class HelpFilme {
             filme = new Filme(nome, ano, timeMin, desc, rating, genero);
             do {
                 System.out.println(String.format(
-                                        "1 - %s \n2 - %d \n3min - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
-                                        ano, timeMin, desc, rating, genero));
+                        "1 - %s \n2 - %d \n3min - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
+                        ano, timeMin, desc, rating, genero));
                 char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
-                
+
                 if (sn == 'S') {
                     int option = h.returnInt(in,
                             "1 - Salvar e sair \n2 - Adicionar mais dados \nDigite 0 para cancelar", 0,

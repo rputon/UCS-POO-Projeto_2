@@ -19,7 +19,7 @@ public class Filme implements Serializable {
 	protected Rating rating;
 	protected Genero genero;
 
-	protected List<Ator> atores = new ArrayList<Ator>();
+	protected List<Ator> atores;
 	protected Diretor dire;
 
 	private List<Horario> horarios;
@@ -33,6 +33,8 @@ public class Filme implements Serializable {
 		setDescricao(descricao);
 		setRating(rating);
 		setGenero(genero);
+		this.atores = new ArrayList<Ator>();
+		this.horarios = new ArrayList<Horario>();
 	}
 
 	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores, Diretor dire) {
@@ -42,8 +44,10 @@ public class Filme implements Serializable {
 		setDescricao(descricao);
 		setRating(rating);
 		setGenero(genero);
+		this.atores = new ArrayList<Ator>();
 		setAtores(atores);
 		setDiretor(dire);
+		this.horarios = new ArrayList<Horario>();
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -87,13 +91,10 @@ public class Filme implements Serializable {
 		return sala;
 	}
 
-	public List<Horario> getHorarios(){
-		return horarios;
+	public void setDiretor(Diretor dire){
+		this.dire = dire;
 	}
-
-	public Horario getHorarios(int index){
-		return horarios.get(index);
-	}
+	
 
 	/*---- Listas -------------------------------------------------------------------------------------- */
 	public String getRating() {
@@ -116,8 +117,16 @@ public class Filme implements Serializable {
 		this.atores = atores;
 	}
 
-	public void setDiretor(Diretor dire){
-		this.dire = dire;
+	public List<Horario> getHorarios(){
+		return horarios;
+	}
+
+	public Horario getHorarios(int index){
+		return horarios.get(index);
+	}
+
+	public void setHora(Horario hora){
+		this.horarios.add(hora);
 	}
 
 

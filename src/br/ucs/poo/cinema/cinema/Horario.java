@@ -1,25 +1,25 @@
 package br.ucs.poo.cinema.cinema;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 public class Horario {
-	private LocalDate data;
+	private Date data;
 	private LocalTime hora;
 	private Sala numero;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Horario(LocalDate data, LocalTime hora) {
+	public Horario(Date data, LocalTime hora) {
 		setData(data);
 		setHora(hora);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
-	public LocalDate getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 

@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.cinema;
 
-public class Assento {
+import java.io.Serializable;
+
+public class Assento implements Serializable{
 	private char fileira;
 	private int numero;
 	private int salaNumber;

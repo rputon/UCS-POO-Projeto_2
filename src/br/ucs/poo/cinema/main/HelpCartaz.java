@@ -1,6 +1,12 @@
 package br.ucs.poo.cinema.main;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,7 @@ public class HelpCartaz {
         }
     }
 
+    @Deprecated
     public void addCartaz(Scanner in, Cinema cine, String nome) {
         if(nome == null){
             nome = h.returnString(in, "Digite o nome do filme:");
@@ -57,10 +64,9 @@ public class HelpCartaz {
                 int sala = h.returnInt(in, "Digite a sala em que o filme será exibido:");
                 System.out.println(cine.getSala(sala).getHorarios());
                 LocalTime data = hh.testHorario(in, cine, cine.getFilme(search));
-                LocalDate hora = hh.testData(in, cine);
-                cine.getFilme(search).getHorarios().add(new Horario(hora, data));
-
-
+                Date hora = hh.testData(in, cine);
+                cine.getFilme(search).setHora(new Horario(hora, data));
+                saveFilme(cine, cine.getFilme(search));
             }else{
                 System.out.println("Filme não encontrado. Cadastre o filme primeiro");
             }
@@ -75,26 +81,59 @@ public class HelpCartaz {
             if(option == 1){
                 int sala = h.returnInt(in, "Digite o número da sala:",1,cine.getSalas().size());
                 cine.getFilme(search).setSala(cine.getSala(sala-1));
+                saveFilme(cine, cine.getFilme(search));
             } else if(option == 2){
                 System.out.println("Escolha o horário que deseja alterar:");
                 for(int i=0;i<cine.getFilme(search).getHorarios().size();i++){
                 System.out.println(String.format("%s", cine.getFilme(search).getHorarios(i)));
                 }
                 Horario hora = hh.addHorario(in, cine, cine.getFilme(search).getTimeMin(), cine.getFilme(search).getHorarios());
-
+                cine.getFilme(search).setHora(hora);
+                saveFilme(cine, cine.getFilme(search));
             }
         }
+    }
 
-        // System.out.println(cine.getS);
-        // Em quais salas ele será aprensentado?
-        // lista de salas
-        // Sala x -> lista de filmes exibidos na sala x/horarios
-        // Confirmar sala
-        // Qual horário sera exibido?
-        // Este horário (minutos do filme) irá conflitar com o filme y
-        // escolha outra sala
-        // Confirmar informações
-        // salvar na lista + arquivo
+    public void saveFilme(Cinema cine, Filme filme) {
+        cine.setFilme(filme);
+        writeCartaz(cine.getFilmes());
+    }
+
+    public void writeCartaz(List<Filme> list) {
+        File myFile = new File("files/cartaz.dat");
+        try {
+            FileOutputStream myOutput = new FileOutputStream(myFile);
+            ObjectOutputStream myObj = new ObjectOutputStream(myOutput);
+
+            myObj.writeObject(list);
+
+            myObj.close();
+            myOutput.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao escrever no arquivo cartaz");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Filme> readCartaz() {
+        List<Filme> list = new ArrayList<Filme>();
+        File myFile = new File("files/cartaz.dat");
+
+        try {
+            FileInputStream myInput = new FileInputStream(myFile);
+            ObjectInputStream myObj = new ObjectInputStream(myInput);
+
+            Object obj = myObj.readObject();
+            list = (List<Filme>) obj;
+
+            myObj.close();
+            myInput.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao ler o arquivo cartaz");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Ocorreu um erro de classe ao ler o arquivo cartaz");
+        }
+        return list;
     }
 
 }

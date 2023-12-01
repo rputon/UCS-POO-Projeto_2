@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -50,8 +52,7 @@ public class Help {
                 if (value >= rangeMin && value <= rangeMax) {
                     test = true;
                     break;
-                }
-                else{
+                } else {
                     System.out.println(erro);
                 }
             } catch (Exception e) {
@@ -145,28 +146,37 @@ public class Help {
         return user;
     }
 
-    public LocalDate returnDate(Scanner in, String print) {
+    @Deprecated
+    public Date returnDate(Scanner in, String print) {
         String value = "";
         boolean test = false;
-        LocalDate formattedString = LocalDate.now();
+        Date formattedString = null;
 
         do {
             try {
                 System.out.println(print);
                 value = in.nextLine();
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/LL/yyyy");
-                formattedString = LocalDate.parse(value, formatter);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/LL/yyyy");
+                formattedString = formatter.parse(value);
+                Date depois = formatter.parse("27/11/2023");
+                Date antes = formatter.parse("31/12/2024");
 
-                if (formattedString.isAfter(LocalDate.of(2023, 11, 27))
-                        && formattedString.isBefore(LocalDate.of(2024, 12, 31))) {
+                if (formattedString.after(depois) && formattedString.before(antes)) {
+
                     test = true;
                     break;
+
                 } else {
                     System.out.println(erro);
+
                 }
             } catch (DateTimeParseException e) {
                 System.out.println(erro);
+                System.out.println(e);
+            } catch (ParseException e) {
+                System.out.println(erro);
+                System.out.println(e);
             }
         } while (test == false);
 
@@ -186,10 +196,16 @@ public class Help {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                 formattedString = LocalTime.parse(value, formatter);
 
-                if ((formattedString.isAfter(LocalTime.of(12, 59)) && formattedString.isBefore(LocalTime.of(23, 59)))
-                        && formattedString.plusMinutes(tempo).isBefore(LocalTime.of(00,16))) {
-                    test = true;
-                    break;
+                if (formattedString.isAfter(LocalTime.of(13, 29)) && formattedString.isBefore(LocalTime.of(23, 59))) {
+                    LocalTime fValue = formattedString.plusMinutes(tempo);
+                    if ((fValue.isAfter(LocalTime.of(00, 01)) && fValue.isBefore(LocalTime.of(00, 16)))
+                            || (fValue.isBefore(LocalTime.of(00, 16)))
+                            || (fValue.isBefore(LocalTime.of(23, 59)) && fValue.isAfter(LocalTime.of(13, 29)))) {
+                                test = true;
+                                break;
+                    } else {
+                        System.out.println(erro);
+                    }
                 } else {
                     System.out.println(erro);
                 }
@@ -197,7 +213,6 @@ public class Help {
                 System.out.println(erro);
                 System.out.println(e);
             }
-
         } while (test == false);
 
         return formattedString;

@@ -58,6 +58,8 @@ public class HelpSala {
     public Sala addSala(Scanner in, Cinema cine){
         boolean test = false;
         int nSala;
+        Sala sala = null;
+
         do{
             nSala = h.returnInt(in, "Digite o número da sala:",1,50);
             int index = searchSala(cine, nSala);
@@ -73,14 +75,15 @@ public class HelpSala {
             } else{
                 char fileira = returnFileira(in, "Digite o valor da última fileira:");
                 int numero = h.returnInt(in, "Digite o valor da última coluna:");
-                Sala sala = new Sala(nSala, fileira, numero);
-                cine.setSala(sala);
+                sala = new Sala(nSala, fileira, numero);
+                saveFilme(cine, sala);
                 test = true;
                 return sala;
             } 
         }while(test == false);
         
         Collections.sort(cine.getSalas(), new SortSala());
+        saveFilme(cine, sala);
         return cine.getSala(nSala);
     }
 
@@ -132,6 +135,7 @@ public class HelpSala {
         }while (test == false);
 
         Collections.sort(cine.getSalas(), new SortSala());
+        saveFilme(cine, sala);
     }
 
     public void removeSala(Scanner in, Cinema cine, int index){
@@ -157,15 +161,18 @@ public class HelpSala {
             cine.removeSala(index);
             System.out.println("Sala apagada");
         }
+        saveFilme(cine, cine.getSala(index));
     }
 
-    public void formatAssentos(Cinema cine, Sala sala){
-        int lengthX = sala.getAssento(sala.getAssentos().size()-1).getNumero();
-        int lengthY = sala.getAssentos().size()/lengthX;
-
+    public String formatAssentos(Cinema cine, Sala sala){
+        int size = sala.assentoTam();
+        int lengthY = sala.getAssento(size-1).getFileira();
+        int lengthX = size/(lengthY-64);
+        
+        System.out.println(size);
         StringBuilder formatBuilder = new StringBuilder();
         int index = 0;
-        for(int y=0;y<lengthY+1;y++){
+        for(int y=0;y<lengthY-63;y++){
             for(int x=0;x<lengthX+1;x++){
                 if(y==0 && x==0){
                     formatBuilder.append(String.format("%-3s", " "));
@@ -173,7 +180,7 @@ public class HelpSala {
                     formatBuilder.append(String.format("%-3d", x));
                 } else if (y != 0 && x == 0){
                     formatBuilder.append(String.format("%-3s",Character.toString('A'+y-1)));
-                } else{
+                } else if(index<sala.assentoTam()){
                     if(sala.getAssento(index).getReserva()){
                         formatBuilder.append(String.format("%-3s","X" ));
                     } else{
@@ -197,7 +204,7 @@ public class HelpSala {
         String str = s.toString();
         formatBuilder.append(String.format(str, "TELA"));
 
-        System.out.println(formatBuilder);
+        return formatBuilder.toString();
     }
 
     public void selectAssento(String select){
@@ -238,8 +245,10 @@ public class HelpSala {
 
             myObj.close();
             myInput.close();
+
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao ler o arquivo salas");
+            System.out.println(e);
         } catch (ClassNotFoundException e) {
             System.out.println("Ocorreu um erro de classe ao ler o arquivo salas");
         }

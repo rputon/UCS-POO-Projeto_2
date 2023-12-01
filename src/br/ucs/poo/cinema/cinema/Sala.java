@@ -32,10 +32,11 @@ public class Sala implements Serializable, Comparable<Sala>{
 		this.numero = numero;
 	}
 
-	public List<Assento> getAssentos() {
-		List<Assento> list = new ArrayList<Assento>(assentos.values());
-		return list;
+	public int assentoTam(){
+		List<String> list = new ArrayList<String>(assentos.keySet());
+		return list.size();
 	}
+
 	public Assento getAssento(int index){
 		List<Assento> list = new ArrayList<Assento>(assentos.values());
 		return list.get(index);
@@ -49,11 +50,13 @@ public class Sala implements Serializable, Comparable<Sala>{
 
 	public void setAssentos(char nFileira, int nNumero) {
 		for(char i=65; i<=nFileira;i++){
-			//65 até 90
 			for(int j=1;j<=nNumero;j++){
-				this.assentos.put(String.format("%s%d", nFileira,nNumero), new Assento(numero, i, j));
+				
+				this.assentos.put(String.format("%s%d", i,j), new Assento(numero, i, j));
 			}
 		}
+		List<Assento> str = new ArrayList<Assento>(assentos.values());
+		System.out.println(str);
 	}
 
 	public String toString(){
