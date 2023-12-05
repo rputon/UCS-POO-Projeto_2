@@ -14,7 +14,6 @@ public class Teste {
     public static void main(String[] args) {
        Scanner in = new Scanner(System.in);
 		Help h = new Help();
-		HelpAtor ha = new HelpAtor();
 		HelpCartaz hc = new HelpCartaz();
 		HelpFilme hf = new HelpFilme();
 		HelpGenero hg = new HelpGenero();
@@ -50,12 +49,16 @@ public class Teste {
 		if (h.validFile("salas")) {
 			cine.setSalas(hs.readSala());
 		}
+
+		if (h.validFile("cartaz")) {
+			cine.setFilmeCartaz(hc.readCartaz());
+		}
 		
 
-       // String nome = h.returnString(in, "Digite o nome do filme:");
-		//hf.addFilme(in, cine);
+        String nome = h.returnString(in, "Digite o nome do filme:");
+		hf.addFilme(in, cine);
 		//hs.addSala(in, cine);
-		//hc.addCartaz(in, cine, nome);
+		hc.addCartaz(in, cine, nome);
 		//h.returnDate(in, "Digite o dia da sessão:");
 		System.out.println(cine.getFilmeCartaz());
 		

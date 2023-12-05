@@ -24,6 +24,7 @@ public class Filme implements Serializable {
 
 	private List<Horario> horarios;
 	private Sala sala;
+	private int nIngressos;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
 	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero) {
@@ -37,7 +38,8 @@ public class Filme implements Serializable {
 		this.horarios = new ArrayList<Horario>();
 	}
 
-	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores, Diretor dire) {
+	public Filme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores,
+			Diretor dire) {
 		setNome(nome);
 		setAno(ano);
 		setTimeMin(timeMin);
@@ -83,18 +85,17 @@ public class Filme implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public void setSala(Sala sala){
+	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
 
-	public Sala getSala(){
+	public Sala getSala() {
 		return sala;
 	}
 
-	public void setDiretor(Diretor dire){
+	public void setDiretor(Diretor dire) {
 		this.dire = dire;
 	}
-	
 
 	/*---- Listas -------------------------------------------------------------------------------------- */
 	public String getRating() {
@@ -113,23 +114,29 @@ public class Filme implements Serializable {
 		return this.genero;
 	}
 
-	public void setAtores(List<Ator> atores){
+	public void setAtores(List<Ator> atores) {
 		this.atores = atores;
 	}
 
-	public List<Horario> getHorarios(){
+	public List<Horario> getHorarios() {
 		return horarios;
 	}
 
-	public Horario getHorarios(int index){
+	public Horario getHorarios(int index) {
 		return horarios.get(index);
 	}
 
-	public void setHora(Horario hora){
+	public void setHora(Horario hora) {
 		this.horarios.add(hora);
 	}
 
+	public void addIngresso() {
+		this.nIngressos++;
+	}
 
+	public int getIngressos() {
+		return nIngressos;
+	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString(int index) {
@@ -140,13 +147,15 @@ public class Filme implements Serializable {
 		} else if (index == 3) {
 			return String.format("1 - %s \n2 - %d \n3 - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
 					ano, timeMin, descricao, rating, genero);
+		} else if (index == 4) {
+			return String.format("%s ‧ %s ‧ %d\n%dmin ‧ %s ‧ %s", nome, rating, ano, timeMin, sala, horarios.get(0));
 		}
 		return String.format("%s\n%d ‧ %s ‧ %dmin", nome, ano, genero.getNome(), timeMin);
 	}
 
-	public String checkDados(){
+	public String checkDados() {
 		return String.format("%s \n%d \n%d \n%s \n%s \n%s \nDigite 0 para cancelar", nome,
-					ano, timeMin, descricao, rating, genero);
+				ano, timeMin, descricao, rating, genero);
 	}
 
 	public String toString() {

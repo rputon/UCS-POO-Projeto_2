@@ -5,6 +5,7 @@ import java.util.List;
 import br.ucs.poo.cinema.filme.*;
 import br.ucs.poo.cinema.pessoas.Ator;
 import br.ucs.poo.cinema.pessoas.Diretor;
+import br.ucs.poo.cinema.pessoas.Pessoa;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,13 +16,11 @@ public class Cinema {
 
 	private List<Filme> filmes = new ArrayList<Filme>();
 	private List<Filme> filmesCartaz = new ArrayList<Filme>();
-	private List<Ator> atores = new ArrayList<Ator>();
-	private List<Diretor> diretores = new ArrayList<Diretor>();
-	private List<String> pais = new ArrayList<String>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
 	private List<Ingresso> ingressos = new ArrayList<Ingresso>();
 	private List<Sala> salas = new ArrayList<Sala>();
-	//private List<Horario> horarios = new ArrayList<Horario>();
+	// private List<Horario> horarios = new ArrayList<Horario>();
 
 	private List<Genero> generos = new ArrayList<Genero>();
 	private List<Rating> ratings = new ArrayList<Rating>();
@@ -55,7 +54,7 @@ public class Cinema {
 	public List<Sala> getSalas() {
 		return this.salas;
 	}
-	
+
 	public void setSalas(List<Sala> salas) {
 		this.salas = salas;
 	}
@@ -64,8 +63,8 @@ public class Cinema {
 		this.salas.add(obj);
 	}
 
-	public void setSala(int sala, char f, int n){
-		this.salas.add(new Sala(sala,f,n));
+	public void setSala(int sala, char f, int n) {
+		this.salas.add(new Sala(sala, f, n));
 	}
 
 	public Sala getSala(int index) {
@@ -75,19 +74,6 @@ public class Cinema {
 	public void removeSala(int index) {
 		this.salas.remove(index);
 	}
-
-	// Horario --------------------------------------------------------
-	//public void setHorario(Horario obj) {
-	//	this.horarios.add(obj);
-	//}
-
-	//public Horario getHorario(int index) {
-	//	return this.horarios.get(index);
-	//}
-
-	//public void removeHorario(int index) {
-	//	this.horarios.remove(index);
-	//}
 
 	// Filme ----------------------------------------------------------
 	public List<Filme> getFilmes() {
@@ -102,8 +88,10 @@ public class Cinema {
 		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero));
 		Collections.sort(filmes, new SortFilme());
 	}
-	public void setFilme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero, List<Ator> atores, Diretor dire) {
-		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero,atores,dire));
+
+	public void setFilme(String nome, int ano, int timeMin, String descricao, Rating rating, Genero genero,
+			List<Ator> atores, Diretor dire) {
+		this.filmes.add(new Filme(nome, ano, timeMin, descricao, rating, genero, atores, dire));
 		Collections.sort(filmes, new SortFilme());
 	}
 
@@ -116,7 +104,9 @@ public class Cinema {
 	}
 
 	public void setFilmeCartaz(Filme filme, Sala sala, Horario hora) {
-		this.filmes.add(filme);
+		filme.setSala(sala);
+		filme.setHora(hora);
+		this.filmesCartaz.add(filme);
 	}
 
 	public void removeFilme(int index) {
@@ -124,6 +114,12 @@ public class Cinema {
 	}
 
 	// Filme Cartaz --------------------------------------------------
+	public void setFilmeCartaz(List<Filme> filmes) {
+		for (Filme f : filmes) {
+			this.filmesCartaz.add(f);
+		}
+	}
+
 	public Filme getFilmeCartaz(int index) {
 		return filmesCartaz.get(index);
 	}
@@ -145,38 +141,30 @@ public class Cinema {
 		return ingressos.get(index);
 	}
 
+	public List<Ingresso> getIngressos() {
+		return ingressos;
+	}
+
 	public Ingresso removeIngresso(int index) {
 		return ingressos.remove(index);
 	}
 
-	// Atores ----------------------------------------------------------
-	public List<Ator> getAtores() {
-		return this.atores;
+	// Atores e Diretores ----------------------------------------------------------
+	public List<Pessoa> getPessoas() {
+		return this.pessoas;
 	}
 
-	public void setAtor(String nome, String pais){
-		this.atores.add(new Ator(nome, pais));
+	public void setPessoa(String nome, String pais) {
+		this.pessoas.add(new Ator(nome, pais));
 	}
 
-	// Diretores -----------------------------------------------------
-	public List<Diretor> getDiretores() {
-		return this.diretores;
+	public void setAtor(Ator ator) {
+		this.pessoas.add(ator);
 	}
 
-	public void setDiretor(String nome, String pais){
-		this.diretores.add(new Diretor(nome, pais));
+	public void setDiretor(Diretor dire) {
+		this.pessoas.add(dire);
 	}
-
-	// Pais ---------------------------------------------------------
-	public List<String> getPais() {
-		return this.pais;
-	}
-
-	public void setPais(String pais){
-		this.pais.add(pais);
-	}
-
-
 
 	// Generos -------------------------------------------------------
 	public List<Genero> getGenero() {
@@ -219,8 +207,6 @@ public class Cinema {
 			this.ratings.add(new Rating(i.getIdade()));
 		}
 	}
-
-
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 

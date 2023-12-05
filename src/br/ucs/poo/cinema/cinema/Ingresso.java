@@ -9,21 +9,29 @@ import java.io.Serializable;
 public class Ingresso implements Serializable {
 	private String nome;
 	private int celular;
-	
+
 	private double preco;
 	private boolean meiaEntrada;
 
 	private Filme filme;
-	
+
 	private Date data;
 	private Horario reserva;
 	private Assento assento;
-	
-	
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Ingresso() {
-
+	public Ingresso(Filme filme, Horario hora, Assento assento, String nome, int cel, boolean meia) {
+		setFilme(filme);
+		setReserva(hora);
+		setData(hora.getData());
+		setAssento(assento);
+		setNome(nome);
+		setCelular(cel);
+		if (meia) {
+			setPreco(5);
+		} else {
+			setPreco(10);
+		}
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -83,15 +91,13 @@ public class Ingresso implements Serializable {
 		this.reserva = reserva;
 	}
 
-	/*
-	 * public Filme getFilme() {
-	 * return filme;
-	 * }
-	 * 
-	 * public void setFilme(Filme filme) {
-	 * this.filme = filme;
-	 * }
-	 */
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 

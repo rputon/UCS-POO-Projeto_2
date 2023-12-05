@@ -35,23 +35,25 @@ public class HelpFilme {
         }
         if (filmes.isEmpty()) {
             return -1;
-        } else if (filmes.size() == 1) {
-            List<Integer> key = new ArrayList<Integer>(filmes.keySet());
-            return key.get(0);
-
         } else {
-            int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
-            List<Integer> key = new ArrayList<Integer>(filmes.keySet());
-            for (int index = 0; index < filmes.size(); index++) {
-                if (filmes.get(index).getAno() == ano) {
-                    retorno = key.get(index);
+            if (filmes.size() == 1) {
+                List<Integer> key = new ArrayList<Integer>(filmes.keySet());
+                return key.get(0);
+            } else {
+                int ano = h.returnInt(in, "Digite o ano do filme:", 1890, 2030);
+                List<Integer> key = new ArrayList<Integer>(filmes.keySet());
+                for (int index = 0; index < filmes.size(); index++) {
+                    if (filmes.get(index).getAno() == ano) {
+                        retorno = key.get(index);
+                    }
+                }
+                if (retorno != -1) {
+                    return retorno;
+                } else {
+                    return -1;
                 }
             }
-            if (retorno != -1) {
-                return retorno;
-            } else {
-                return -1;
-            }
+
         }
 
         // public <V> SortedMap<String, V> filterPrefix(SortedMap<String,V> baseMap,
@@ -91,7 +93,7 @@ public class HelpFilme {
             filme = new Filme(nome, ano, timeMin, desc, rating, genero);
             do {
                 System.out.println(String.format(
-                        "1 - %s \n2 - %d \n3min - %d \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
+                        "1 - %s \n2 - %d \n3 - %dmin \n4 - %s \n5 - %s \n6 - %s \nDigite 0 para cancelar", nome,
                         ano, timeMin, desc, rating, genero));
                 char sn = h.returnChar(in, "Estas informações estão corretas? S - sim, N - não \n");
 
@@ -103,18 +105,18 @@ public class HelpFilme {
                         saveFilme(cine, filme);
                     } else if (option == 2) {
                         String direNome = h.returnString(in, "Digite o nome do diretor:");
-                        String paisDire = hp.testRating(in, cine);
-
-                        cine.setDiretor(nome, paisDire);
+                        String paisDire = h.returnString(in, "Digite o país de origem do diretor:");
                         Diretor dire = new Diretor(direNome, paisDire);
+                        cine.setDiretor(dire);
 
                         List<Ator> atores = new ArrayList<Ator>();
                         String opt2 = "-1";
                         do {
-                            String ator = h.returnString(in, "Digite o nome do ator. Digite 0 para finalizar");
+                            String atorNome = h.returnString(in, "Digite o nome do ator. Digite 0 para finalizar");
                             String paisAtor = h.returnString(in, "Digite o país de origem do ator:");
-                            cine.setAtor(ator, paisAtor);
-                            atores.add(new Ator(ator, paisAtor));
+                            Ator ator = new Ator(atorNome, paisAtor);
+                            cine.setAtor(ator);
+                            atores.add(ator);
                         } while (!opt2.equals("0"));
                         filme = new Filme(nome, ano, timeMin, desc, rating, genero, atores, dire);
                         saveFilme(cine, filme);

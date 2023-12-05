@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import br.ucs.poo.cinema.cinema.Cinema;
 import br.ucs.poo.cinema.cinema.Horario;
-import br.ucs.poo.cinema.filme.Filme;
 
 public class HelpHorario {
     Help h = new Help();
@@ -18,19 +17,19 @@ public class HelpHorario {
         return ld;
     }
 
-    public LocalTime testHorario(Scanner in, Cinema cine, Filme filme) {
+    public LocalTime testHorario(Scanner in, Cinema cine, int timeMin, List<Horario> horas) {
         boolean test = false;
         LocalTime lt;
         do {
-            lt = h.returnTime(in, "Digite a hora da sessão:", filme.getTimeMin());
-            
-            if (filme.getHorarios() == null || filme.getHorarios().isEmpty()) {
+            lt = h.returnTime(in, "Digite a hora da sessão:", timeMin);
+
+            if (horas == null || horas.isEmpty()) {
                 test = true;
                 return lt;
             } else {
-                for (Horario hora : filme.getHorarios()) {
-                    if (lt.isAfter(hora.getHora()) && lt.plusMinutes(filme.getTimeMin())
-                            .isBefore(hora.getHora().plusMinutes(filme.getTimeMin()))) {
+                for (Horario hora : horas) {
+                    if (lt.isAfter(hora.getHora()) && lt.plusMinutes(timeMin)
+                            .isBefore(hora.getHora().plusMinutes(timeMin))) {
                         System.out.println("Valor inválido");
                     } else {
                         test = true;
@@ -44,9 +43,9 @@ public class HelpHorario {
     }
 
     public Horario addHorario(Scanner in, Cinema cine, int timeMin, List<Horario> horas) {
-        Horario hora = new Horario(null, null);
-
-        // (testData(in, cine), testHorario(in, cine, timeMin));
+        Date data = testData(in, cine);
+        LocalTime time = testHorario(in, cine, timeMin, horas);
+        Horario hora = new Horario(data, time);
         return hora;
     }
 

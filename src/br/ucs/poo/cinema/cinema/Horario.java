@@ -1,9 +1,10 @@
 package br.ucs.poo.cinema.cinema;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
 
-public class Horario {
+public class Horario implements Serializable {
 	private Date data;
 	private LocalTime hora;
 	private Sala numero;
@@ -40,4 +41,7 @@ public class Horario {
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
+	public String toString() {
+		return String.format("%s %s", data.toString(), hora.toString());
+	}
 }

@@ -19,7 +19,7 @@ public class HelpSala {
     private String erro = "Valor informado é inválido.";
     Help h = new Help();
 
-    public char returnFileira(Scanner in, String print){
+    public char returnFileira(Scanner in, String print) {
         char fileira = 'A';
         boolean test = false;
 
@@ -29,11 +29,11 @@ public class HelpSala {
                 fileira = Character.toUpperCase(in.next().charAt(0));
                 in.nextLine();
 
-                if ((fileira >= 'A' || fileira <= 'Z') && !(Character.toString(fileira)).matches(".*\\d.*") && !(Character.toString(fileira)).matches(".*[-!@#$%^&´~*()\\[\\]+=<>?/{}|].*")) {
+                if ((fileira >= 'A' || fileira <= 'Z') && !(Character.toString(fileira)).matches(".*\\d.*")
+                        && !(Character.toString(fileira)).matches(".*[-!@#$%^&´~*()\\[\\]+=<>?/{}|].*")) {
                     test = true;
                     break;
-                } 
-                else{
+                } else {
                     System.out.println(erro + " Digite uma letra válida");
                 }
             } catch (Exception e) {
@@ -44,76 +44,79 @@ public class HelpSala {
         return fileira;
     }
 
-    public int searchSala(Cinema cine, Integer nSala){
+    public int searchSala(Cinema cine, Integer nSala) {
         int retorno = -1;
 
-        for(int index=0;index<cine.getSalas().size();index++){
-            if(cine.getSalas().size() > 0 && cine.getSala(index).getNumero() == nSala){
+        for (int index = 0; index < cine.getSalas().size(); index++) {
+            if (cine.getSalas().size() > 0 && cine.getSala(index).getNumero() == nSala) {
                 return index;
             }
         }
         return retorno;
     }
 
-    public Sala addSala(Scanner in, Cinema cine){
+    public Sala addSala(Scanner in, Cinema cine) {
         boolean test = false;
         int nSala;
         Sala sala = null;
 
-        do{
-            nSala = h.returnInt(in, "Digite o número da sala:",1,50);
+        do {
+            nSala = h.returnInt(in, "Digite o número da sala:", 1, 50);
             int index = searchSala(cine, nSala);
-            if(index != -1){
-                char sn = h.returnChar(in, "Esta sala já existe, deseja editar ela? S - sim, N - não");
-                if(sn == 'S'){
+            if (index != -1) {
+                int sn = h.returnInt(in, "Esta sala já existe.\n1 - Usar ela \n2 - Editar ela", 1, 2);
+                if (sn == 1) {
+                    return cine.getSala(index);
+                } else if (sn == 2) {
                     editSala(in, cine, index);
                     test = true;
                     break;
-                } else{
+                } else {
                     System.out.println("Não é possível adicionar uma sala com o mesmo número.");
                 }
-            } else{
+            } else {
                 char fileira = returnFileira(in, "Digite o valor da última fileira:");
                 int numero = h.returnInt(in, "Digite o valor da última coluna:");
                 sala = new Sala(nSala, fileira, numero);
                 saveFilme(cine, sala);
                 test = true;
                 return sala;
-            } 
-        }while(test == false);
-        
+            }
+        } while (test == false);
+
         Collections.sort(cine.getSalas(), new SortSala());
         saveFilme(cine, sala);
         return cine.getSala(nSala);
     }
 
-    public void editSala(Scanner in, Cinema cine, int index){
+    public void editSala(Scanner in, Cinema cine, int index) {
         Sala sala = new Sala(0, 'A', 0);
         int nSala;
 
         boolean test = false;
 
-        if(index == -1){
-            do{
-                nSala = h.returnInt(in,"Digite o número da sala:");
+        if (index == -1) {
+            do {
+                nSala = h.returnInt(in, "Digite o número da sala:");
                 index = searchSala(cine, nSala);
-                if(index > -1){
+                if (index > -1) {
                     sala = cine.getSala(index);
                     test = true;
                     break;
-                }else{
+                } else {
                     System.out.println("Sala não encontrada");
                 }
-            } while(test == false);
+            } while (test == false);
         } else {
             sala = cine.getSala(index);
         }
 
         test = false;
 
-        do{
+        do {
             System.out.println(sala);
-            int option = h.returnInt(in, "1 - Alterar número da sala \n2 - Alterar quantidade de assentos \nDigite 0 para cancelar", 0, 2);
+            int option = h.returnInt(in,
+                    "1 - Alterar número da sala \n2 - Alterar quantidade de assentos \nDigite 0 para cancelar", 0, 2);
             System.out.println(option);
             switch (option) {
                 case 0:
@@ -132,59 +135,59 @@ public class HelpSala {
                     System.out.println(erro);
                     break;
             }
-        }while (test == false);
+        } while (test == false);
 
         Collections.sort(cine.getSalas(), new SortSala());
         saveFilme(cine, sala);
     }
 
-    public void removeSala(Scanner in, Cinema cine, int index){
+    public void removeSala(Scanner in, Cinema cine, int index) {
         int nSala;
 
         boolean test = false;
 
-        if(index == -1){
-            do{
-                nSala = h.returnInt(in,"Digite o número da sala:");
+        if (index == -1) {
+            do {
+                nSala = h.returnInt(in, "Digite o número da sala:");
                 index = searchSala(cine, nSala);
-                if(index > -1){
+                if (index > -1) {
                     test = true;
                     break;
-                }else{
+                } else {
                     System.out.println("Sala não encontrada");
                 }
-            } while(test == false);
+            } while (test == false);
         }
 
         char sn = h.returnChar(in, "Tem certeza que deseja excluir a " + cine.getSala(index) + "?");
-        if(sn == 'S'){
+        if (sn == 'S') {
             cine.removeSala(index);
             System.out.println("Sala apagada");
         }
         saveFilme(cine, cine.getSala(index));
     }
 
-    public String formatAssentos(Cinema cine, Sala sala){
+    public String formatAssentos(Cinema cine, Sala sala) {
         int size = sala.assentoTam();
-        int lengthY = sala.getAssento(size-1).getFileira();
-        int lengthX = size/(lengthY-64);
-        
+        int lengthY = sala.getAssentoList(size - 1).getFileira();
+        int lengthX = size / (lengthY - 64);
+
         System.out.println(size);
         StringBuilder formatBuilder = new StringBuilder();
         int index = 0;
-        for(int y=0;y<lengthY-63;y++){
-            for(int x=0;x<lengthX+1;x++){
-                if(y==0 && x==0){
+        for (int y = 0; y < lengthY - 63; y++) {
+            for (int x = 0; x < lengthX + 1; x++) {
+                if (y == 0 && x == 0) {
                     formatBuilder.append(String.format("%-3s", " "));
-                } else if(y == 0 && x!=0){
+                } else if (y == 0 && x != 0) {
                     formatBuilder.append(String.format("%-3d", x));
-                } else if (y != 0 && x == 0){
-                    formatBuilder.append(String.format("%-3s",Character.toString('A'+y-1)));
-                } else if(index<sala.assentoTam()){
-                    if(sala.getAssento(index).getReserva()){
-                        formatBuilder.append(String.format("%-3s","X" ));
-                    } else{
-                        formatBuilder.append(String.format("%-3s","O"));
+                } else if (y != 0 && x == 0) {
+                    formatBuilder.append(String.format("%-3s", Character.toString('A' + y - 1)));
+                } else if (index < sala.assentoTam()) {
+                    if (sala.getAssentoList(index).getReserva()) {
+                        formatBuilder.append(String.format("%-3s", "X"));
+                    } else {
+                        formatBuilder.append(String.format("%-3s", "O"));
                     }
                     index += 1;
                 }
@@ -192,14 +195,12 @@ public class HelpSala {
             formatBuilder.append("\n");
         }
 
-
         StringBuilder s = new StringBuilder();
 
-        if(lengthX%2 == 0){
-            s.append("%").append(4+((lengthX/2)*3)).append("s");
-        }
-        else{
-            s.append("%").append(4+((lengthX/2)*3)+2).append("s");
+        if (lengthX % 2 == 0) {
+            s.append("%").append(4 + ((lengthX / 2) * 3)).append("s");
+        } else {
+            s.append("%").append(4 + ((lengthX / 2) * 3) + 2).append("s");
         }
         String str = s.toString();
         formatBuilder.append(String.format(str, "TELA"));
@@ -207,10 +208,10 @@ public class HelpSala {
         return formatBuilder.toString();
     }
 
-    public void selectAssento(String select){
-        //TODO: selecionar assento p compra do ingresso
+    public void selectAssento(String select) {
+        // TODO: selecionar assento p compra do ingresso
     }
-    
+
     public void saveFilme(Cinema cine, Sala sala) {
         cine.setSala(sala);
         writeSala(cine.getSalas());
@@ -254,6 +255,5 @@ public class HelpSala {
         }
         return list;
     }
-
 
 }

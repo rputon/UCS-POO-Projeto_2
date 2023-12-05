@@ -2,14 +2,14 @@ package br.ucs.poo.cinema.cinema;
 
 import java.io.Serializable;
 
-public class Assento implements Serializable{
+public class Assento implements Serializable {
 	private char fileira;
 	private int numero;
 	private int salaNumber;
 	private boolean reserva;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Assento(int sala, char f, int n ) {
+	public Assento(int sala, char f, int n) {
 		setFileira(f);
 		setNumero(n);
 		setSalaNumber(sala);
@@ -41,18 +41,18 @@ public class Assento implements Serializable{
 		this.salaNumber = salaNumber;
 	}
 
-	public void setReserva(boolean b){
+	public void setReserva(boolean b) {
 		this.reserva = b;
 	}
 
-	public Boolean getReserva (){
+	public Boolean getReserva() {
 		return this.reserva;
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 
-	public String toString(){
-		return String.format("%s %d",Character.toString(fileira), numero);
- 
+	public String toString() {
+		return String.format("%s %d", Character.toString(fileira), numero);
+
 	}
 }

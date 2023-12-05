@@ -201,8 +201,8 @@ public class Help {
                     if ((fValue.isAfter(LocalTime.of(00, 01)) && fValue.isBefore(LocalTime.of(00, 16)))
                             || (fValue.isBefore(LocalTime.of(00, 16)))
                             || (fValue.isBefore(LocalTime.of(23, 59)) && fValue.isAfter(LocalTime.of(13, 29)))) {
-                                test = true;
-                                break;
+                        test = true;
+                        break;
                     } else {
                         System.out.println(erro);
                     }
