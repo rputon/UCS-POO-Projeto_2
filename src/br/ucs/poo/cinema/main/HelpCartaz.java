@@ -95,6 +95,15 @@ public class HelpCartaz {
         }
     }
 
+    public void removeCartaz(Scanner in, Cinema cine) {
+        int search = searchCartaz(cine, in, h.returnString(in, "Digite o nome do filme: "));
+
+        char sn = h.returnChar(in, "Tem certeza que deseja remover o filme do cartaz(S/N): \n" + cine.getFilme(search));
+        if (sn == 'S') {
+            cine.removeFilme(search);
+        }
+    }
+
     public void saveFilme(Cinema cine, Filme filme, Sala sala, Horario hora) {
         cine.setFilmeCartaz(filme, sala, hora);
         writeCartaz(cine.getFilmes());

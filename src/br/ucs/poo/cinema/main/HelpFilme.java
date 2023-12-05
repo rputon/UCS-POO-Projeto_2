@@ -110,14 +110,16 @@ public class HelpFilme {
                         cine.setDiretor(dire);
 
                         List<Ator> atores = new ArrayList<Ator>();
-                        String opt2 = "-1";
+                        String atorNome;
                         do {
-                            String atorNome = h.returnString(in, "Digite o nome do ator. Digite 0 para finalizar");
-                            String paisAtor = h.returnString(in, "Digite o país de origem do ator:");
-                            Ator ator = new Ator(atorNome, paisAtor);
-                            cine.setAtor(ator);
-                            atores.add(ator);
-                        } while (!opt2.equals("0"));
+                            atorNome = h.returnString(in, "Digite o nome do ator. Digite 0 para finalizar");
+                            if(atorNome !="0"){
+                                String paisAtor = h.returnString(in, "Digite o país de origem do ator:");
+                                Ator ator = new Ator(atorNome, paisAtor);
+                                cine.setAtor(ator);
+                                atores.add(ator);
+                            }
+                        } while (!atorNome.equals("0"));
                         filme = new Filme(nome, ano, timeMin, desc, rating, genero, atores, dire);
                         saveFilme(cine, filme);
                     } else {
@@ -211,7 +213,6 @@ public class HelpFilme {
 
                 case 6:
                     filme.setGenero(hg.testGenero(in, cine));
-
                     break;
                 default:
                     System.out.println("Opção escolhida é inválida");
@@ -237,23 +238,23 @@ public class HelpFilme {
             if ((cine.getFilmes().size() - i) >= 3) {
                 i += 2;
                 if (cine.getFilme(i - 2).getNome().length() > lengthNome[0]) {
-                    lengthNome[0] = cine.getFilme(i - 2).getNome().length() + 10;
+                    lengthNome[2] = cine.getFilme(i - 2).getNome().length() + 10;
                 }
                 if (cine.getFilme(i - 1).getNome().length() > lengthNome[1]) {
                     lengthNome[1] = cine.getFilme(i - 1).getNome().length() + 10;
                 }
                 if (cine.getFilme(i).getNome().length() > lengthNome[2]) {
-                    lengthNome[2] = cine.getFilme(i).getNome().length() + 10;
+                    lengthNome[0] = cine.getFilme(i).getNome().length() + 10;
                 }
 
                 if (cine.getFilme(i - 2).toString(2).length() > lengthDesc[0]) {
-                    lengthDesc[0] = cine.getFilme(i - 2).toString(2).length() + 10;
+                    lengthDesc[2] = cine.getFilme(i - 2).toString(2).length() + 10;
                 }
                 if (cine.getFilme(i - 1).toString(2).length() > lengthDesc[1]) {
                     lengthDesc[1] = cine.getFilme(i - 1).toString(2).length() + 10;
                 }
                 if (cine.getFilme(i).toString(2).length() > lengthDesc[2]) {
-                    lengthDesc[2] = cine.getFilme(i).toString(2).length() + 10;
+                    lengthDesc[0] = cine.getFilme(i).toString(2).length() + 10;
                 }
             } else if ((cine.getFilmes().size() - i) == 2) {
                 i += 1;
@@ -267,8 +268,8 @@ public class HelpFilme {
                 if (cine.getFilme(i - 1).toString(2).length() > lengthDesc[1]) {
                     lengthDesc[1] = cine.getFilme(i - 1).toString(2).length() + 10;
                 }
-                if (cine.getFilme(i).toString(2).length() > lengthDesc[2]) {
-                    lengthDesc[2] = cine.getFilme(i).toString(2).length() + 10;
+                if (cine.getFilme(i).toString(2).length() > lengthDesc[0]) {
+                    lengthDesc[0] = cine.getFilme(i).toString(2).length() + 10;
                 }
 
             } else if ((cine.getFilmes().size() - i) == 1) {
@@ -277,7 +278,7 @@ public class HelpFilme {
                 }
 
                 if (cine.getFilme(i).toString(2).length() > lengthDesc[2]) {
-                    lengthDesc[2] = cine.getFilme(i).toString(2).length() + 10;
+                    lengthDesc[0] = cine.getFilme(i).toString(2).length() + 10;
                 }
             }
         }
@@ -296,8 +297,8 @@ public class HelpFilme {
         StringBuilder formatBuilder1 = new StringBuilder();
         StringBuilder formatBuilder2 = new StringBuilder();
         StringBuilder formatBuilder3 = new StringBuilder();
-
-        formatBuilder1.append("%-").append(finalLenght[0]).append("s");
+    
+        formatBuilder1.append("%-").append(finalLenght[0]).append("s").append(String.format("%10s"," "));
         String format1 = formatBuilder1.toString();
         formatBuilder2.append("%-").append(finalLenght[1]).append("s");
         String format2 = formatBuilder2.toString();
@@ -308,9 +309,9 @@ public class HelpFilme {
         for (int i = 0; i <= cine.getFilmes().size(); i++) {
             if ((cine.getFilmes().size() - i) >= 3) {
                 i += 2;
-                result.append(String.format(format1, cine.getFilme(i - 2).getNome()))
-                        .append(String.format(format2, cine.getFilme(i - 1).getNome()))
-                        .append(String.format(format3, cine.getFilme(i).getNome()))
+                result.append(String.format("%d "+format1 , i, cine.getFilme(i - 2).getNome()))
+                        .append(String.format("%d "+format2, i+1,cine.getFilme(i - 1).getNome()))
+                        .append(String.format("%d "+format3, i+2,cine.getFilme(i).getNome()))
                         .append("\n")
                         .append(String.format(format1, cine.getFilme(i - 2).toString(2)))
                         .append(String.format(format2, cine.getFilme(i - 1).toString(2)))
@@ -319,15 +320,15 @@ public class HelpFilme {
 
             } else if ((cine.getFilmes().size() - i) == 2) {
                 i += 1;
-                result.append(String.format(format1, cine.getFilme(i - 1).getNome()))
-                        .append(String.format(format2, cine.getFilme(i).getNome()))
+                result.append(String.format("%d "+format1,i, cine.getFilme(i - 1).getNome()))
+                        .append(String.format("%d "+format2, i+1,cine.getFilme(i).getNome()))
                         .append("\n")
                         .append(String.format(format1, cine.getFilme(i - 1).toString(2)))
                         .append(String.format(format2, cine.getFilme(i).toString(2)))
                         .append("\n").append("\n");
 
             } else if ((cine.getFilmes().size() - i) == 1) {
-                result.append(String.format(format1, cine.getFilme(i).getNome()))
+                result.append(String.format("%d "+format1, i,cine.getFilme(i).getNome()))
                         .append("\n")
                         .append(String.format(format1, cine.getFilme(i).toString(2)))
                         .append("\n").append("\n");

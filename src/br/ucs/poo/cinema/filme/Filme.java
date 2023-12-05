@@ -149,6 +149,12 @@ public class Filme implements Serializable {
 					ano, timeMin, descricao, rating, genero);
 		} else if (index == 4) {
 			return String.format("%s ‧ %s ‧ %d\n%dmin ‧ %s ‧ %s", nome, rating, ano, timeMin, sala, horarios.get(0));
+		} else if(index == 5){
+			StringBuilder ator = new StringBuilder();
+			for(int i=0;i<atores.size();i++){
+				ator.append(String.format("%s, ", atores.get(i)));
+			}
+			return String.format("%s, %d \n%s %s %dmin\n%s\n%s\n%s", nome, ano, rating.toString(),genero.toString(),timeMin,descricao,dire.toString(),ator.toString());
 		}
 		return String.format("%s\n%d ‧ %s ‧ %dmin", nome, ano, genero.getNome(), timeMin);
 	}

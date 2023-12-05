@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.pessoas;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable{
 	protected String nome;
 	protected String paisOrigem;
 	protected Pessoa casado;
@@ -31,4 +33,7 @@ public class Pessoa {
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 
+	public String toString(){
+		return nome;
+	}
 }

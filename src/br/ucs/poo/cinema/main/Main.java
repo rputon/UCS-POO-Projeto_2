@@ -68,8 +68,9 @@ public class Main {
 
 				do {
 					opcao = h.returnInt(in,
-							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \n4 - Adicionar sala \nDigite 0 para cancelar",
-							0, 4);
+							"\nEscolha uma das opções: \n1 - Venda de ingresso \n2 - Consultar catálogo de filmes \n3 - Consultar filmes em cartaz \n4 - Adicionar sala \n5 - Adicionar um filme \n6 - Editar um filme\n7 - Remover um filme\nDigite 0 para cancelar",
+							-1, 6);
+
 					System.out.println("");
 
 					switch (opcao) {
@@ -86,43 +87,17 @@ public class Main {
 								System.out.println("Nenhum filme cadastrado");
 							} else {
 								System.out.println(hf.formatFilme(cine));
+								int film = h.returnInt(in, "Escolha o filme para verificar:\n-1 - Cancelar",0,cine.getFilmes().size());
+								if(film == -1){
+									break;
+								}
+								else if(cine.getFilme(film)!=null){
+									System.out.println(cine.getFilme(film).toString(5));
+								} else{
+									System.out.println("Valor incorreto!");
+								}
+								
 							}
-
-							int opt = h.returnInt(in,
-									"1 - Adicionar um filme \n2 - Editar um filme \n3 - Remover um filme \n0 - Cancelar",
-									0, 3);
-
-							switch (opt) {
-								case 0:
-									h.clearScreen();
-									break;
-
-								case 1: // Adicionar filme
-									Filme filme = hf.addFilme(in, cine);
-
-									char sn = h.returnChar(in, "Este filme está em cartaz? S -sim, N - não");
-									if (sn == 'S') {
-										hc.addCartaz(in, cine, filme.getNome());
-									}
-									break;
-
-								case 2: // Editar filme
-									String nome = h.returnString(in, "Digite o nome do filme:");
-									if (hf.searchFilme(in, cine, nome) > -1) {
-										hf.editFilme(cine, in, cine.getFilme(hf.searchFilme(in, cine, nome)));
-									}
-
-									break;
-
-								case 3: // Remover filme
-									hf.removeFilme(in, cine);
-									break;
-
-								default:
-									System.out.println("Esta opção não existe");
-									break;
-							}
-
 							break;
 
 						case 3: // Consultar filmes em cartaz
@@ -135,7 +110,7 @@ public class Main {
 							} else {
 								System.out.println("\nNenhum filme em cartaz");
 							}
-							opt = h.returnInt(in,
+							int opt = h.returnInt(in,
 									"1 - Adicionar um filme ao cartaz \n2 - Remover um filme do cartaz \n0 - Cancelar",
 									0, 2);
 							switch (opt) {
@@ -146,33 +121,10 @@ public class Main {
 								case 1: // Adicionar um filme ao cartaz
 									String nome = h.returnString(in, "Digite o nome do filme:");
 									hc.addCartaz(in, cine, nome);
-									/*
-									 * String nome = h.returnString(in, "Digite o nome do filme:");
-									 * if(hf.searchFilme(in, cine, nome) > -1){
-									 * if(!cine.getFilme(hf.searchFilme(in, cine, nome)).getHorarios().isEmpty()){
-									 * System.out.println(cine.getFilme(hf.searchFilme(in, cine,
-									 * nome)).toString(4));
-									 * }
-									 * Sala sala = hs.addSala(in, cine);
-									 * int time = cine.getFilme(hf.searchFilme(in, cine, nome)).getTimeMin();
-									 * Horario hora = hh.addHorario(in, cine, time, sala.getHorarios());
-									 * cine.getFilme(hf.searchFilme(in, cine, nome)).setSala(sala);
-									 * cine.getFilme(hf.searchFilme(in, cine, nome)).setHora(hora);;
-									 * //hc.saveFilme(cine, cine.getFilme(hf.searchFilme(in, cine, nome)));
-									 * } else{
-									 * System.out.println("Cadastre o filme primeiro");
-									 * break;
-									 * }
-									 * System.out.println("Filme cadastrado");
-									 */
 									break;
 
 								case 2: // todo: Remover um filme do cartaz
-									// do{
-									// String filme = h.returnString(in, "Digite o filme que deseja remover:");
-									// } while(cine.getFilmes().contains(filme));
-
-									// indexof
+									hc.removeCartaz(in, cine);
 									break;
 								default:
 									System.out.println("Esta opção não existe");
@@ -182,6 +134,24 @@ public class Main {
 						case 4:
 							System.out.println(cine.getSalas());
 							hs.addSala(in, cine);
+
+						case 5:
+							Filme filme = hf.addFilme(in, cine);
+
+							char sn = h.returnChar(in, "Este filme está em cartaz? S -sim, N - não");
+							if (sn == 'S') {
+								hc.addCartaz(in, cine, filme.getNome());
+							}
+							break;
+						case 6:
+							String nome = h.returnString(in, "Digite o nome do filme:");
+							if (hf.searchFilme(in, cine, nome) > -1) {
+								hf.editFilme(cine, in, cine.getFilme(hf.searchFilme(in, cine, nome)));
+							}
+							break;
+						case 7:
+							hf.removeFilme(in, cine);
+							break;
 						default:
 							System.out.println("Esta opção não existe");
 							break;
