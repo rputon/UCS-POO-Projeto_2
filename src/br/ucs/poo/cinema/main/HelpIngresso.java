@@ -44,17 +44,21 @@ public class HelpIngresso {
                 }
                 int opt = h.returnInt(in, "", 1, filme.getHorarios().size());
                 Horario hora = filme.getHorarios(opt - 1);
-                Sala sala = hora.getNumero();
+
+                Sala sala = cine.getSala(hs.searchSala(cine, hora.getNumero().getNumero()));
                 char add = 'S';
 
                 do {
-                    hs.formatAssentos(cine, sala);
+                    System.out.println(hs.formatAssentos(cine, sala));
                     String assento = "";
                     do {
-                        assento = h.returnString(in, "Digite o assento desejado:");
-                        if (sala.getAssentos().get(assento).getReserva()) {
-                            assento = "";
-                            System.out.println("Vaga já ocupada!");
+                        assento = h.returnString(in, "Digite o assento desejado:").toUpperCase();
+                        if((sala.getAssentos().get(assento) != null) && (sala.getAssentos().get(assento).getReserva())){
+                                assento = "";
+                                System.out.println("Vaga já ocupada!");
+                        }
+                        else if(!sala.getAssentosKey().contains(assento)){
+                            System.out.println("Esse assento não existe!");
                         }
                     } while (!sala.getAssentosKey().contains(assento));
                     String nome = h.returnString(in, "Digite o seu nome:");
@@ -64,11 +68,14 @@ public class HelpIngresso {
                     if (idade <= 12 || idade >= 60) {
                         meia = true;
                     }
-                    Ingresso i = new Ingresso(filme, hora, sala.getAssento(assento), nome, cel, meia);
+                    filme.addIngresso();
+                    Ingresso i = new Ingresso(filme.getIngressos(),filme, hora, sala.getAssento(assento), nome, cel, meia);
                     System.out.println(i);
-                    add = h.returnChar(in, "Selecionar mais assentos? S - sim, N - não");
                     filme.addIngresso();
                     saveIngresso(cine, i);
+                    sala.getAssentos().get(assento).setReserva(true);
+                    hs.saveSala(cine, sala);
+                    add = h.returnChar(in, "Selecionar mais assentos? S - sim, N - não");
                 } while (add != 'N');
             }
         } else {

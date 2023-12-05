@@ -63,10 +63,8 @@ public class HelpCartaz {
                 Sala sala = hs.addSala(in, cine);
                 System.out.println(sala.getHorarios());
                 Horario hora = hh.addHorario(in, cine, cine.getFilme(search).getTimeMin(),
-                        cine.getFilme(search).getHorarios());
-                cine.getFilme(search).setHora(hora);
-                cine.getFilme(search).setSala(sala);
-                saveFilme(cine, cine.getFilme(search));
+                        cine.getFilme(search).getHorarios(), sala);
+                saveFilme(cine, cine.getFilme(search), sala, hora);
                 System.out.println("Filme adicionado ao cartaz");
             } else {
                 System.out.println("Filme não encontrado. Cadastre o filme primeiro");
@@ -78,26 +76,27 @@ public class HelpCartaz {
                 System.out.println(String.format("%s", cine.getFilme(search).getHorarios(i)));
             }
             int option = h.returnInt(in, "1 - Alterar sala \n2 - Alterar horarios \nDigite 0 para cancelar", 0, 2);
-
+            int sala = -1;
+            Horario hora = null;
             if (option == 1) {
-                int sala = h.returnInt(in, "Digite o número da sala:", 1, cine.getSalas().size());
+                sala = h.returnInt(in, "Digite o número da sala:", 1, cine.getSalas().size());
                 cine.getFilme(search).setSala(cine.getSala(sala - 1));
-                saveFilme(cine, cine.getFilme(search));
             } else if (option == 2) {
                 System.out.println("Escolha o horário que deseja alterar:");
                 for (int i = 0; i < cine.getFilme(search).getHorarios().size(); i++) {
                     System.out.println(String.format("%s", cine.getFilme(search).getHorarios(i)));
                 }
-                Horario hora = hh.addHorario(in, cine, cine.getFilme(search).getTimeMin(),
-                        cine.getFilme(search).getHorarios());
+                hora = hh.addHorario(in, cine, cine.getFilme(search).getTimeMin(),
+                        cine.getFilme(search).getHorarios(),cine.getSala(sala -1));
                 cine.getFilme(search).setHora(hora);
-                saveFilme(cine, cine.getFilme(search));
+
             }
+            saveFilme(cine, cine.getFilme(search), cine.getSala(sala - 1), hora);
         }
     }
 
-    public void saveFilme(Cinema cine, Filme filme) {
-        cine.setFilme(filme);
+    public void saveFilme(Cinema cine, Filme filme, Sala sala, Horario hora) {
+        cine.setFilmeCartaz(filme, sala, hora);
         writeCartaz(cine.getFilmes());
     }
 

@@ -1,6 +1,8 @@
 package br.ucs.poo.cinema.cinema;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -10,9 +12,10 @@ public class Horario implements Serializable {
 	private Sala numero;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Horario(Date data, LocalTime hora) {
+	public Horario(Date data, LocalTime hora, Sala numero) {
 		setData(data);
 		setHora(hora);
+		setNumero(numero);
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
@@ -42,6 +45,9 @@ public class Horario implements Serializable {
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
 	public String toString() {
-		return String.format("%s %s", data.toString(), hora.toString());
+		String pattern = "dd/MM/yyyy";
+		DateFormat df = new SimpleDateFormat(pattern);
+		String formated = df.format(data);
+		return String.format("%s %s", formated, hora.toString());
 	}
 }

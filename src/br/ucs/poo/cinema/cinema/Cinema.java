@@ -103,11 +103,7 @@ public class Cinema {
 		this.filmes.add(filme);
 	}
 
-	public void setFilmeCartaz(Filme filme, Sala sala, Horario hora) {
-		filme.setSala(sala);
-		filme.setHora(hora);
-		this.filmesCartaz.add(filme);
-	}
+	
 
 	public void removeFilme(int index) {
 		this.filmes.remove(index);
@@ -118,6 +114,12 @@ public class Cinema {
 		for (Filme f : filmes) {
 			this.filmesCartaz.add(f);
 		}
+	}
+
+	public void setFilmeCartaz(Filme filme, Sala sala, Horario hora) {
+		filme.setSala(sala);
+		filme.setHora(hora);
+		this.filmesCartaz.add(filme);
 	}
 
 	public Filme getFilmeCartaz(int index) {
@@ -135,6 +137,10 @@ public class Cinema {
 	// Ingresso -------------------------------------------------------
 	public void setIngresso(Ingresso ingresso) {
 		this.ingressos.add(ingresso);
+	}
+
+	public void setIngresso(List<Ingresso> ingresso) {
+		this.ingressos = ingresso;
 	}
 
 	public Ingresso getIngresso(int index) {

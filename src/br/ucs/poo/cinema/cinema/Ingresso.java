@@ -7,6 +7,7 @@ import br.ucs.poo.cinema.filme.Filme;
 import java.io.Serializable;
 
 public class Ingresso implements Serializable {
+	private int cod;
 	private String nome;
 	private int celular;
 
@@ -20,7 +21,7 @@ public class Ingresso implements Serializable {
 	private Assento assento;
 
 	/*---- Constructor ---------------------------------------------------------------------------------- */
-	public Ingresso(Filme filme, Horario hora, Assento assento, String nome, int cel, boolean meia) {
+	public Ingresso(int cod, Filme filme, Horario hora, Assento assento, String nome, int cel, boolean meia) {
 		setFilme(filme);
 		setReserva(hora);
 		setData(hora.getData());
@@ -35,6 +36,14 @@ public class Ingresso implements Serializable {
 	}
 
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
+	public void setCod(int cod){
+		this.cod = cod;
+	}
+
+	public int getCod(){
+		return cod;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -100,5 +109,9 @@ public class Ingresso implements Serializable {
 	}
 
 	/*---- Methods ---------------------------------------------------------------------------------- */
+	public String toString(){
+		return String.format("%d %s\n%s\n%s | R$ %.2f", cod, filme.getNome(), reserva.toString(),nome,preco);
+	}
+
 
 }

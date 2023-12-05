@@ -16,11 +16,13 @@ public class Sala implements Serializable, Comparable<Sala> {
 	public Sala(int n, List<Assento> assentos) {
 		setNumero(n);
 		setAssentos(assentos);
+
 	}
 
 	public Sala(int n, char fileira, int numero) {
 		setNumero(n);
 		setAssentos(fileira, numero);
+
 	}
 	/*---- Getters/Setters ------------------------------------------------------------------------------ */
 
@@ -58,6 +60,7 @@ public class Sala implements Serializable, Comparable<Sala> {
 	public void setAssentos(List<Assento> assentos) {
 		for (Assento a : assentos) {
 			this.assentos.put(String.format("%s%s", a.getFileira(), a.getNumero()), a);
+			
 		}
 	}
 

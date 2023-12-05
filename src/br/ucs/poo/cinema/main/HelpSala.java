@@ -78,14 +78,14 @@ public class HelpSala {
                 char fileira = returnFileira(in, "Digite o valor da última fileira:");
                 int numero = h.returnInt(in, "Digite o valor da última coluna:");
                 sala = new Sala(nSala, fileira, numero);
-                saveFilme(cine, sala);
+                saveSala(cine, sala);
                 test = true;
                 return sala;
             }
         } while (test == false);
 
         Collections.sort(cine.getSalas(), new SortSala());
-        saveFilme(cine, sala);
+        saveSala(cine, sala);
         return cine.getSala(nSala);
     }
 
@@ -138,7 +138,7 @@ public class HelpSala {
         } while (test == false);
 
         Collections.sort(cine.getSalas(), new SortSala());
-        saveFilme(cine, sala);
+        saveSala(cine, sala);
     }
 
     public void removeSala(Scanner in, Cinema cine, int index) {
@@ -164,7 +164,7 @@ public class HelpSala {
             cine.removeSala(index);
             System.out.println("Sala apagada");
         }
-        saveFilme(cine, cine.getSala(index));
+        saveSala(cine, cine.getSala(index));
     }
 
     public String formatAssentos(Cinema cine, Sala sala) {
@@ -172,7 +172,6 @@ public class HelpSala {
         int lengthY = sala.getAssentoList(size - 1).getFileira();
         int lengthX = size / (lengthY - 64);
 
-        System.out.println(size);
         StringBuilder formatBuilder = new StringBuilder();
         int index = 0;
         for (int y = 0; y < lengthY - 63; y++) {
@@ -186,7 +185,7 @@ public class HelpSala {
                 } else if (index < sala.assentoTam()) {
                     if (sala.getAssentoList(index).getReserva()) {
                         formatBuilder.append(String.format("%-3s", "X"));
-                    } else {
+                    } else if(!sala.getAssentoList(index).getReserva()){
                         formatBuilder.append(String.format("%-3s", "O"));
                     }
                     index += 1;
@@ -212,7 +211,7 @@ public class HelpSala {
         // TODO: selecionar assento p compra do ingresso
     }
 
-    public void saveFilme(Cinema cine, Sala sala) {
+    public void saveSala(Cinema cine, Sala sala) {
         cine.setSala(sala);
         writeSala(cine.getSalas());
     }

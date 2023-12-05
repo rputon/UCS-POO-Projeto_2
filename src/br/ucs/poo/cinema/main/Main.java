@@ -51,6 +51,10 @@ public class Main {
 			cine.setSalas(hs.readSala());
 		}
 
+		if (h.validFile("ingressos")) {
+			cine.setIngresso(hi.readIngresso());
+		}
+
 		String user = "";
 
 		do {// ? While !esc -- sair do prompt
@@ -96,8 +100,7 @@ public class Main {
 								case 1: // Adicionar filme
 									Filme filme = hf.addFilme(in, cine);
 
-									char sn;
-									sn = h.returnChar(in, "Este filme está em cartaz?");
+									char sn = h.returnChar(in, "Este filme está em cartaz? S -sim, N - não");
 									if (sn == 'S') {
 										hc.addCartaz(in, cine, filme.getNome());
 									}
@@ -123,6 +126,7 @@ public class Main {
 							break;
 
 						case 3: // Consultar filmes em cartaz
+							System.out.println(cine.getFilmeCartaz());
 							if (cine.getFilmeCartaz().size() > 0) {
 								System.out.println("\nOs seguintes filmes estão em exibição: ");
 								for (int i = 0; i < cine.getFilmeCartaz().size(); i++) {
